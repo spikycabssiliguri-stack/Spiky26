@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-09-29T12:57:01.005Z",
+  "lastUpdated": "2026-09-29T15:03:08.236Z",
   "settings": {
     "siteName": "Spiky Cabs",
     "tagline": "Premier Tourist Cab Packages across the Eastern Himalayas",
@@ -1261,6 +1261,13 @@
     }
   ],
   "auditLogs": [
+    {
+      "id": "audit-1790694188236-a67c24",
+      "timestamp": "2026-09-29T15:03:08.236Z",
+      "action": "login_success",
+      "details": "Administrator admin signed in",
+      "user": "admin"
+    },
     {
       "id": "audit-1790686621005-510198",
       "timestamp": "2026-09-29T12:57:01.005Z",

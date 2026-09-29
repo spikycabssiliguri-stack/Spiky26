@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Lock, User, AlertCircle, ArrowRight, ShieldCheck, KeyRound } from 'lucide-react';
+import { Lock, User, AlertCircle, ArrowRight, ShieldCheck } from 'lucide-react';
 import { useAdminAuth } from './AdminAuthContext';
 
 export const AdminLogin = () => {
@@ -97,16 +97,6 @@ export const AdminLogin = () => {
             </button>
           </div>
         </form>
-
-        <div className="mt-8 pt-6 border-t border-[#f5f5f7] text-[11px] text-[#86868b] text-center space-y-1">
-          <div className="flex items-center justify-center gap-1">
-            <KeyRound className="w-3 h-3 text-[#0071e3]" />
-            <span>Default initial password: <strong className="text-[#1d1d1f] font-mono">spiky@2027</strong></span>
-          </div>
-          <p className="text-[10px] text-[#a1a1a6]">
-            Password can be customized under Settings anytime.
-          </p>
-        </div>
       </div>
     </div>
   );

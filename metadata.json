@@ -1,0 +1,6 @@
+{
+  "name": "Spiky Cabs – Darjeeling, Sikkim & Bhutan Cab Packages",
+  "description": "Dedicated tourist cab packages across Darjeeling, Gangtok, North Sikkim, Kalimpong and Bhutan. Experienced mountain drivers, customized itineraries, airport transfers from IXB and NJP.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

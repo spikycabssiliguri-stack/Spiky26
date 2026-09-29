@@ -101,9 +101,9 @@ function initAdminAuth() {
       }
     }
 
-    const defaultPassword = process.env.ADMIN_PASSWORD || 'spiky@2027';
-    const salt = crypto.randomBytes(16).toString('hex');
-    const hash = hashPassword(defaultPassword, salt);
+    const defaultPassword = process.env.ADMIN_PASSWORD || 'Sudip@123';
+    const salt = '7a0d2a29e529501e58dc2a8903e5c2b1';
+    const hash = '0966323d07f09c296ab7a4baa24bd37767dcbe03494c9cd1988dad82e8c25ba5f8e5855591e6c3c76aa7948e3538f06c03719102b3973737274dafe51370c897';
     const authData = {
       username: 'admin',
       email: 'spikycabssiliguri@gmail.com',
@@ -128,13 +128,13 @@ function getAdminAuth() {
     try {
       return JSON.parse(fs.readFileSync(AUTH_FILE, 'utf-8'));
     } catch {
-      const defaultPassword = process.env.ADMIN_PASSWORD || 'spiky@2027';
-      const salt = 'f3b8c291a04d5e67';
+      const defaultPassword = process.env.ADMIN_PASSWORD || 'Sudip@123';
+      const salt = '7a0d2a29e529501e58dc2a8903e5c2b1';
       return {
         username: 'admin',
         email: 'spikycabssiliguri@gmail.com',
         salt,
-        hash: hashPassword(defaultPassword, salt)
+        hash: '0966323d07f09c296ab7a4baa24bd37767dcbe03494c9cd1988dad82e8c25ba5f8e5855591e6c3c76aa7948e3538f06c03719102b3973737274dafe51370c897'
       };
     }
   }
@@ -256,8 +256,11 @@ apiRouter.post('/auth/login', (req: Request, res: Response) => {
   }
 
   const authData = getAdminAuth();
-  const isUserMatch = username === authData.username || username === authData.email;
-  const hash = hashPassword(password, authData.salt);
+  const cleanInput = String(username || '').trim().toLowerCase();
+  const isUserMatch = 
+    cleanInput === String(authData.username || '').toLowerCase() || 
+    cleanInput === String(authData.email || '').toLowerCase();
+  const hash = hashPassword(String(password || '').trim(), authData.salt);
 
   if (!isUserMatch || hash !== authData.hash) {
     appendAuditLog('login_failed', `Failed login attempt for username: ${username}`, 'system');

@@ -33,9 +33,60 @@ export const MediaLibraryView = ({ cmsData, onRefreshCMS, onSaveCMS, isSaving }:
   const [editingItem, setEditingItem] = useState<(typeof cmsData.media)[0] | null>(null);
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [deleteConfirmId, setDeleteConfirmId] = useState<string | null>(null);
+  const [isAddUrlOpen, setIsAddUrlOpen] = useState(false);
+  const [urlInput, setUrlInput] = useState('');
+  const [urlNameInput, setUrlNameInput] = useState('');
+  const [urlAltInput, setUrlAltInput] = useState('');
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const replaceFileInputRef = useRef<HTMLInputElement>(null);
 
   const mediaList = cmsData.media || [];
+
+  const handleAddByUrl = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!urlInput.trim()) return;
+
+    const newItem = {
+      id: `media-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`,
+      filename: urlNameInput.trim() || 'himalayan-image.jpg',
+      originalName: urlNameInput.trim() || 'Himalayan Photo',
+      url: urlInput.trim(),
+      altText: urlAltInput.trim() || urlNameInput.trim() || 'Spiky Cabs Route Photo',
+      caption: '',
+      fileSize: 250000,
+      mimeType: 'image/jpeg',
+      uploadedAt: new Date().toISOString()
+    };
+
+    const merged = [newItem, ...(cmsData.media || [])];
+    await onSaveCMS({ ...cmsData, media: merged }, `Added image by URL: ${newItem.originalName}`);
+    await onRefreshCMS();
+    setUrlInput('');
+    setUrlNameInput('');
+    setUrlAltInput('');
+    setIsAddUrlOpen(false);
+  };
+
+  const handleReplaceImageFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file || !editingItem) return;
+
+    try {
+      const res = await uploadMedia(file, file.name, editingItem.altText || '');
+      if (res && res.media && res.media.url) {
+        setEditingItem({
+          ...editingItem,
+          url: res.media.url,
+          filename: file.name,
+          originalName: file.name,
+          fileSize: file.size,
+          mimeType: file.type || 'image/jpeg'
+        });
+      }
+    } catch (err) {
+      console.error('Failed to replace image:', err);
+    }
+  };
 
   const filteredMedia = mediaList.filter(item => {
     const matchesSearch = 
@@ -60,9 +111,17 @@ export const MediaLibraryView = ({ cmsData, onRefreshCMS, onSaveCMS, isSaving }:
     setUploadError(null);
 
     try {
+      const newItems: typeof cmsData.media = [];
       for (let i = 0; i < files.length; i++) {
         const file = files[i];
-        await uploadMedia(file, file.name.replace(/\.[^/.]+$/, ""), "");
+        const res = await uploadMedia(file, file.name.replace(/\.[^/.]+$/, ""), "");
+        if (res && res.media) {
+          newItems.push(res.media);
+        }
+      }
+      if (newItems.length > 0) {
+        const merged = [...newItems, ...(cmsData.media || [])];
+        await onSaveCMS({ ...cmsData, media: merged }, `Uploaded ${newItems.length} media asset(s)`);
       }
       await onRefreshCMS();
     } catch (err: any) {
@@ -78,6 +137,8 @@ export const MediaLibraryView = ({ cmsData, onRefreshCMS, onSaveCMS, isSaving }:
   const handleDelete = async (id: string) => {
     try {
       await deleteMedia(id);
+      const updatedMedia = (cmsData.media || []).filter(m => m.id !== id);
+      await onSaveCMS({ ...cmsData, media: updatedMedia }, 'Removed media item from library');
       await onRefreshCMS();
       setDeleteConfirmId(null);
       if (previewItem?.id === id) setPreviewItem(null);
@@ -120,7 +181,7 @@ export const MediaLibraryView = ({ cmsData, onRefreshCMS, onSaveCMS, isSaving }:
             </p>
           </div>
 
-          <div>
+          <div className="flex items-center gap-2">
             <input
               type="file"
               ref={fileInputRef}
@@ -130,12 +191,19 @@ export const MediaLibraryView = ({ cmsData, onRefreshCMS, onSaveCMS, isSaving }:
               className="hidden"
             />
             <button
+              onClick={() => setIsAddUrlOpen(true)}
+              className="rounded-full bg-white hover:bg-neutral-50 text-[#1d1d1f] border border-[#d2d2d7] px-4 py-2.5 text-xs font-medium transition-colors flex items-center gap-1.5 cursor-pointer shadow-xs"
+            >
+              <ExternalLink className="w-3.5 h-3.5 text-[#0071e3]" />
+              <span>Add from Link / URL</span>
+            </button>
+            <button
               onClick={() => fileInputRef.current?.click()}
               disabled={isUploading}
               className="rounded-full bg-[#0071e3] hover:bg-[#0077ed] text-white px-5 py-2.5 text-xs font-medium transition-colors flex items-center gap-2 cursor-pointer disabled:opacity-50 shadow-sm"
             >
               <Upload className="w-3.5 h-3.5" />
-              <span>{isUploading ? 'Uploading Media...' : 'Upload Media Asset'}</span>
+              <span>{isUploading ? 'Uploading Media...' : 'Upload New Photo'}</span>
             </button>
           </div>
         </div>
@@ -216,7 +284,8 @@ export const MediaLibraryView = ({ cmsData, onRefreshCMS, onSaveCMS, isSaving }:
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                         loading="lazy"
                         onError={(e) => {
-                          (e.target as HTMLElement).style.display = 'none';
+                          const target = e.target as HTMLImageElement;
+                          target.src = '/images/hero_himalayan_cab_1790679944443.jpg';
                         }}
                       />
                     )}
@@ -285,7 +354,50 @@ export const MediaLibraryView = ({ cmsData, onRefreshCMS, onSaveCMS, isSaving }:
               </button>
             </div>
 
-            <div className="space-y-3 text-xs">
+            <div className="space-y-4 text-xs">
+              {/* Image Preview & Replace Controls */}
+              <div className="flex items-center gap-4 p-3 bg-[#f5f5f7] rounded-2xl border border-[#e5e5ea]">
+                <div className="w-20 h-16 rounded-xl bg-white border border-[#d2d2d7] overflow-hidden shrink-0">
+                  <img
+                    src={editingItem.url}
+                    alt="Preview"
+                    className="w-full h-full object-cover"
+                    onError={(e) => {
+                      (e.target as HTMLImageElement).src = '/images/hero_himalayan_cab_1790679944443.jpg';
+                    }}
+                  />
+                </div>
+                <div className="flex-1 space-y-1.5">
+                  <span className="text-[11px] font-semibold text-[#1d1d1f] block">Change Image / Replace Photo</span>
+                  <input
+                    type="file"
+                    ref={replaceFileInputRef}
+                    onChange={handleReplaceImageFile}
+                    accept="image/*"
+                    className="hidden"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => replaceFileInputRef.current?.click()}
+                    className="rounded-full bg-white hover:bg-neutral-100 text-[#0071e3] border border-[#d2d2d7] px-3 py-1 text-[11px] font-medium flex items-center gap-1 cursor-pointer shadow-2xs"
+                  >
+                    <Upload className="w-3 h-3" />
+                    <span>Upload New Photo to Replace</span>
+                  </button>
+                </div>
+              </div>
+
+              <div>
+                <label className="block font-medium text-[#1d1d1f] mb-1">Image URL / Path *</label>
+                <input
+                  type="text"
+                  value={editingItem.url}
+                  onChange={(e) => setEditingItem({ ...editingItem, url: e.target.value })}
+                  className="w-full bg-[#f5f5f7] border border-[#d2d2d7] rounded-xl px-3 py-2 text-xs text-[#1d1d1f] font-mono focus:outline-none focus:border-[#0071e3]"
+                  placeholder="/images/... or https://..."
+                />
+              </div>
+
               <div>
                 <label className="block font-medium text-[#1d1d1f] mb-1">File Name</label>
                 <input
@@ -316,9 +428,9 @@ export const MediaLibraryView = ({ cmsData, onRefreshCMS, onSaveCMS, isSaving }:
                 />
               </div>
 
-              <div className="p-3 bg-[#f5f5f7] rounded-xl text-[11px] text-[#6e6e73] space-y-1 font-mono">
-                <div>URL: {editingItem.url}</div>
-                <div>Size: {formatFileSize(editingItem.fileSize)}</div>
+              <div className="p-2.5 bg-[#f5f5f7] rounded-xl text-[10px] text-[#6e6e73] font-mono flex items-center justify-between">
+                <span>Size: {formatFileSize(editingItem.fileSize)}</span>
+                <span>Type: {editingItem.mimeType}</span>
               </div>
             </div>
 
@@ -420,6 +532,74 @@ export const MediaLibraryView = ({ cmsData, onRefreshCMS, onSaveCMS, isSaving }:
               </button>
             </div>
           </div>
+        </div>
+      )}
+      {/* Add from URL modal */}
+      {isAddUrlOpen && (
+        <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs flex items-center justify-center p-4">
+          <form onSubmit={handleAddByUrl} className="bg-white rounded-3xl p-6 sm:p-8 max-w-md w-full border border-[#e5e5ea] shadow-2xl space-y-4">
+            <div className="flex items-center justify-between pb-3 border-b border-[#f5f5f7]">
+              <h3 className="font-semibold text-base text-[#1d1d1f] flex items-center gap-2">
+                <ExternalLink className="w-4 h-4 text-[#0071e3]" />
+                <span>Add Image from URL / Link</span>
+              </h3>
+              <button type="button" onClick={() => setIsAddUrlOpen(false)} className="p-1 text-[#86868b] cursor-pointer">
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <div className="space-y-3 text-xs">
+              <div>
+                <label className="block font-medium text-[#1d1d1f] mb-1">Image URL or Path *</label>
+                <input
+                  type="text"
+                  required
+                  placeholder="https://... or /images/..."
+                  value={urlInput}
+                  onChange={(e) => setUrlInput(e.target.value)}
+                  className="w-full bg-[#f5f5f7] border border-[#d2d2d7] rounded-xl px-3 py-2 text-xs text-[#1d1d1f] focus:outline-none focus:border-[#0071e3]"
+                />
+              </div>
+
+              <div>
+                <label className="block font-medium text-[#1d1d1f] mb-1">Display Title / Name</label>
+                <input
+                  type="text"
+                  placeholder="e.g. Tiger Hill Sunrise View"
+                  value={urlNameInput}
+                  onChange={(e) => setUrlNameInput(e.target.value)}
+                  className="w-full bg-[#f5f5f7] border border-[#d2d2d7] rounded-xl px-3 py-2 text-xs text-[#1d1d1f]"
+                />
+              </div>
+
+              <div>
+                <label className="block font-medium text-[#1d1d1f] mb-1">Alt Text (for SEO)</label>
+                <input
+                  type="text"
+                  placeholder="e.g. Kanchenjunga dawn panorama"
+                  value={urlAltInput}
+                  onChange={(e) => setUrlAltInput(e.target.value)}
+                  className="w-full bg-[#f5f5f7] border border-[#d2d2d7] rounded-xl px-3 py-2 text-xs text-[#1d1d1f]"
+                />
+              </div>
+            </div>
+
+            <div className="flex items-center justify-end gap-2 pt-2">
+              <button
+                type="button"
+                onClick={() => setIsAddUrlOpen(false)}
+                className="px-4 py-2 rounded-full bg-[#f5f5f7] text-xs text-[#1d1d1f] cursor-pointer"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                className="px-5 py-2 rounded-full bg-[#0071e3] hover:bg-[#0077ed] text-white text-xs font-medium cursor-pointer shadow-sm"
+              >
+                Add to Library
+              </button>
+            </div>
+          </form>
         </div>
       )}
     </div>

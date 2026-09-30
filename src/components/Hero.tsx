@@ -25,7 +25,7 @@ export const Hero = ({ onSelectDestination, onOpenChecklist }: HeroProps) => {
       {/* Background Image with Optical Scrim */}
       <div className="absolute inset-0 z-0">
         <img
-          src="/src/assets/images/hero_himalayan_cab_1790679944443.jpg"
+          src="/images/hero_himalayan_cab_1790679944443.jpg"
           alt="Spiky Cabs driving along Himalayan mountain route with Kanchenjunga backdrop"
           className="w-full h-full object-cover object-center"
           referrerPolicy="no-referrer"
@@ -36,47 +36,48 @@ export const Hero = ({ onSelectDestination, onOpenChecklist }: HeroProps) => {
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-20 md:pt-24 md:pb-28">
         <div className="max-w-3xl">
-          {/* Natural human editorial kicker - no mechanical code comments */}
-          <div className="flex items-center gap-2 text-xs font-semibold text-orange-400 tracking-wider uppercase mb-3">
-            <span>Specialized Himalayan Cab Packages</span>
+          {/* Natural human editorial kicker */}
+          <div className="flex items-center gap-2 text-xs font-semibold text-sky-400 tracking-wider uppercase mb-3">
+            <span>Honest Mountain Cab Packages</span>
             <span aria-hidden="true">·</span>
-            <span>Darjeeling · Sikkim · Kalimpong · Bhutan</span>
+            <span>Darjeeling · Gangtok · North Sikkim · Pelling · Bhutan</span>
           </div>
 
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black font-heading tracking-tight leading-[1.1] text-white max-w-2xl mb-5">
-            Your Mountain Journey, Driven by Local Hill Experts.
+            Skip the station haggling. <br />
+            <span className="text-sky-300">The Himalayas just got wonderful.</span>
           </h1>
 
           <p className="text-base sm:text-lg text-neutral-200 leading-relaxed max-w-2xl mb-8 font-normal">
-            Spiky Cabs delivers dedicated tourist cab packages across the Eastern Himalayas. We specialize exclusively in cab travel—transparent point-to-point itineraries, fuel & interstate permits included, with pick-up right from Bagdogra Airport (IXB) & NJP Railway Station.
+            You step off the train at NJP or touch down at Bagdogra, and there we are—with your name on a placard, a spotless car, a warm mountain smile, and zero taxi-union drama. We're Spiky Cabs: born-and-raised hill drivers who know every hairpin bend, the best roadside stalls for steaming momos, and the exact minute Mt. Kanchenjunga catches fire in gold.
           </p>
 
           {/* Quick action buttons */}
           <div className="flex flex-wrap items-center gap-3 mb-10">
             <a
               href="#packages"
-              className="inline-flex items-center gap-2 px-6 py-3.5 bg-orange-600 hover:bg-orange-500 text-white text-sm font-bold rounded-xl transition-all shadow-lg hover:shadow-orange-600/30"
+              className="inline-flex items-center gap-2 px-6 py-3.5 bg-[#0071e3] hover:bg-[#0077ed] text-white text-sm font-semibold rounded-xl transition-all shadow-lg hover:shadow-blue-600/30 cursor-pointer"
             >
-              <span>Browse Cab Packages</span>
+              <span>Explore Cab Packages</span>
               <ArrowRight className="w-4 h-4" />
             </a>
 
             <a
-              href={`https://wa.me/${COMPANY_INFO.rawPhone}?text=Hi%20Spiky%20Cabs%2C%20I%20am%20planning%20a%20trip%20to%20Darjeeling%2FSikkim.%20Please%20share%20cab%20package%20details.`}
+              href={`https://wa.me/${COMPANY_INFO.rawPhone}?text=Hi%20Spiky%20Cabs!%20We%20are%20planning%20a%20mountain%20trip%20and%20would%20love%20a%20quick%20quote.`}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3.5 bg-white/10 hover:bg-white/20 text-white border border-white/20 backdrop-blur-sm text-sm font-medium rounded-xl transition-all"
+              className="inline-flex items-center gap-2 px-6 py-3.5 bg-emerald-600 hover:bg-emerald-500 text-white text-sm font-semibold rounded-xl transition-all shadow-md cursor-pointer"
             >
-              <MessageCircle className="w-4 h-4 text-emerald-400" />
-              <span>Instant WhatsApp Quote</span>
+              <MessageCircle className="w-4 h-4" />
+              <span>WhatsApp Us (Friendly Local Humans)</span>
             </a>
 
-            <button
-              onClick={onOpenChecklist}
-              className="text-xs text-neutral-300 hover:text-white underline underline-offset-4 px-2 py-1 transition-colors"
+            <a
+              href={`tel:${COMPANY_INFO.phone}`}
+              className="inline-flex items-center gap-2 px-5 py-3.5 bg-white/10 hover:bg-white/20 text-white border border-white/20 backdrop-blur-sm text-sm font-medium rounded-xl transition-all"
             >
-              Owner Checklist & Info Requests
-            </button>
+              <span>Call Us: {COMPANY_INFO.phone}</span>
+            </a>
           </div>
 
           {/* Quick Package Search Box */}
@@ -84,18 +85,19 @@ export const Hero = ({ onSelectDestination, onOpenChecklist }: HeroProps) => {
             <form onSubmit={handleSearch} className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               <div>
                 <label className="block text-xs font-medium text-neutral-300 mb-1.5 flex items-center gap-1.5">
-                  <Compass className="w-3.5 h-3.5 text-orange-400" />
-                  <span>Destination Sector</span>
+                  <Compass className="w-3.5 h-3.5 text-sky-400" />
+                  <span>Where would you like to go?</span>
                 </label>
                 <select
                   value={selectedDest}
                   onChange={(e) => setSelectedDest(e.target.value)}
-                  className="w-full bg-neutral-800 border border-neutral-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-orange-500 transition-colors"
+                  className="w-full bg-neutral-800 border border-neutral-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-sky-500 transition-colors"
                 >
-                  <option value="all">All Packages</option>
+                  <option value="all">All Mountain Packages</option>
                   <option value="darjeeling">Darjeeling (2N/3D & 4N/5D)</option>
                   <option value="gangtok">Gangtok & Changu Lake (3N/4D)</option>
                   <option value="north-sikkim">North Sikkim (4N/5D Lachung & Yumthang)</option>
+                  <option value="pelling">Pelling & Glass Skywalk (3N/4D)</option>
                   <option value="kalimpong">Kalimpong (2N/3D)</option>
                   <option value="bhutan">Bhutan Western Valley (5N/6D)</option>
                 </select>
@@ -103,13 +105,13 @@ export const Hero = ({ onSelectDestination, onOpenChecklist }: HeroProps) => {
 
               <div>
                 <label className="block text-xs font-medium text-neutral-300 mb-1.5 flex items-center gap-1.5">
-                  <MapPin className="w-3.5 h-3.5 text-orange-400" />
+                  <MapPin className="w-3.5 h-3.5 text-sky-400" />
                   <span>Pickup Location</span>
                 </label>
                 <select
                   value={pickupPoint}
                   onChange={(e) => setPickupPoint(e.target.value)}
-                  className="w-full bg-neutral-800 border border-neutral-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-orange-500 transition-colors"
+                  className="w-full bg-neutral-800 border border-neutral-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-sky-500 transition-colors"
                 >
                   <option value="IXB">Bagdogra Airport (IXB)</option>
                   <option value="NJP">New Jalpaiguri Station (NJP)</option>
@@ -122,9 +124,9 @@ export const Hero = ({ onSelectDestination, onOpenChecklist }: HeroProps) => {
               <div className="flex items-end">
                 <button
                   type="submit"
-                  className="w-full bg-orange-600 hover:bg-orange-500 text-white font-semibold text-sm py-2 px-4 rounded-lg flex items-center justify-center gap-2 transition-colors h-10 shadow-sm"
+                  className="w-full bg-[#0071e3] hover:bg-[#0077ed] text-white font-semibold text-sm py-2 px-4 rounded-lg flex items-center justify-center gap-2 transition-colors h-10 shadow-sm cursor-pointer"
                 >
-                  <span>Find Cab Itineraries</span>
+                  <span>See Cab Rates</span>
                   <ArrowRight className="w-4 h-4" />
                 </button>
               </div>
@@ -134,20 +136,20 @@ export const Hero = ({ onSelectDestination, onOpenChecklist }: HeroProps) => {
           {/* Social Proof & Value Props */}
           <div className="mt-8 pt-6 border-t border-white/10 grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs">
             <div>
-              <div className="text-orange-400 font-bold text-sm">100% Dedicated</div>
-              <div className="text-neutral-400">Cab-Only Packages</div>
+              <div className="text-sky-300 font-bold text-sm">100% Private Cab</div>
+              <div className="text-neutral-400">Zero hotel commission traps</div>
             </div>
             <div>
-              <div className="text-orange-400 font-bold text-sm">All Permits Handled</div>
-              <div className="text-neutral-400">Sikkim & Bhutan PAP</div>
+              <div className="text-sky-300 font-bold text-sm">All Permits Sorted</div>
+              <div className="text-neutral-400">Sikkim & Bhutan military passes</div>
             </div>
             <div>
-              <div className="text-orange-400 font-bold text-sm">Verified Drivers</div>
-              <div className="text-neutral-400">Himalayan Route Pros</div>
+              <div className="text-sky-300 font-bold text-sm">Gentle Mountain Drivers</div>
+              <div className="text-neutral-400">Born on these hill roads</div>
             </div>
             <div>
-              <div className="text-orange-400 font-bold text-sm">Offer Till Apr 2027</div>
-              <div className="text-neutral-400">Guaranteed Validity</div>
+              <div className="text-sky-300 font-bold text-sm">Guaranteed Fixed Rates</div>
+              <div className="text-neutral-400">Fuel & driver allowance included</div>
             </div>
           </div>
         </div>

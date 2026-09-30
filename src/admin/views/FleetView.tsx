@@ -17,6 +17,7 @@ import {
 } from 'lucide-react';
 import { CMSData } from '../../data/defaultCMSData';
 import { FleetItem } from '../../data/packagesData';
+import { ImagePicker } from '../../components/ImagePicker';
 
 interface FleetViewProps {
   cmsData: CMSData;
@@ -58,7 +59,7 @@ export const FleetView = ({ cmsData, onSaveCMS, isSaving }: FleetViewProps) => {
       luggage: '4 Large Bags + 2 Small',
       idealRoutes: ['North Sikkim', 'Zero Point', 'Bhutan Grand Circuit'],
       baseRatePerDay: 6500,
-      image: '/src/assets/images/fleet_innova_crysta_1790679963418.jpg',
+      image: '/images/fleet_innova_crysta_1790679963418.jpg',
       features: [
         'Dedicated Hill Chauffeur',
         'Dual AC & Mountain Heating',
@@ -234,12 +235,11 @@ export const FleetView = ({ cmsData, onSaveCMS, isSaving }: FleetViewProps) => {
               </div>
 
               <div>
-                <label className="block font-medium text-[#1d1d1f] mb-1">Vehicle Image URL</label>
-                <input
-                  type="text"
+                <ImagePicker
+                  label="Vehicle Showcase Photo"
                   value={editingVehicle.image}
-                  onChange={(e) => setEditingVehicle({ ...editingVehicle, image: e.target.value })}
-                  className="w-full bg-[#f5f5f7] border border-[#d2d2d7] rounded-xl px-3.5 py-2 text-xs text-[#1d1d1f] focus:outline-none focus:bg-white focus:border-[#0071e3]"
+                  onChange={(newUrl) => setEditingVehicle({ ...editingVehicle, image: newUrl })}
+                  cmsData={cmsData}
                 />
               </div>
             </div>

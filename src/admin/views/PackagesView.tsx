@@ -17,6 +17,7 @@ import {
 } from 'lucide-react';
 import { CabPackage } from '../../data/packagesData';
 import { CMSData } from '../../data/defaultCMSData';
+import { ImagePicker } from '../../components/ImagePicker';
 
 interface PackagesViewProps {
   cmsData: CMSData;
@@ -53,7 +54,7 @@ export const PackagesView = ({ cmsData, onSaveCMS, isSaving }: PackagesViewProps
       durationNights: 3,
       durationDays: 4,
       badge: 'Special Package',
-      featuredImage: '/src/assets/images/hero_himalayan_cab_1790679944443.jpg',
+      featuredImage: '/images/hero_himalayan_cab_1790679944443.jpg',
       startingPrice: {
         sedan: 9999,
         suv: 13999,
@@ -419,13 +420,12 @@ export const PackagesView = ({ cmsData, onSaveCMS, isSaving }: PackagesViewProps
                     </div>
                   </div>
 
-                  <div>
-                    <label className="block text-[#1d1d1f] font-medium mb-1">Featured Image URL</label>
-                    <input
-                      type="text"
+                  <div className="sm:col-span-2">
+                    <ImagePicker
+                      label="Featured Cover Photo *"
                       value={editingPackage.featuredImage}
-                      onChange={(e) => setEditingPackage({ ...editingPackage, featuredImage: e.target.value })}
-                      className="w-full bg-[#f5f5f7] border border-[#d2d2d7] rounded-xl px-3 py-2 text-[#1d1d1f]"
+                      onChange={(newUrl) => setEditingPackage({ ...editingPackage, featuredImage: newUrl })}
+                      cmsData={cmsData}
                     />
                   </div>
 

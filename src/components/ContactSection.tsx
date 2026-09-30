@@ -46,7 +46,7 @@ Please confirm availability and share quote.`;
           {/* Company Details Column */}
           <div className="lg:col-span-5 space-y-8">
             <div>
-              <div className="text-xs font-semibold text-orange-400 tracking-wider uppercase mb-2">
+              <div className="text-xs font-semibold text-sky-400 tracking-wider uppercase mb-2">
                 Get In Touch
               </div>
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-black font-heading tracking-tight text-white mb-4">
@@ -61,9 +61,9 @@ Please confirm availability and share quote.`;
             <div className="space-y-4">
               <a
                 href={`tel:${COMPANY_INFO.phone}`}
-                className="flex items-start gap-4 p-4 rounded-xl bg-neutral-800/80 border border-neutral-700/80 hover:border-orange-500/60 transition-colors group"
+                className="flex items-start gap-4 p-4 rounded-xl bg-neutral-800/80 border border-neutral-700/80 hover:border-[#0071e3]/60 transition-colors group"
               >
-                <div className="w-10 h-10 rounded-lg bg-orange-600/20 text-orange-400 flex items-center justify-center shrink-0 group-hover:bg-orange-600 group-hover:text-white transition-colors">
+                <div className="w-10 h-10 rounded-lg bg-blue-600/20 text-sky-400 flex items-center justify-center shrink-0 group-hover:bg-[#0071e3] group-hover:text-white transition-colors">
                   <Phone className="w-5 h-5" />
                 </div>
                 <div>
@@ -95,9 +95,9 @@ Please confirm availability and share quote.`;
 
               <a
                 href={`mailto:${COMPANY_INFO.email}`}
-                className="flex items-start gap-4 p-4 rounded-xl bg-neutral-800/80 border border-neutral-700/80 hover:border-orange-500/60 transition-colors group"
+                className="flex items-start gap-4 p-4 rounded-xl bg-neutral-800/80 border border-neutral-700/80 hover:border-[#0071e3]/60 transition-colors group"
               >
-                <div className="w-10 h-10 rounded-lg bg-orange-600/20 text-orange-400 flex items-center justify-center shrink-0 group-hover:bg-orange-600 group-hover:text-white transition-colors">
+                <div className="w-10 h-10 rounded-lg bg-blue-600/20 text-sky-400 flex items-center justify-center shrink-0 group-hover:bg-[#0071e3] group-hover:text-white transition-colors">
                   <Mail className="w-5 h-5" />
                 </div>
                 <div>
@@ -110,7 +110,7 @@ Please confirm availability and share quote.`;
               </a>
 
               <div className="flex items-start gap-4 p-4 rounded-xl bg-neutral-800/80 border border-neutral-700/80">
-                <div className="w-10 h-10 rounded-lg bg-orange-600/20 text-orange-400 flex items-center justify-center shrink-0">
+                <div className="w-10 h-10 rounded-lg bg-blue-600/20 text-sky-400 flex items-center justify-center shrink-0">
                   <MapPin className="w-5 h-5" />
                 </div>
                 <div>
@@ -179,7 +179,7 @@ Please confirm availability and share quote.`;
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       placeholder="e.g. Rahul Sharma"
-                      className="w-full bg-neutral-900 border border-neutral-700 rounded-lg px-3 py-2 text-xs text-white placeholder-neutral-500 focus:outline-none focus:border-orange-500"
+                      className="w-full bg-neutral-900 border border-neutral-700 rounded-lg px-3 py-2 text-xs text-white placeholder-neutral-500 focus:outline-none focus:border-[#0071e3]"
                     />
                   </div>
 
@@ -193,7 +193,7 @@ Please confirm availability and share quote.`;
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                       placeholder="e.g. +91 98765 43210"
-                      className="w-full bg-neutral-900 border border-neutral-700 rounded-lg px-3 py-2 text-xs text-white placeholder-neutral-500 focus:outline-none focus:border-orange-500"
+                      className="w-full bg-neutral-900 border border-neutral-700 rounded-lg px-3 py-2 text-xs text-white placeholder-neutral-500 focus:outline-none focus:border-[#0071e3]"
                     />
                   </div>
                 </div>
@@ -208,7 +208,7 @@ Please confirm availability and share quote.`;
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       placeholder="hello@example.com"
-                      className="w-full bg-neutral-900 border border-neutral-700 rounded-lg px-3 py-2 text-xs text-white placeholder-neutral-500 focus:outline-none focus:border-orange-500"
+                      className="w-full bg-neutral-900 border border-neutral-700 rounded-lg px-3 py-2 text-xs text-white placeholder-neutral-500 focus:outline-none focus:border-[#0071e3]"
                     />
                   </div>
 
@@ -219,7 +219,7 @@ Please confirm availability and share quote.`;
                     <select
                       value={formData.packageId}
                       onChange={(e) => setFormData({ ...formData, packageId: e.target.value })}
-                      className="w-full bg-neutral-900 border border-neutral-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-orange-500"
+                      className="w-full bg-neutral-900 border border-neutral-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-[#0071e3]"
                     >
                       {PACKAGES_DATA.map((pkg) => (
                         <option key={pkg.id} value={pkg.id}>
@@ -240,7 +240,7 @@ Please confirm availability and share quote.`;
                       value={formData.travelDate}
                       onChange={(e) => setFormData({ ...formData, travelDate: e.target.value })}
                       placeholder="e.g. 15th April 2026"
-                      className="w-full bg-neutral-900 border border-neutral-700 rounded-lg px-3 py-2 text-xs text-white placeholder-neutral-500 focus:outline-none focus:border-orange-500"
+                      className="w-full bg-neutral-900 border border-neutral-700 rounded-lg px-3 py-2 text-xs text-white placeholder-neutral-500 focus:outline-none focus:border-[#0071e3]"
                     />
                   </div>
 
@@ -251,7 +251,7 @@ Please confirm availability and share quote.`;
                     <select
                       value={formData.paxCount}
                       onChange={(e) => setFormData({ ...formData, paxCount: e.target.value })}
-                      className="w-full bg-neutral-900 border border-neutral-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-orange-500"
+                      className="w-full bg-neutral-900 border border-neutral-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-[#0071e3]"
                     >
                       <option value="1-2">1–2 Pax (Couple)</option>
                       <option value="3-4">3–4 Pax (Small Family)</option>
@@ -267,7 +267,7 @@ Please confirm availability and share quote.`;
                     <select
                       value={formData.vehiclePreference}
                       onChange={(e) => setFormData({ ...formData, vehiclePreference: e.target.value })}
-                      className="w-full bg-neutral-900 border border-neutral-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-orange-500"
+                      className="w-full bg-neutral-900 border border-neutral-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-[#0071e3]"
                     >
                       <option value="Toyota Innova Crysta">Innova Crysta (Premium)</option>
                       <option value="Maruti Ertiga">Maruti Ertiga (MUV)</option>
@@ -286,14 +286,14 @@ Please confirm availability and share quote.`;
                     value={formData.notes}
                     onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
                     placeholder="e.g., Flight arriving at Bagdogra at 1:30 PM, need Nathula Pass permit included, child on board..."
-                    className="w-full bg-neutral-900 border border-neutral-700 rounded-lg p-3 text-xs text-white placeholder-neutral-500 focus:outline-none focus:border-orange-500"
+                    className="w-full bg-neutral-900 border border-neutral-700 rounded-lg p-3 text-xs text-white placeholder-neutral-500 focus:outline-none focus:border-[#0071e3]"
                   ></textarea>
                 </div>
 
                 <div className="pt-2">
                   <button
                     type="submit"
-                    className="w-full py-3 px-4 bg-orange-600 hover:bg-orange-500 text-white font-bold text-sm rounded-xl transition-all shadow-md flex items-center justify-center gap-2"
+                    className="w-full py-3 px-4 bg-[#0071e3] hover:bg-[#0077ed] text-white font-bold text-sm rounded-xl transition-all shadow-md flex items-center justify-center gap-2"
                   >
                     <Send className="w-4 h-4" />
                     <span>Submit Cab Booking Request</span>

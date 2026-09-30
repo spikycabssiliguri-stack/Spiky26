@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-09-29T15:03:08.236Z",
+  "lastUpdated": "2026-09-30T12:02:08.108Z",
   "settings": {
     "siteName": "Spiky Cabs",
     "tagline": "Premier Tourist Cab Packages across the Eastern Himalayas",
@@ -17,7 +17,7 @@
     "ribbonLinkUrl": "https://wa.me/917586047996?text=Hi%20Spiky%20Cabs%2C%20I%20would%20like%20to%20get%20a%20quote%20for%20a%20cab%20package.",
     "defaultSeoTitle": "Spiky Cabs – Darjeeling, Sikkim & Bhutan Cab Packages",
     "defaultSeoDescription": "Dedicated tourist cab packages across Darjeeling, Gangtok, North Sikkim, Kalimpong and Bhutan. Experienced mountain drivers, customized itineraries, airport transfers from IXB and NJP.",
-    "ogImage": "/src/assets/images/hero_himalayan_cab_1790679944443.jpg",
+    "ogImage": "/images/hero_himalayan_cab_1790679944443.jpg",
     "analyticsId": "",
     "socialLinks": {
       "facebook": "https://facebook.com",
@@ -90,7 +90,7 @@
           "title": "Himalayas. Uncompromised.",
           "subtitle": "Dedicated private tourist cabs for Darjeeling, Sikkim, Kalimpong & Bhutan. From Bagdogra & NJP.",
           "content": "100% Cab-Only Packages · Zero hotel markups · Valid till April 2027",
-          "image": "/src/assets/images/hero_himalayan_cab_1790679944443.jpg",
+          "image": "/images/hero_himalayan_cab_1790679944443.jpg",
           "buttonText": "Explore Packages",
           "buttonLink": "#itineraries-section",
           "order": 1,
@@ -102,7 +102,7 @@
           "title": "North Sikkim. Pure alpine drama.",
           "subtitle": "Traverse ancient pine gorges to Lachung, the blooming rhododendrons of Yumthang Valley, and high-altitude snow peaks at Zero Point (15,300 ft).",
           "content": "From ₹17,999 / complete cab package · Restricted Area Permits (PAP) arranged",
-          "image": "/src/assets/images/north_sikkim_yumthang_1790679981868.jpg",
+          "image": "/images/north_sikkim_yumthang_1790679981868.jpg",
           "buttonText": "View Day-by-Day Itinerary",
           "buttonLink": "north-sikkim-4n-5d",
           "order": 2,
@@ -126,7 +126,7 @@
           "title": "Dedicated to the Journey.",
           "subtitle": "We provide specialized tourist cab packages for Darjeeling, Sikkim, Kalimpong & Bhutan. Without the clutter of forced hotel markups.",
           "content": "At Spiky Cabs, based at Himachal Sarani, Siliguri, we built a modern alternative. You pick your own accommodations while we take care of the entire road journey.",
-          "image": "/src/assets/images/hero_himalayan_cab_1790679944443.jpg",
+          "image": "/images/hero_himalayan_cab_1790679944443.jpg",
           "order": 1,
           "isVisible": true
         }
@@ -182,33 +182,37 @@
       "id": "darjeeling-2n-3d",
       "slug": "darjeeling-2nights-3days",
       "title": "Darjeeling Classic Cab Package",
-      "subtitle": "NJP / IXB – Darjeeling – Mirik – NJP / IXB",
+      "subtitle": "NJP / IXB – Kurseong – Darjeeling – Tiger Hill – Mirik – NJP / IXB",
       "destination": "darjeeling",
       "durationNights": 2,
       "durationDays": 3,
       "badge": "Popular Weekend Trip",
-      "featuredImage": "/src/assets/images/darjeeling_tea_mirik_1790680004464.jpg",
+      "featuredImage": "/images/darjeeling_tea_mirik_1790680004464.jpg",
       "startingPrice": {
-        "sedan": 7999,
-        "suv": 10999,
-        "innova": 12999
+        "sedan": 11999,
+        "suv": 15999,
+        "innova": 18999
+      },
+      "pricingTier": {
+        "fourSeaterRate": 11999,
+        "sixSeaterRate": 15999
       },
       "offerValidity": "30th April 2027",
       "pickupDrop": "Bagdogra Airport (IXB) or New Jalpaiguri Railway Station (NJP)",
-      "overview": "The definitive short Himalayan escape covering tea gardens, heritage colonial landmarks, world-famous Tiger Hill sunrise over Mount Kanchenjunga, and scenic return via picturesque Mirik Lake & Nepal border.",
+      "overview": "The Queen of the Hills the way she was meant to be experienced. No haggling with station touts, no cramped shared jeeps. You land at Bagdogra or pull into NJP, and your Spiky Cabs chauffeur greets you with a warm smile, loads your luggage, and steers you up into the cool misty hills. Sip roadside ginger tea while looking down at the emerald Kurseong tea slopes, wake up to watch the first golden rays of sunlight paint Mt. Kanchenjunga at Tiger Hill (2,590 m), stroll Darjeeling’s iconic Mall Road with warm pastries from Glenary's, and take the scenic road back via pine-fringed Mirik Lake and the Nepal border. Pure mountain bliss from start to finish.",
       "bestTime": "October to May (Clear mountain views & pleasant weather)",
       "idealFor": "Couples, short weekend breaks, first-time Darjeeling travelers",
       "recommendedVehicles": [
-        "Maruti Swift Dzire",
-        "Toyota Innova Crysta",
-        "Maruti Ertiga"
+        "4 seater WagonR / Swift Dzire",
+        "Maruti Ertiga / Innova (6-Seater)"
       ],
       "permitRequired": false,
       "keyHighlights": [
+        "4-Seater (WagonR / Swift Dzire): ₹11,999 | 6-Seater SUV: ₹15,999 (All Inclusive)",
         "Early 4:00 AM Tiger Hill Sunrise over Mt. Kanchenjunga (2,590 m)",
         "Batasia Loop War Memorial with Toy Train spiral view",
-        "Historic Ghoom Monastery & Peace Pagoda",
-        "Darjeeling Himalayan Mountaineering Institute (HMI) & Zoo",
+        "Historic Ghoom Monastery & Japanese Peace Pagoda",
+        "Darjeeling Himalayan Mountaineering Institute (HMI) & Zoo (Snow Leopards & Red Pandas)",
         "Return via Tingling View Point, Mirik Boating & Pashupati Market (Nepal Border)"
       ],
       "days": [
@@ -216,9 +220,10 @@
           "dayNumber": 1,
           "title": "Arrival & Scenic Mountain Drive to Darjeeling",
           "routeTitle": "NJP / IXB to Darjeeling",
-          "description": "Arrival at New Jalpaiguri Railway Station (NJP) or Bagdogra Airport (IXB) & transfer to Darjeeling, a favoured tourist destination noted for its scenic beauty, ancient forests, quaint houses, friendly people and the mountain panorama that it provides. Enjoy the view from famous Mall Road, taste the food of Glenary's Bakery & Cafe. Overnight stay at Darjeeling.",
+          "description": "Your smiling driver meets you at NJP Station or Bagdogra Airport. Within 30 minutes, the humid plains vanish behind you as you climb past green tea bushes and misty pine trees along the historic Hill Cart Road. Stop for piping hot momos and Darjeeling chai at Kurseong. Check into your hotel, and spend a leisurely evening strolling Darjeeling’s Mall Road with fresh baked croissants from Glenary’s.",
           "highlights": [
             "Scenic Hill Climb through Kurseong / Rohini route",
+            "Roadside chai stop amidst emerald tea slopes",
             "Evening stroll at Darjeeling Mall Road & Chowrasta",
             "Taste pastries & dinner at legendary Glenary’s"
           ],
@@ -235,7 +240,7 @@
           "dayNumber": 2,
           "title": "Iconic Darjeeling 7-Point Sightseeing & Tiger Hill Sunrise",
           "routeTitle": "Darjeeling Local Sightseeing",
-          "description": "Begin the journey early morning (around 4:00 AM) and drive to the famous Tiger Hill (2,590 m) to treat your senses with mind-blowing views of the sunrise over Mt. Kanchenjunga. Other attractions covered: Ghoom Monastery, Batasia Loop, Darjeeling Ropeway, Padmaja Naidu Himalayan Zoological Park (HMI & Snow Leopard Museum), Tenzing Rock, Chitrey Tea Garden, Tibetan Refugee Self-Help Camp, and Japanese Peace Pagoda. Evening is free to roam around any of the hundred nurseries or the local market area. Night stay at Darjeeling.",
+          "description": "Wake up before the stars fade at 4:00 AM. Your cab whisks you up to Tiger Hill (2,590 m) to witness Mt. Kanchenjunga glow in molten gold. On the way down, stop at Batasia Loop where the Toy Train loops 360 degrees, and visit the serene Ghoom Monastery. After a hearty breakfast, continue to the Himalayan Mountaineering Institute, Padmaja Naidu Zoo (say hello to the Red Pandas!), Tenzing Rock, and the tranquil Peace Pagoda.",
           "highlights": [
             "Golden sunrise hitting Kanchenjunga peaks at 2,590 m",
             "Batasia Loop with heritage 360-degree mountain panorama",
@@ -259,7 +264,7 @@
           "dayNumber": 3,
           "title": "Transfer to NJP / IXB via Tingling Tea Gardens & Mirik Lake",
           "routeTitle": "Transfer to NJP / IXB via Mirik",
-          "description": "The drive is through scenic roads with occasional stoppages for photography. Head towards Tingling Viewpoint from where a great panorama of the luxuriant tea gardens in the mountain slopes, entire Mirik, and breathtaking views can be enjoyed. Activities like Horse riding & Boating in the Sumendu Lake (Mirik Lake) are on the cards for guests. You can also make a quick visit to the Indo-Nepal Pashupati Market border. Drive onwards to NJP / IXB for your forwarding journey with memories to cherish for long!",
+          "description": "Bid goodbye to Darjeeling along the undulating border ridges of Mirik. Stop at the breathtaking Tingling Viewpoint overlooking miles of carpeted tea gardens. Enjoy a peaceful paddle-boat ride in Sumendu (Mirik) Lake framed by weeping willows and pine forests. Make a quick crossing into the Indo-Nepal Pashupati Market for imported teas and souvenirs before your driver drops you right at your terminal at NJP or Bagdogra.",
           "highlights": [
             "Tingling Viewpoint with sweeping tea plantation panoramas",
             "Mirik Lake boating and lakeside pine forest walks",
@@ -279,183 +284,51 @@
       ]
     },
     {
-      "id": "darjeeling-4n-5d",
-      "slug": "darjeeling-4nights-5days",
-      "title": "Darjeeling & Surrounding Offbeat Cab Package",
-      "subtitle": "NJP / IXB – Darjeeling – Lamahatta & Triveni – Lepchajagat & Mirik – NJP / IXB",
-      "destination": "darjeeling",
-      "durationNights": 4,
-      "durationDays": 5,
-      "badge": "Extended Leisure & Nature",
-      "featuredImage": "/src/assets/images/hero_himalayan_cab_1790679944443.jpg",
-      "startingPrice": {
-        "sedan": 14500,
-        "suv": 18999,
-        "innova": 22500
-      },
-      "offerValidity": "30th April 2027",
-      "pickupDrop": "Bagdogra Airport (IXB) or New Jalpaiguri Railway Station (NJP)",
-      "overview": "An immersive 5-day mountain journey combining the classic sights of Darjeeling town with untouched pine hamlets of Lamahatta, Tinchuley, river confluence at Triveni, quiet pine ridges of Lepchajagat, and the Gopaldhara Tea Estate.",
-      "bestTime": "September to June (Magnificent rhododendrons in spring, crisp winter snow views)",
-      "idealFor": "Families, photographers, travelers who desire calm nature off the beaten track",
-      "recommendedVehicles": [
-        "Toyota Innova Crysta",
-        "Maruti Ertiga",
-        "Mahindra Scorpio"
-      ],
-      "permitRequired": false,
-      "keyHighlights": [
-        "Comprehensive Tiger Hill sunrise & Darjeeling city heritage",
-        "Lamahatta Eco Park with towering dhupi pines & prayer flags",
-        "Triveni Confluence (River Teesta & Rangeet meeting point)",
-        "Tinchuley orange orchards & tea valley viewpoints",
-        "Offbeat pine forest haven of Lepchajagat & Gopaldhara Tea Estate",
-        "Mirik Lake, Simana Viewpoint & Pashupati Indo-Nepal Border"
-      ],
-      "days": [
-        {
-          "dayNumber": 1,
-          "title": "Arrival & Transfer to Darjeeling",
-          "routeTitle": "NJP / IXB To Darjeeling",
-          "description": "Arrival at New Jalpaiguri Railway Station (NJP) or Bagdogra Airport (IXB) & transfer to Darjeeling. Enjoy the scenic mountain road climb, panoramic valley views, ancient pine trees, and fresh mountain air. Relax on Mall Road and visit Glenary’s. Overnight stay at Darjeeling.",
-          "highlights": [
-            "Scenic mountain highway drive",
-            "Mall Road promenade & sunset over town",
-            "Iconic bakery experience at Glenary’s"
-          ],
-          "altitude": "2,042 m",
-          "stayLocation": "Darjeeling",
-          "sightseeingPoints": [
-            "Kurseong Valley",
-            "Ghum Railway Station",
-            "Darjeeling Mall Road"
-          ]
-        },
-        {
-          "dayNumber": 2,
-          "title": "Darjeeling Local Sightseeing & Tiger Hill Sunrise",
-          "routeTitle": "Darjeeling Local Sightseeing",
-          "description": "Begin early morning (~4:00 AM) to Tiger Hill (2,590 m) for the world-famous Kanchenjunga sunrise. Visit Ghoom Monastery, Batasia Loop, Darjeeling Ropeway, Zoological Park & Himalayan Mountaineering Institute, Tenzing Rock, Chitrey Tea Garden, Tibetan Refugee Camp, and Japanese Peace Pagoda. Evening free for local markets and nurseries.",
-          "highlights": [
-            "Spectacular Tiger Hill Kanchenjunga panoramic sunrise",
-            "Historic Batasia Loop War Memorial",
-            "Darjeeling Ropeway cable car ride across tea estates",
-            "Peace Pagoda serene meditation gardens"
-          ],
-          "altitude": "2,590 m",
-          "stayLocation": "Darjeeling",
-          "sightseeingPoints": [
-            "Tiger Hill",
-            "Ghoom Monastery",
-            "Batasia Loop",
-            "Darjeeling Ropeway",
-            "HMI & Zoo",
-            "Tenzing Rock",
-            "Peace Pagoda"
-          ]
-        },
-        {
-          "dayNumber": 3,
-          "title": "Darjeeling Surrounding Offbeat (Lamahatta & Triveni)",
-          "routeTitle": "Darjeeling Surrounding Offbeat",
-          "description": "Explore the peaceful offbeat wonders around Darjeeling: Lamahatta Eco Park with towering cedar and pine trees, Tinchuley viewpoint located ~6 km away offering tranquil village charm, and Triveni viewpoint where the majestic emerald Teesta meets the foaming Rangeet river. Fluttering Buddhist prayer flags and fresh pine aroma will refresh your soul. Return to hotel & overnight stay.",
-          "highlights": [
-            "Lamahatta Eco Park manicured forest pathways & Sacred Lake",
-            "Tinchuley View Point panoramic Himalayan vistas",
-            "Triveni Sangam confluence of Teesta & Rangeet rivers",
-            "Peaceful offbeat atmosphere away from commercial crowds"
-          ],
-          "altitude": "1,760 m",
-          "stayLocation": "Darjeeling",
-          "sightseeingPoints": [
-            "Lamahatta Eco Park",
-            "Tinchuley Viewpoint",
-            "Triveni River Confluence",
-            "Takdah Forest Heritage"
-          ]
-        },
-        {
-          "dayNumber": 4,
-          "title": "Excursion to Lepchajagat, Gopaldhara Tea & Mirik Lake",
-          "routeTitle": "Lepchajagat, Tea Estates & Mirik Excursion",
-          "description": "After breakfast, proceed for a scenic full day excursion covering Lepchajagat, followed by a visit to the rolling tea gardens of Gopaldhara Tea Estate. Continue towards Simana View Point for panoramic views along the Nepal border and enjoy shopping at Pashupati Market. Later visit serene Mirik Lake with a leisurely walk around the lakeside and Tingling View Point. Evening drive back to Darjeeling hotel.",
-          "highlights": [
-            "Dense oak and pine canopy of Lepchajagat",
-            "World-class gourmet tea gardens of Gopaldhara",
-            "Simana View Point on the international border ridge",
-            "Mirik Sumendu Lake walk & boating"
-          ],
-          "altitude": "2,123 m at Lepchajagat",
-          "stayLocation": "Darjeeling",
-          "sightseeingPoints": [
-            "Lepchajagat Pine Forest",
-            "Gopaldhara Tea Estate",
-            "Simana Viewpoint",
-            "Pashupati Market (Nepal)",
-            "Mirik Lake",
-            "Tingling View Point"
-          ]
-        },
-        {
-          "dayNumber": 5,
-          "title": "Farewell Darjeeling – Drive to Bagdogra / NJP",
-          "routeTitle": "Darjeeling to IXB / NJP",
-          "description": "After breakfast, drive down through the winding mountain roads back to Bagdogra Airport (IXB) or New Jalpaiguri Railway Station (NJP). Guests are advised to start early to comfortably catch train/flight connections. Forwarding journey with everlasting Himalayan memories!",
-          "highlights": [
-            "Scenic descent overlooking tea gardens and the North Bengal plains",
-            "Drop at IXB Airport / NJP Station with punctual hill driver"
-          ],
-          "altitude": "130 m at plains",
-          "stayLocation": "Departure / Plains",
-          "sightseeingPoints": [
-            "Pankhabari / Rohini scenic bypass",
-            "Siliguri Junction",
-            "IXB / NJP Terminal Drop"
-          ]
-        }
-      ]
-    },
-    {
       "id": "gangtok-3n-4d",
       "slug": "gangtok-3nights-4days",
       "title": "Gangtok & Changu Lake Cab Package",
-      "subtitle": "NJP / IXB – Gangtok – Tsomgo Lake & Baba Mandir – Gangtok Sightseeing – NJP / IXB",
+      "subtitle": "NJP / IXB – River Teesta – Gangtok – Tsomgo Lake & Baba Mandir – Sightseeing – NJP / IXB",
       "destination": "gangtok",
       "durationNights": 3,
       "durationDays": 4,
       "badge": "Best-Seller Sikkim Tour",
-      "featuredImage": "/src/assets/images/north_sikkim_yumthang_1790679981868.jpg",
+      "featuredImage": "/images/gangtok_city_view_1790684782649.jpg",
       "startingPrice": {
-        "sedan": 11999,
-        "suv": 15499,
-        "innova": 18500
+        "sedan": 16999,
+        "suv": 24999,
+        "innova": 28999
+      },
+      "pricingTier": {
+        "fourSeaterRate": 16999,
+        "sixSeaterRate": 24999,
+        "nathulaExtra": "₹1,000 Per Person apx"
       },
       "offerValidity": "30th April 2027",
       "pickupDrop": "Bagdogra Airport (IXB) or New Jalpaiguri Railway Station (NJP)",
-      "overview": "The definitive Sikkim package featuring the Teesta river drive, Gangtok city landmarks, high-altitude glacial Tsomgo (Changu) Lake at 12,400 ft, and the revered New Baba Mandir near the Old Silk Route.",
+      "overview": "There is something surreal about driving along the roaring, turquoise Teesta River and watching the air turn crisp and cold. Welcome to Gangtok, India's cleanest hill city where cars aren't allowed on the cobblestones of MG Marg and flowers bloom in window boxes. On Day 2, we take you climbing high above the clouds to the sacred, glacier-fed Tsomgo (Changu) Lake at 12,310 ft and the legendary Baba Harbhajan Mandir. Want to reach the historic Indo-China trade border at Nathula Pass? Just give us a heads-up — it's an optional add-on at approx ₹1,000 per person, and we take care of all the military and Sikkim tourism paperwork so you only have to think about keeping your hands warm in the snow.",
       "bestTime": "March to June (Flowers) & October to February (Clear skies & winter snow at Tsomgo)",
       "idealFor": "Families, friends, honeymooners looking for clean mountain city vibe & snow lake adventure",
       "recommendedVehicles": [
-        "Toyota Innova Crysta",
-        "Mahindra Scorpio",
-        "Maruti Ertiga"
+        "4 seater WagonR / Swift Dzire",
+        "Mahindra Scorpio / Innova / Ertiga (6-Seater)"
       ],
       "permitRequired": true,
-      "permitDetails": "Protected Area Permit (PAP) for Tsomgo Lake & Baba Mandir. Requires 2 passport photos + valid Govt ID per person. (Nathula Pass subject to Indian Army approval & additional permit cost).",
+      "permitDetails": "Protected Area Permit (PAP) for Tsomgo Lake & Baba Mandir included. Requires 2 passport photos + valid Govt ID per person. (Nathula Pass is an optional add-on at approx ₹1,000 per person, subject to Army clearance).",
       "keyHighlights": [
+        "4-Seater: ₹16,999 | 6-Seater: ₹24,999 (Fuel, Permits & Driver Included)",
+        "Nathula Pass Border Add-on: Approx ₹1,000 Per Person (Optional)",
         "Scenic 4-hour mountain drive following the mighty Teesta River",
         "Evenings on pedestrian-only clean cobblestone MG Marg",
         "High-altitude glacial Tsomgo (Changu) Lake (3,753 m / 12,313 ft)",
-        "Historic Baba Harbhajan Singh Mandir",
-        "Gangtok Cable Car Ropeway with aerial valley views",
-        "Banjhakri Cascading Waterfalls & Tashi Viewpoint"
+        "Historic Baba Harbhajan Singh Mandir & Kyongnosla Alpine Sanctuary",
+        "Gangtok Cable Car Ropeway with aerial valley views & Banjhakri Cascades"
       ],
       "days": [
         {
           "dayNumber": 1,
           "title": "Arrival & Transfer along River Teesta to Gangtok",
           "routeTitle": "NJP / IXB to Gangtok",
-          "description": "Arrival at New Jalpaiguri Railway Station (NJP) or Bagdogra Airport (IXB) & transfer to Gangtok. The drive takes about 4 hours through scenic mountain roads along the roaring Teesta River. Check into your hotel. In the evening, enjoy the beauty of MG Marg, a quaint pedestrian-only promenade in the heart of Gangtok with cafes, souvenir shops, and vibrant mountain culture.",
+          "description": "Meet your Spiky Cabs driver at NJP or Bagdogra. Wind along the turquoise waters of the wild Teesta River, crossing the iconic Sevoke Coronation Bridge. Stop at Rangpo checkpost where we stamp your Sikkim permits. Reach Gangtok by afternoon and spend the evening enjoying MG Marg—no cars, no pollution, just cozy cafes, momo bars, and friendly hill locals.",
           "highlights": [
             "Picturesque NH10 Teesta river highway drive",
             "Coronation Bridge / Sevoke views",
@@ -472,14 +345,15 @@
         },
         {
           "dayNumber": 2,
-          "title": "High-Altitude Excursion to Tsomgo Lake & Baba Mandir",
+          "title": "High-Altitude Excursion to Tsomgo Lake & Baba Mandir (Optional Nathula)",
           "routeTitle": "Tsomgo Lake & New Baba Mandir Excursion",
-          "description": "Excursion to Tsomgo Lake (Changu Lake) & New Baba Mandir. The sacred lake is oval-shaped, nearly 50 ft deep, and generally covered in snow for most of the year. Sikkimese believe the lake to be a Jhakris healing place. Nearby is the sacred Baba Harbhajan Singh Mandir, dedicated to the revered soldier of the Indian Army. (Optional visit to Nathula Pass on Indo-China border subject to permit availability and army clearance). Return to Gangtok for overnight stay.",
+          "description": "Head into the high Himalayas! Climb through dramatic hairpin bends to the glacial oval Tsomgo (Changu) Lake, sitting at 12,310 ft. Sip hot maggi with steam blowing in the sub-zero chill, ride a colorfully dressed Yak, and visit Baba Harbhajan Mandir. If you have opted for Nathula Pass (approx ₹1,000 per person extra), your cab drives straight to the Indo-China border outpost where Indian and Chinese soldiers stand face to face across the barbed wire.",
           "highlights": [
             "Tsomgo Lake (Changu) high-altitude glacial beauty at 12,310 ft",
             "Decorated Yak rides and snow photography",
             "Revered Baba Harbhajan Mandir at 13,123 ft",
-            "Thrilling mountain zigzag roads of East Sikkim"
+            "Thrilling mountain zigzag roads of East Sikkim",
+            "Nathula Pass border post (optional add-on)"
           ],
           "altitude": "3,753 m (12,313 ft)",
           "stayLocation": "Gangtok",
@@ -487,14 +361,14 @@
             "Tsomgo Glacial Lake",
             "New Baba Mandir",
             "Kyongnosla Alpine Sanctuary view",
-            "Optional Nathula Pass border"
+            "Optional: Nathula Pass Border Post"
           ]
         },
         {
           "dayNumber": 3,
           "title": "Gangtok Full-Day City & Cultural Sightseeing",
           "routeTitle": "Gangtok Sightseeing",
-          "description": "After breakfast, start your day with a sightseeing tour of Gangtok. Visit some of the city’s top attractions: Tashi View Point, Ganesh Tok, Hanuman Tok, Banjhakri Waterfalls & Energy Park, and Enchey Monastery. Enjoy breathtaking views of the surrounding mountains and peaceful Buddhist shrines. Experience the Gangtok Ropeway for panoramic aerial views of the city. Evening free to explore local markets. Overnight stay at Gangtok.",
+          "description": "A relaxed day exploring the cultural heartbeat of Sikkim. Catch the morning light on Kanchenjunga from Tashi Viewpoint, spin the giant prayer wheels at Do Drul Chorten, visit the peaceful 200-year-old Enchey Monastery, marvel at Banjhakri Waterfalls set amidst lush shamanic gardens, and glide across Gangtok on the thrilling bi-cable aerial Ropeway.",
           "highlights": [
             "Tashi View Point sunrise panorama over Kanchenjunga",
             "Banjhakri Falls lush landscaped water park & ethnic statues",
@@ -517,7 +391,7 @@
           "dayNumber": 4,
           "title": "Check-out & Descent Drive to NJP / IXB",
           "routeTitle": "Gangtok to IXB / NJP",
-          "description": "After breakfast, check out from the hotel and drive towards NJP Railway Station / Bagdogra Airport (IXB). Enjoy the scenic drive along winding mountain roads, passing lush green hills, rivers, and picturesque hamlets. Proceed for your flight or train back home with wonderful memories of Sikkim!",
+          "description": "Enjoy a leisurely breakfast overlooking the Gangtok valleys. Check out and begin your smooth descent along the river valley. Your driver ensures you reach Bagdogra Airport or NJP station comfortably on time, carrying a heart full of Sikkimese warmth and crisp mountain memories.",
           "highlights": [
             "Smooth descent down NH10 Teesta corridor",
             "Comfortable transfers matching flight/train departure slots"
@@ -537,42 +411,46 @@
       "id": "north-sikkim-4n-5d",
       "slug": "north-sikkim-4nights-5days",
       "title": "North Sikkim Alpine Odyssey (Lachung & Yumthang)",
-      "subtitle": "NJP / IXB – Gangtok – Lachung – Yumthang Valley – Gangtok – NJP / IXB",
+      "subtitle": "NJP / IXB – Gangtok – Lachung – Yumthang Valley – Zero Point / Katao – NJP / IXB",
       "destination": "north-sikkim",
       "durationNights": 4,
       "durationDays": 5,
       "badge": "Snow & Valley of Flowers",
-      "featuredImage": "/src/assets/images/north_sikkim_yumthang_1790679981868.jpg",
+      "featuredImage": "/images/north_sikkim_yumthang_1790679981868.jpg",
       "startingPrice": {
-        "sedan": 17999,
-        "suv": 24999,
-        "innova": 29500
+        "sedan": 31999,
+        "suv": 31999,
+        "innova": 36999
+      },
+      "pricingTier": {
+        "sixSeaterRate": 31999,
+        "optionalExcursions": "Mt. Katao & Zero Point (Yumesamdong)"
       },
       "offerValidity": "30th April 2027",
       "pickupDrop": "Bagdogra Airport (IXB) or New Jalpaiguri Railway Station (NJP)",
-      "overview": "The ultimate high-altitude adventure into the pristine Himalayas of North Sikkim. Travel to the fairy-tale village of Lachung, marvel at the vibrant Valley of Flowers in Yumthang, soak in therapeutic hot springs, and explore snow-clad Zero Point / Mt. Katao.",
+      "overview": "This isn't just a holiday; it's an expedition into the crown of the Eastern Himalayas. You'll cross deep emerald river gorges, chase gargantuan cascades like Bhim Nala (the Amitabh Bachchan waterfall), and sleep in the fairytale wooden hamlet of Lachung nestled beneath towering sheer granite cliffs. Next morning, drive into the heavenly Yumthang Valley (11,693 ft) where twenty-four species of rhododendrons carpet the alpine meadows and natural sulfur hot springs bubble peacefully. Craving real snow and razor-sharp Himalayan peaks? Opt for the thrilling drive to Zero Point (15,300 ft) or Mt. Katao. North Sikkim roads require real mountain masters behind the wheel — our local chauffeurs have navigated these bends in all seasons. You are safe, comfortable, and in for the journey of a lifetime.",
       "bestTime": "March to June (Blooming Rhododendrons & snow fields) & October to December (Crystal snow peaks)",
       "idealFor": "Adventure lovers, nature enthusiasts, couples & groups seeking real alpine wilderness",
       "recommendedVehicles": [
-        "Mahindra Scorpio / Bolero (Mandatory for North Sikkim terrain)",
-        "Toyota Innova Crysta"
+        "Mahindra Scorpio / Bolero / Maxx 4x4 (Mandatory High Clearance 6-Seater)"
       ],
       "permitRequired": true,
       "permitDetails": "North Sikkim Restricted Area Permit (RAP/PAP) processed by Spiky Cabs. Requires 4 passport photos and voter ID/passport per person. (Aadhaar not accepted for Sikkim international border sectors).",
       "keyHighlights": [
+        "Dedicated 6-Seater Mountain SUV: ₹31,999 (Complete 5-Day Circuit)",
+        "Optional Excursions: Mt. Katao & Zero Point (15,300 ft Snow Fields)",
         "Gangtok city acclimation & scenic Teesta valley climb",
         "Chasing colossal mountain cascades: Naga Falls & Amitabh Bachchan Falls",
         "Lachung alpine hamlet situated among pine-clad cliffs",
-        "Yumthang Valley at 11,693 ft (Shingba Rhododendron Sanctuary)",
-        "Natural medicinal hot sulfur springs of Yumthang",
-        "Optional excursion to Zero Point (Yumesamdong at 15,300 ft) & Mt. Katao snow bowls"
+        "Yumthang Valley of Flowers at 11,693 ft (Shingba Rhododendron Sanctuary)",
+        "Natural medicinal hot sulfur springs of Yumthang"
       ],
       "days": [
         {
           "dayNumber": 1,
           "title": "Arrival & Transfer to Gangtok",
           "routeTitle": "NJP / IXB to Gangtok",
-          "description": "Arrival at New Jalpaiguri Railway Station (NJP) or Bagdogra Airport (IXB) and transfer to Gangtok. Drive is about 4 hours depending on road conditions along the scenic Teesta River. Check in, and in the evening, enjoy the beauty of MG Marg, the no-traffic quaint pedestrian road in the middle of Gangtok.",
+          "description": "Arrival at NJP or Bagdogra Airport and transfer to Gangtok through the Teesta River gorge. Evening stroll along pedestrian MG Marg while our team pre-processes your North Sikkim military border permits for the next morning.",
           "highlights": [
             "Scenic hill climb along Teesta River",
             "MG Marg clean pedestrian atmosphere",
@@ -590,7 +468,7 @@
           "dayNumber": 2,
           "title": "Expedition to North Sikkim: Gangtok to Lachung",
           "routeTitle": "Gangtok to Lachung Transfer",
-          "description": "Lachung is popularly known as the \"Valley of Flowers\" and is home to the Shingba Rhododendron Sanctuary. It stands on a grassy flat land separated by deep gorges where rise pine-clad mountains with snowy peaks and black cliffs. On the way, enjoy the beauty of wonderful cascades including Naga Waterfalls and Amitabh Bachchan Waterfall (Bhim Nala). Overnight stay at Lachung.",
+          "description": "After breakfast, your rugged mountain 4x4 heads north into wild terrain. Pass Singhik Viewpoint with distant views of Kanchenjunga, and stop at the thundering cascades of Seven Sisters, Naga Falls, and Bhim Nala (Amitabh Bachchan Falls). Cross the sacred river confluence at Chungthang and enter the high alpine valley of Lachung by late afternoon.",
           "highlights": [
             "Passing Singhik viewpoint with Kanchenjunga vistas",
             "Majestic cascading Bhim Nala (Amitabh Bachchan) waterfalls",
@@ -612,12 +490,12 @@
           "dayNumber": 3,
           "title": "Yumthang Valley of Flowers & Optional Zero Point Excursion",
           "routeTitle": "Yumthang Valley Sightseeing",
-          "description": "Drive towards Yumthang situated at an elevation of nearly 11,693 feet, which has over twenty-four species of rhododendron (the state flower). On the way, visit the famous hot spring known for its curative properties for skin conditions. Night stay at Lachung.\n\nOptional Excursions: Visit Mt. Katao and Zero Point (Yumesamdong at 15,300 ft) offering breathtaking views of snow-covered Himalayan peaks, frozen rivers, and pristine mountain landscapes. These visits are optional and available at an additional vehicle cost.",
+          "description": "Start early for Yumthang Valley (11,693 ft), surrounded by snow-covered summits and blooming alpine rhododendrons. Visit the natural hot spring with therapeutic sulfur water. Want more snow? Take the optional thrilling drive to Zero Point (Yumesamdong at 15,300 ft) or Mt. Katao where the civilian road ends right near the Tibetan border ridge. Evening back in Lachung by a warm hearth.",
           "highlights": [
             "Yumthang Valley alpine meadow surrounded by snowy peaks",
             "Shingba Rhododendron Sanctuary with 24 species in bloom",
             "Natural sulfur hot springs bath",
-            "Snow play at Zero Point (15,300 ft) right near the border ridge"
+            "Snow play at Zero Point (15,300 ft) right near the border ridge (Optional)"
           ],
           "altitude": "3,564 m (11,693 ft) at Yumthang, 4,660 m at Zero Point",
           "stayLocation": "Lachung",
@@ -633,7 +511,7 @@
           "dayNumber": 4,
           "title": "Lachung to Gangtok Return Journey",
           "routeTitle": "Lachung to Gangtok Transfer",
-          "description": "After breakfast, remembering the magical time spent in the lap of Kanchenjunga and hoping to witness it again soon, leave towards Gangtok. Transfer to Gangtok, check into your hotel, and relax. Evening is at your leisure for shopping Tibetan handicrafts and tea on MG Marg.",
+          "description": "Wake up to the sound of the Lachung Chu river rushing past pine forests. Enjoy breakfast and journey back down towards Gangtok, soaking in the dramatic shifts in vegetation and climate. Arrive in Gangtok by late afternoon for souvenir shopping on MG Marg.",
           "highlights": [
             "Scenic daytime descent through North Sikkim mountain valleys",
             "Relaxing evening at Gangtok cafes & handicraft emporiums"
@@ -650,7 +528,7 @@
           "dayNumber": 5,
           "title": "Gangtok to NJP / IXB Departure",
           "routeTitle": "Gangtok to NJP / IXB",
-          "description": "After breakfast, drive to Bagdogra Airport (IXB) or New Jalpaiguri Railway Station (NJP). Guests are advised to start early and not rush. Forwarding journey with everlasting Himalayan memories to cherish for long!",
+          "description": "After breakfast, start your return journey back down to Bagdogra Airport (IXB) or NJP Railway Station. Your driver bids you farewell like family, leaving you with memories of snowy peaks that will call you back for years to come.",
           "highlights": [
             "Punctual downhill transfer to airport / railway platform",
             "Spiky Cabs dedicated farewell assistance"
@@ -666,6 +544,122 @@
       ]
     },
     {
+      "id": "pelling-3n-4d",
+      "slug": "pelling-3nights-4days",
+      "title": "Pelling & West Sikkim Scenic Heritage Cab Package",
+      "subtitle": "NJP / IXB – Pelling – Skywalk & Chenrezig – Khecheopalri – Rabdentse – NJP / IXB",
+      "destination": "pelling",
+      "durationNights": 3,
+      "durationDays": 4,
+      "badge": "Kanchenjunga Close-Up",
+      "featuredImage": "/images/pelling_skywalk_sikkim_1790684762658.jpg",
+      "startingPrice": {
+        "sedan": 16999,
+        "suv": 24999,
+        "innova": 28999
+      },
+      "pricingTier": {
+        "fourSeaterRate": 16999,
+        "sixSeaterRate": 24999
+      },
+      "offerValidity": "30th April 2027",
+      "pickupDrop": "Bagdogra Airport (IXB) or New Jalpaiguri Railway Station (NJP)",
+      "overview": "If you want to feel like Mt. Kanchenjunga is sitting in your front yard, Pelling is where your heart belongs. Drive along the scenic Rangit River valley up into the quiet serenity of West Sikkim. Step out onto the thrill of India’s first Glass Skywalk right beneath the colossal golden statue of Chenrezig, walk amidst the moss-covered 17th-century stone ruins of Rabdentse Palace where Sikkim's kings once ruled, and whisper a secret wish at the sacred wishing lake of Khecheopalri—where birds miraculously pick up every fallen leaf from the water. Sip hot cardamom tea by the thunderous Kanchenjunga Falls. Pelling is quiet, deeply spiritual, and will stay in your soul forever.",
+      "bestTime": "October to May (Crystal-clear close-up views of Mount Kanchenjunga)",
+      "idealFor": "Families, photographers, couples, peace-seekers desiring mountain majesty without crowd",
+      "recommendedVehicles": [
+        "4 seater WagonR / Swift Dzire",
+        "Maruti Ertiga / Toyota Innova Crysta (6-Seater)"
+      ],
+      "permitRequired": false,
+      "keyHighlights": [
+        "4-Seater: ₹16,999 | 6-Seater: ₹24,999 (Complete Private Cab Circuit)",
+        "India's 1st Glass Skywalk & 137-ft Chenrezig Statue at Sangachoeling",
+        "Sacred wish-fulfilling Khecheopalri Lake (surrounded by pristine prayer flags)",
+        "Historic 17th-century Rabdentse Palace royal stone ruins",
+        "Thunderous Kanchenjunga Waterfall & Rimbi Orange Gardens",
+        "Pemayangtse Monastery (one of Sikkim's oldest Buddhist monasteries)"
+      ],
+      "days": [
+        {
+          "dayNumber": 1,
+          "title": "Arrival & Scenic Mountain Drive to Pelling",
+          "routeTitle": "NJP / IXB to Pelling",
+          "description": "Meet your Spiky Cabs driver at NJP Railway Station or Bagdogra Airport. Drive along the foothills through Jorethang and the Rangit River valley, climbing steadily towards Pelling (2,150 m). Check in to your hotel and be welcomed by the jaw-dropping, close-up panorama of Mount Kanchenjunga glowing in the evening sunset.",
+          "highlights": [
+            "Scenic drive along the Rangit River",
+            "Spectacular sunset glow over Mt. Kanchenjunga from Pelling",
+            "Quiet and peaceful hill station atmosphere"
+          ],
+          "altitude": "2,150 m (7,200 ft)",
+          "stayLocation": "Pelling",
+          "sightseeingPoints": [
+            "Jorethang Valley",
+            "Legship",
+            "Pelling Helipad Viewpoint"
+          ]
+        },
+        {
+          "dayNumber": 2,
+          "title": "Pelling Iconic Sights: Glass Skywalk, Chenrezig & Rabdentse",
+          "routeTitle": "Pelling Sightseeing Tour",
+          "description": "Begin your morning with sunrise views over Kanchenjunga right from your balcony. Head to the thrilling Glass Skywalk perched high on the cliff opposite the 137-foot golden Chenrezig statue. Next, walk through chestnut and pine woods to the historic Rabdentse Ruins—the ancient second capital of Sikkim. Visit the 300-year-old Pemayangtse Monastery, renowned for its intricate wooden sculptures.",
+          "highlights": [
+            "Thrilling walk on the transparent Glass Skywalk",
+            "Colossal 137-ft Chenrezig Statue",
+            "Ancient royal palace ruins of Rabdentse",
+            "Sacred Pemayangtse Monastery heritage"
+          ],
+          "altitude": "2,150 m",
+          "stayLocation": "Pelling",
+          "sightseeingPoints": [
+            "Pelling Glass Skywalk",
+            "Chenrezig Statue",
+            "Rabdentse Ruins",
+            "Pemayangtse Monastery",
+            "Pelling Helipad"
+          ]
+        },
+        {
+          "dayNumber": 3,
+          "title": "Wonders of West Sikkim: Khecheopalri Lake & Kanchenjunga Falls",
+          "routeTitle": "Khecheopalri & Waterfalls Excursion",
+          "description": "Drive towards the mystical Khecheopalri Lake, sacred to both Buddhists and Hindus. Tradition holds that not a single leaf remains floating on its surface as birds pick them up immediately. Walk the serene wooden pier lined with colorful prayer wheels. Continue to the roaring Kanchenjunga Waterfalls, Rimbi Orange Gardens, and Rimbi River waterfall.",
+          "highlights": [
+            "Sacred leaf-free wishing lake of Khecheopalri",
+            "Massive cascading Kanchenjunga Waterfalls",
+            "Lush Rimbi Orange Gardens and riverbed"
+          ],
+          "altitude": "1,980 m at Khecheopalri Lake",
+          "stayLocation": "Pelling",
+          "sightseeingPoints": [
+            "Khecheopalri Sacred Lake",
+            "Kanchenjunga Waterfalls",
+            "Rimbi Waterfall",
+            "Rimbi Orange Gardens",
+            "Darap Eco Village"
+          ]
+        },
+        {
+          "dayNumber": 4,
+          "title": "Pelling to NJP / IXB Return Departure",
+          "routeTitle": "Pelling to IXB / NJP",
+          "description": "Enjoy one last piping hot cup of tea while admiring the morning peaks. Check out and embark on your return descent towards Bagdogra Airport (IXB) or NJP Railway Station. Carry home memories of clear blue skies, fluttering prayer flags, and the warmth of the mountain folk.",
+          "highlights": [
+            "Smooth downhill transfer through scenic valleys",
+            "Prompt terminal drop matching train/flight timings"
+          ],
+          "altitude": "130 m at plains",
+          "stayLocation": "Departure",
+          "sightseeingPoints": [
+            "Legship Teesta Confluence",
+            "Siliguri",
+            "IXB / NJP Terminal Drop"
+          ]
+        }
+      ]
+    },
+    {
       "id": "kalimpong-2n-3d",
       "slug": "kalimpong-2nights-3days",
       "title": "Kalimpong Heritage & Hilltop Retreat",
@@ -674,7 +668,7 @@
       "durationNights": 2,
       "durationDays": 3,
       "badge": "Colonial Charm & Orchids",
-      "featuredImage": "/src/assets/images/darjeeling_tea_mirik_1790679944443.jpg",
+      "featuredImage": "/images/deolo_hill_kalimpong_1790685166158.jpg",
       "startingPrice": {
         "sedan": 7500,
         "suv": 9999,
@@ -686,7 +680,7 @@
       "bestTime": "All year round (especially March to May & September to December)",
       "idealFor": "Peace seekers, elderly travelers, flower & orchid enthusiasts, history buffs",
       "recommendedVehicles": [
-        "Maruti Swift Dzire",
+        "4 seater WagonR / Swift Dzire",
         "Toyota Innova Crysta",
         "Maruti Ertiga"
       ],
@@ -762,7 +756,7 @@
       "durationNights": 5,
       "durationDays": 6,
       "badge": "International Mountain Permit Package",
-      "featuredImage": "/src/assets/images/hero_himalayan_cab_1790679944443.jpg",
+      "featuredImage": "/images/hero_himalayan_cab_1790679944443.jpg",
       "startingPrice": {
         "sedan": 26000,
         "suv": 34000,
@@ -920,7 +914,7 @@
         "Airport Transfers"
       ],
       "baseRatePerDay": 4800,
-      "image": "/src/assets/images/fleet_innova_crysta_1790679963418.jpg"
+      "image": "/images/fleet_innova_crysta_1790679963418.jpg"
     },
     {
       "id": "maruti-ertiga",
@@ -940,7 +934,7 @@
         "Kalimpong Sightseeing"
       ],
       "baseRatePerDay": 3800,
-      "image": "/src/assets/images/fleet_innova_crysta_1790679963418.jpg"
+      "image": "/images/fleet_innova_crysta_1790679963418.jpg"
     },
     {
       "id": "bolero-scorpio",
@@ -961,16 +955,16 @@
         "Silk Route"
       ],
       "baseRatePerDay": 5200,
-      "image": "/src/assets/images/north_sikkim_yumthang_1790679981868.jpg"
+      "image": "/images/north_sikkim_yumthang_1790679981868.jpg"
     },
     {
       "id": "swift-dzire",
-      "name": "Maruti Swift Dzire / Etios",
+      "name": "4 seater WagonR / Swift Dzire",
       "category": "Executive Sedan",
       "capacity": "3–4 Passengers",
       "luggage": "2 Large Bags + 2 Small",
       "features": [
-        "Chauffeured Comfort for Couples",
+        "Chauffeured Comfort for Couples & Small Groups",
         "Clean Sanitized Interiors",
         "Agile Mountain Maneuvering",
         "Most Economical"
@@ -982,7 +976,7 @@
         "Mirik Excursion"
       ],
       "baseRatePerDay": 3000,
-      "image": "/src/assets/images/darjeeling_tea_mirik_1790680004464.jpg"
+      "image": "/images/darjeeling_tea_mirik_1790680004464.jpg"
     }
   ],
   "gallery": [
@@ -991,7 +985,7 @@
       "title": "Mount Kanchenjunga at Dawn",
       "location": "Tiger Hill, Darjeeling (2,590 m)",
       "category": "darjeeling",
-      "image": "/src/assets/images/gallery_tiger_hill_1790680945212.jpg",
+      "image": "/images/gallery_tiger_hill_1790680945212.jpg",
       "caption": "Golden morning light illuminating the world’s third highest peak over prayer flags."
     },
     {
@@ -999,7 +993,7 @@
       "title": "Glacial Tsomgo Lake",
       "location": "East Sikkim (12,310 ft)",
       "category": "sikkim",
-      "image": "/src/assets/images/gallery_tsomgo_lake_1790680958082.jpg",
+      "image": "/images/gallery_tsomgo_lake_1790680958082.jpg",
       "caption": "High-altitude turquoise waters surrounded by snow-draped alpine ridges on the route to Baba Mandir."
     },
     {
@@ -1007,7 +1001,7 @@
       "title": "Yumthang Valley of Flowers",
       "location": "North Sikkim (11,693 ft)",
       "category": "sikkim",
-      "image": "/src/assets/images/north_sikkim_yumthang_1790679981868.jpg",
+      "image": "/images/north_sikkim_yumthang_1790679981868.jpg",
       "caption": "A paradise of blooming rhododendrons, pristine alpine meadows, and glacier-fed rivers."
     },
     {
@@ -1015,7 +1009,7 @@
       "title": "Gopaldhara & Tingling Tea Slopes",
       "location": "Mirik Highway, Darjeeling",
       "category": "darjeeling",
-      "image": "/src/assets/images/darjeeling_tea_mirik_1790680004464.jpg",
+      "image": "/images/darjeeling_tea_mirik_1790680004464.jpg",
       "caption": "Emerald rolling hills of high-elevation Darjeeling orthodox tea gardens."
     },
     {
@@ -1023,7 +1017,7 @@
       "title": "Toyota Innova Crysta Mountain Service",
       "location": "Himalayan Ridge Highway",
       "category": "fleet",
-      "image": "/src/assets/images/fleet_innova_crysta_1790679963418.jpg",
+      "image": "/images/fleet_innova_crysta_1790679963418.jpg",
       "caption": "Premium sanitized tourist cab tailored for comfort on hill station hairpin turns."
     },
     {
@@ -1031,7 +1025,7 @@
       "title": "Himalayan Mountain Route & Passes",
       "location": "Indo-Bhutan Border & Foothills",
       "category": "bhutan",
-      "image": "/src/assets/images/hero_himalayan_cab_1790679944443.jpg",
+      "image": "/images/hero_himalayan_cab_1790679944443.jpg",
       "caption": "Scenic cross-border journey connecting North Bengal tea estates to the Dragon Kingdom."
     }
   ],
@@ -1043,7 +1037,7 @@
       "routeTaken": "Darjeeling & Mirik 2N/3D",
       "duration": "2 Nights / 3 Days",
       "rating": 5,
-      "thumbnail": "/src/assets/images/traveler_video_thumb_1_1790680969197.jpg",
+      "thumbnail": "/images/traveler_video_thumb_1_1790680969197.jpg",
       "videoDuration": "1:45 min",
       "videoHighlightQuote": "“Our driver reached Bagdogra Airport 20 minutes before our flight landed. The car was spotless and the Tiger Hill 4:00 AM trip was flawlessly managed.”",
       "fullReview": "We booked the Darjeeling 2N/3D cab package with Spiky Cabs. What stood out was the complete absence of pushy behavior or hidden parking demands. Our driver, Norden, drove with extraordinary care on the narrow Kurseong slopes and knew the exact timing for Tiger Hill to beat the traffic. Best cab service in Siliguri!",
@@ -1057,7 +1051,7 @@
       "routeTaken": "North Sikkim (Lachung & Yumthang) 4N/5D",
       "duration": "4 Nights / 5 Days",
       "rating": 5,
-      "thumbnail": "/src/assets/images/traveler_video_thumb_2_1790680980964.jpg",
+      "thumbnail": "/images/traveler_video_thumb_2_1790680980964.jpg",
       "videoDuration": "2:12 min",
       "videoHighlightQuote": "“They arranged our North Sikkim Restricted Area permits without us having to stand in any line. Zero Point at 15,300 ft was unbelievable!”",
       "fullReview": "North Sikkim roads can be challenging, but our Mahindra Scorpio was powerful and handled the snow near Zero Point effortlessly. Spiky Cabs coordinated our permits seamlessly from Siliguri. You only pay for the cab and have total freedom to pick whatever homestays you want in Lachung.",
@@ -1071,7 +1065,7 @@
       "routeTaken": "Gangtok & Tsomgo Lake 3N/4D",
       "duration": "3 Nights / 4 Days",
       "rating": 5,
-      "thumbnail": "/src/assets/images/traveler_video_thumb_1_1790680969197.jpg",
+      "thumbnail": "/images/traveler_video_thumb_1_1790680969197.jpg",
       "videoDuration": "1:30 min",
       "videoHighlightQuote": "“Very polite, non-smoking local driver who gave us brilliant recommendations for local Sikkim food on MG Marg.”",
       "fullReview": "Traveling with elderly parents, safe and gentle hill driving was our top priority. The Spiky Cabs team in Siliguri took special care to assign a senior driver who drove smoothly along the Teesta gorge. Highly recommend their cab-only packages.",
@@ -1197,7 +1191,7 @@
       "id": "med-hero-1",
       "filename": "hero_himalayan_cab_1790679944443.jpg",
       "originalName": "hero_himalayan_cab.jpg",
-      "url": "/src/assets/images/hero_himalayan_cab_1790679944443.jpg",
+      "url": "/images/hero_himalayan_cab_1790679944443.jpg",
       "altText": "Himalayan mountain highway with Mount Kanchenjunga",
       "caption": "Spiky Cabs vehicle driving through scenic Sikkim highway",
       "fileSize": 420000,
@@ -1208,7 +1202,7 @@
       "id": "med-innova-1",
       "filename": "fleet_innova_crysta_1790679963418.jpg",
       "originalName": "fleet_innova_crysta.jpg",
-      "url": "/src/assets/images/fleet_innova_crysta_1790679963418.jpg",
+      "url": "/images/fleet_innova_crysta_1790679963418.jpg",
       "altText": "Toyota Innova Crysta Mountain Service",
       "caption": "Premium sanitized tourist cab tailored for mountain curves",
       "fileSize": 380000,
@@ -1219,7 +1213,7 @@
       "id": "med-yumthang-1",
       "filename": "north_sikkim_yumthang_1790679981868.jpg",
       "originalName": "north_sikkim_yumthang.jpg",
-      "url": "/src/assets/images/north_sikkim_yumthang_1790679981868.jpg",
+      "url": "/images/north_sikkim_yumthang_1790679981868.jpg",
       "altText": "Yumthang Valley North Sikkim",
       "caption": "Valley of flowers at 11,693 ft elevation",
       "fileSize": 450000,
@@ -1230,7 +1224,7 @@
       "id": "med-mirik-1",
       "filename": "darjeeling_tea_mirik_1790680004464.jpg",
       "originalName": "darjeeling_tea_mirik.jpg",
-      "url": "/src/assets/images/darjeeling_tea_mirik_1790680004464.jpg",
+      "url": "/images/darjeeling_tea_mirik_1790680004464.jpg",
       "altText": "Darjeeling tea gardens and Mirik",
       "caption": "Lush green tea estate slopes in Darjeeling",
       "fileSize": 390000,
@@ -1241,7 +1235,7 @@
       "id": "med-tigerhill-1",
       "filename": "gallery_tiger_hill_1790680945212.jpg",
       "originalName": "gallery_tiger_hill.jpg",
-      "url": "/src/assets/images/gallery_tiger_hill_1790680945212.jpg",
+      "url": "/images/gallery_tiger_hill_1790680945212.jpg",
       "altText": "Mount Kanchenjunga at Dawn from Tiger Hill",
       "caption": "Dawn sunrise hitting snowy peaks at 2,590 m",
       "fileSize": 410000,
@@ -1252,7 +1246,7 @@
       "id": "med-tsomgo-1",
       "filename": "gallery_tsomgo_lake_1790680958082.jpg",
       "originalName": "gallery_tsomgo_lake.jpg",
-      "url": "/src/assets/images/gallery_tsomgo_lake_1790680958082.jpg",
+      "url": "/images/gallery_tsomgo_lake_1790680958082.jpg",
       "altText": "Glacial Tsomgo Lake East Sikkim",
       "caption": "High-altitude turquoise lake at 12,310 ft",
       "fileSize": 430000,
@@ -1261,6 +1255,13 @@
     }
   ],
   "auditLogs": [
+    {
+      "id": "audit-1790769728108-feb79c",
+      "timestamp": "2026-09-30T12:02:08.108Z",
+      "action": "login_success",
+      "details": "Administrator admin signed in",
+      "user": "admin"
+    },
     {
       "id": "audit-1790694188236-a67c24",
       "timestamp": "2026-09-29T15:03:08.236Z",

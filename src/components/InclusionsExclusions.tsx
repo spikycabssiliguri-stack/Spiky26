@@ -6,7 +6,7 @@ export const InclusionsExclusions = () => {
     <section id="inclusions" className="py-16 md:py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mb-12">
-          <div className="text-xs font-semibold text-orange-600 tracking-wider uppercase mb-2">
+          <div className="text-xs font-semibold text-blue-500 tracking-wider uppercase mb-2">
             Transparent Pricing Policy
           </div>
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-black font-heading tracking-tight text-neutral-900 mb-4">
@@ -75,20 +75,20 @@ export const InclusionsExclusions = () => {
           </div>
         </div>
 
-        {/* Change of Route Notice (Word for word from PDF) */}
-        <div className="bg-amber-50/80 border border-amber-300/80 rounded-2xl p-6 sm:p-8">
+        {/* Change of Route Notice */}
+        <div className="bg-sky-50/80 border border-sky-200/90 rounded-2xl p-6 sm:p-8">
           <div className="flex items-start gap-4">
-            <div className="w-10 h-10 rounded-xl bg-amber-600 text-white flex items-center justify-center shrink-0">
+            <div className="w-10 h-10 rounded-xl bg-[#0071e3] text-white flex items-center justify-center shrink-0">
               <AlertTriangle className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="font-heading font-bold text-base sm:text-lg text-amber-950 mb-2">
+              <h3 className="font-heading font-bold text-base sm:text-lg text-slate-900 mb-2">
                 Himalayan Change of Route & Natural Advisory Policy
               </h3>
-              <p className="text-xs sm:text-sm text-amber-900/90 leading-relaxed">
+              <p className="text-xs sm:text-sm text-slate-700 leading-relaxed">
                 {ROUTE_CHANGE_POLICY}
               </p>
-              <div className="mt-3 text-[11px] text-amber-800">
+              <div className="mt-3 text-[11px] text-slate-600">
                 Official policy registered by Spiky Cabs Taxi Services · Siliguri, West Bengal.
               </div>
             </div>

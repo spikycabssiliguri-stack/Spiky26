@@ -21,9 +21,10 @@ import {
   FileText,
   Eye,
   Camera,
-  Maximize2
+  Maximize2,
+  Info
 } from 'lucide-react';
-import { CabPackage, TOURIST_ATTRACTIONS, TouristAttraction } from '../data/packagesData';
+import { CabPackage, TOURIST_ATTRACTIONS, TouristAttraction, ITINERARY_DISCLAIMER_NOTE } from '../data/packagesData';
 import { useCMS } from '../context/CMSContext';
 import { DownloadBrochureModal } from '../components/DownloadBrochureModal';
 
@@ -91,7 +92,7 @@ export const PackageDetailPage = ({
     if (pkg.destination === 'darjeeling') return 'darjeeling';
     if (pkg.destination === 'kalimpong') return 'kalimpong';
     if (pkg.destination === 'bhutan') return 'bhutan';
-    if (pkg.destination === 'gangtok' || pkg.destination === 'north-sikkim') {
+    if (pkg.destination === 'gangtok' || pkg.destination === 'north-sikkim' || pkg.destination === 'pelling') {
       return 'sikkim';
     }
     return 'darjeeling';
@@ -196,27 +197,27 @@ export const PackageDetailPage = ({
   const getPackageHeroImage = () => {
     if (pkg.destination === 'darjeeling' || pkg.destination === 'kalimpong') {
       return {
-        url: '/src/assets/images/darjeeling_toy_train_1790684713643.jpg',
+        url: '/images/darjeeling_toy_train_1790684713643.jpg',
         caption: 'Darjeeling Himalayan Heritage Toy Train at Batasia Loop',
         tag: 'Iconic Heritage Railway'
       };
     }
     if (pkg.destination === 'north-sikkim') {
       return {
-        url: '/src/assets/images/north_sikkim_yumthang_1790679981868.jpg',
+        url: '/images/north_sikkim_yumthang_1790679981868.jpg',
         caption: 'Yumthang Alpine Valley & Zero Point (15,300 ft)',
         tag: 'Valley of Flowers & Snow'
       };
     }
     if (pkg.destination === 'gangtok') {
       return {
-        url: '/src/assets/images/nathula_pass_sikkim_1790684731915.jpg',
+        url: '/images/nathula_pass_sikkim_1790684731915.jpg',
         caption: 'Nathu La Pass Mountain Highway (14,140 ft)',
         tag: 'High Altitude Border Pass'
       };
     }
     return {
-      url: pkg.featuredImage || '/src/assets/images/hero_himalayan_cab_1790679944443.jpg',
+      url: pkg.featuredImage || '/images/hero_himalayan_cab_1790679944443.jpg',
       caption: pkg.title,
       tag: 'Scenic Mountain Highway'
     };
@@ -252,6 +253,14 @@ Please share tariff availability and confirmation details.`;
         notes: `${existing}Include stop at ${attractionName}`
       };
     });
+    const el = document.getElementById('booking-section');
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const scrollToBooking = (vehicleType?: string) => {
+    if (vehicleType) {
+      setBookingForm(prev => ({ ...prev, vehicleType }));
+    }
     const el = document.getElementById('booking-section');
     if (el) el.scrollIntoView({ behavior: 'smooth' });
   };
@@ -365,13 +374,14 @@ Please share tariff availability and confirmation details.`;
               <span>Download PDF Itinerary</span>
             </button>
 
-            <a
-              href="#booking-section"
-              className="rounded-full bg-[#0071e3] hover:bg-[#0077ed] text-white px-6 py-3 text-xs sm:text-sm font-normal transition-colors inline-flex items-center gap-2 shadow-sm"
+            <button
+              type="button"
+              onClick={() => scrollToBooking()}
+              className="rounded-full bg-[#0071e3] hover:bg-[#0077ed] text-white px-6 py-3 text-xs sm:text-sm font-normal transition-colors inline-flex items-center gap-2 shadow-sm cursor-pointer"
             >
               <span>Book This Cab Circuit</span>
               <ChevronRight className="w-4 h-4" />
-            </a>
+            </button>
 
             <a
               href={`tel:${settings.phone}`}
@@ -433,20 +443,31 @@ Please share tariff availability and confirmation details.`;
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {/* Sedan */}
-            <div className="bg-white rounded-3xl p-6 sm:p-8 border border-[#e5e5ea] flex flex-col justify-between space-y-6 hover:border-[#0071e3] transition-colors shadow-xs">
+            {/* Sedan / 4-Seater */}
+            <div className={`bg-white rounded-3xl p-6 sm:p-8 border flex flex-col justify-between space-y-6 transition-colors shadow-xs ${
+              pkg.id === 'north-sikkim-4n-5d' ? 'border-[#e5e5ea] opacity-75' : 'border-[#e5e5ea] hover:border-[#0071e3]'
+            }`}>
               <div className="space-y-4">
                 <span className="text-[11px] font-semibold text-[#86868b] uppercase tracking-wider block">
-                  Executive Sedan
+                  4-Seater Executive Sedan
                 </span>
                 <h3 className="text-xl font-semibold text-[#1d1d1f]">
-                  Swift Dzire / Toyota Etios
+                  4 seater WagonR / Swift Dzire
                 </h3>
                 <div className="pt-2 border-t border-[#f5f5f7]">
-                  <span className="text-3xl font-semibold font-mono text-[#1d1d1f]">
-                    ₹{pkg.startingPrice.sedan.toLocaleString('en-IN')}
-                  </span>
-                  <span className="text-xs text-[#86868b] block mt-0.5">complete tour package</span>
+                  {pkg.id === 'north-sikkim-4n-5d' ? (
+                    <div>
+                      <span className="text-lg font-semibold text-[#86868b]">Not Available</span>
+                      <span className="text-xs text-sky-700 block mt-0.5">Government restricted on North Sikkim terrain. 6-Seater SUV required.</span>
+                    </div>
+                  ) : (
+                    <div>
+                      <span className="text-3xl font-semibold font-mono text-[#1d1d1f]">
+                        ₹{(pkg.pricingTier?.fourSeaterRate || pkg.startingPrice.sedan).toLocaleString('en-IN')}
+                      </span>
+                      <span className="text-xs text-[#86868b] block mt-0.5">complete tour package (4-seater)</span>
+                    </div>
+                  )}
                 </div>
                 <ul className="text-xs text-[#6e6e73] space-y-2 pt-2">
                   <li className="flex items-center gap-2">
@@ -464,29 +485,41 @@ Please share tariff availability and confirmation details.`;
                 </ul>
               </div>
 
-              <a
-                href="#booking-section"
-                onClick={() => setBookingForm(prev => ({ ...prev, vehicleType: 'Swift Dzire (Sedan)' }))}
-                className="w-full text-center py-2.5 rounded-full bg-[#f5f5f7] hover:bg-[#e5e5ea] text-[#1d1d1f] text-xs font-normal transition-colors border border-[#d2d2d7]"
-              >
-                Select Sedan
-              </a>
+              {pkg.id === 'north-sikkim-4n-5d' ? (
+                <button
+                  disabled
+                  className="w-full text-center py-2.5 rounded-full bg-[#f5f5f7] text-[#86868b] text-xs font-normal border border-[#d2d2d7] cursor-not-allowed"
+                >
+                  SUV Required for Sector
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => scrollToBooking('4 seater WagonR / Swift Dzire')}
+                  className="w-full text-center py-2.5 rounded-full bg-[#f5f5f7] hover:bg-[#e5e5ea] text-[#1d1d1f] text-xs font-normal transition-colors border border-[#d2d2d7] cursor-pointer"
+                >
+                  Select 4-Seater
+                </button>
+              )}
             </div>
 
-            {/* MUV */}
-            <div className="bg-white rounded-3xl p-6 sm:p-8 border border-[#e5e5ea] flex flex-col justify-between space-y-6 hover:border-[#0071e3] transition-colors shadow-xs">
+            {/* 6-Seater MUV / Mountain SUV */}
+            <div className="bg-white rounded-3xl p-6 sm:p-8 border-2 border-[#0071e3] flex flex-col justify-between space-y-6 shadow-md relative">
+              <div className="absolute -top-3 right-6 bg-[#0071e3] text-white text-[10px] font-semibold uppercase px-3 py-0.5 rounded-full">
+                Most Popular Choice
+              </div>
               <div className="space-y-4">
-                <span className="text-[11px] font-semibold text-[#86868b] uppercase tracking-wider block">
-                  Comfort MUV
+                <span className="text-[11px] font-semibold text-[#0071e3] uppercase tracking-wider block">
+                  6-Seater Comfort MUV / SUV
                 </span>
                 <h3 className="text-xl font-semibold text-[#1d1d1f]">
-                  Maruti Suzuki Ertiga
+                  {pkg.id === 'north-sikkim-4n-5d' ? 'Mahindra Scorpio / Bolero 4x4' : 'Maruti Suzuki Ertiga / Scorpio'}
                 </h3>
                 <div className="pt-2 border-t border-[#f5f5f7]">
-                  <span className="text-3xl font-semibold font-mono text-[#1d1d1f]">
-                    ₹{pkg.startingPrice.suv.toLocaleString('en-IN')}
+                  <span className="text-3xl font-semibold font-mono text-[#0071e3]">
+                    ₹{(pkg.pricingTier?.sixSeaterRate || pkg.startingPrice.suv).toLocaleString('en-IN')}
                   </span>
-                  <span className="text-xs text-[#86868b] block mt-0.5">complete tour package</span>
+                  <span className="text-xs text-[#86868b] block mt-0.5">complete tour package (6-seater)</span>
                 </div>
                 <ul className="text-xs text-[#6e6e73] space-y-2 pt-2">
                   <li className="flex items-center gap-2">
@@ -495,22 +528,22 @@ Please share tariff availability and confirmation details.`;
                   </li>
                   <li className="flex items-center gap-2">
                     <Check className="w-3.5 h-3.5 text-emerald-600" />
-                    <span>3 Large Bags + 2 Small</span>
+                    <span>3 Large Bags + 2 Small Bags</span>
                   </li>
                   <li className="flex items-center gap-2">
                     <Check className="w-3.5 h-3.5 text-emerald-600" />
-                    <span>Comfortable suspension on curves</span>
+                    <span>High clearance & mountain suspension</span>
                   </li>
                 </ul>
               </div>
 
-              <a
-                href="#booking-section"
-                onClick={() => setBookingForm(prev => ({ ...prev, vehicleType: 'Maruti Ertiga (MUV)' }))}
-                className="w-full text-center py-2.5 rounded-full bg-[#f5f5f7] hover:bg-[#e5e5ea] text-[#1d1d1f] text-xs font-normal transition-colors border border-[#d2d2d7]"
+              <button
+                type="button"
+                onClick={() => scrollToBooking('6-Seater MUV/SUV')}
+                className="w-full text-center py-2.5 rounded-full bg-[#0071e3] hover:bg-[#0077ed] text-white text-xs font-medium transition-colors cursor-pointer"
               >
-                Select Ertiga
-              </a>
+                Select 6-Seater
+              </button>
             </div>
 
             {/* Premium Innova */}
@@ -547,13 +580,13 @@ Please share tariff availability and confirmation details.`;
                 </ul>
               </div>
 
-              <a
-                href="#booking-section"
-                onClick={() => setBookingForm(prev => ({ ...prev, vehicleType: 'Toyota Innova Crysta (Premium)' }))}
-                className="w-full text-center py-2.5 rounded-full bg-[#0071e3] hover:bg-[#0077ed] text-white text-xs font-medium transition-colors"
+              <button
+                type="button"
+                onClick={() => scrollToBooking('Toyota Innova Crysta (Premium)')}
+                className="w-full text-center py-2.5 rounded-full bg-[#0071e3] hover:bg-[#0077ed] text-white text-xs font-medium transition-colors cursor-pointer"
               >
                 Select Innova Crysta
-              </a>
+              </button>
             </div>
           </div>
         </div>
@@ -579,6 +612,19 @@ Please share tariff availability and confirmation details.`;
               <Download className="w-3.5 h-3.5 text-[#0071e3]" />
               <span>Download PDF Schedule</span>
             </button>
+          </div>
+
+          {/* Important Note regarding manual team itinerary */}
+          <div className="bg-[#f0f9ff] border border-[#bae6fd] rounded-2xl p-4 sm:p-5 flex items-start gap-3.5 text-xs text-[#0369a1]">
+            <Info className="w-5 h-5 text-[#0284c7] shrink-0 mt-0.5" />
+            <div className="space-y-1">
+              <span className="font-semibold text-[#0c4a6e] block text-sm">
+                Important Note Regarding Itinerary
+              </span>
+              <p className="text-[#0369a1] leading-relaxed">
+                {pkg.itineraryNote || ITINERARY_DISCLAIMER_NOTE}
+              </p>
+            </div>
           </div>
 
           <div className="space-y-8 relative before:absolute before:inset-y-0 before:left-5 sm:before:left-7 before:w-0.5 before:bg-[#e5e5ea]">
@@ -830,7 +876,7 @@ Please share tariff availability and confirmation details.`;
             {/* Exclusions */}
             <div className="bg-[#fbfbfd] rounded-3xl p-6 sm:p-8 border border-[#e5e5ea] space-y-4">
               <h3 className="font-semibold text-base text-[#1d1d1f] flex items-center gap-2">
-                <AlertCircle className="w-5 h-5 text-amber-600" />
+                <AlertCircle className="w-5 h-5 text-neutral-600" />
                 <span>Exclusions (Clear Policy)</span>
               </h3>
               <ul className="space-y-3 text-xs sm:text-sm text-[#424245]">
@@ -952,7 +998,7 @@ Please share tariff availability and confirmation details.`;
                         className="w-full bg-[#f5f5f7] border border-[#d2d2d7] rounded-xl px-3.5 py-2.5 text-xs text-[#1d1d1f] focus:outline-none focus:bg-white focus:border-[#0071e3]"
                       >
                         <option value="Toyota Innova Crysta">Toyota Innova Crysta (Most Popular)</option>
-                        <option value="Swift Dzire (Sedan)">Swift Dzire / Sedan (Up to 4 Pax)</option>
+                        <option value="4 seater WagonR / Swift Dzire">4 seater WagonR / Swift Dzire (Up to 4 Pax)</option>
                         <option value="Maruti Ertiga (MUV)">Maruti Ertiga / MUV (Up to 6 Pax)</option>
                         <option value="Scorpio / 4x4">Scorpio / 4x4 (High Altitude)</option>
                       </select>

@@ -93,7 +93,7 @@ export function generatePdfBrochure(pkg: CabPackage, guest: GuestInfo, companyPh
 
   const colW = contentWidth / 3;
   const rates = [
-    { type: 'Executive Sedan', model: 'Swift Dzire / Etios', price: pkg.startingPrice.sedan, pax: 'Max 4 Guests' },
+    { type: 'Executive Sedan', model: '4 seater WagonR / Swift Dzire', price: pkg.startingPrice.sedan, pax: 'Max 4 Guests' },
     { type: 'Comfort MUV', model: 'Maruti Ertiga', price: pkg.startingPrice.suv, pax: 'Max 6 Guests' },
     { type: 'Premium Mountain SUV', model: 'Toyota Innova Crysta', price: pkg.startingPrice.innova, pax: 'Max 6–7 Guests' }
   ];
@@ -133,7 +133,21 @@ export function generatePdfBrochure(pkg: CabPackage, guest: GuestInfo, companyPh
   doc.setFont('helvetica', 'bold');
   doc.setTextColor(29, 29, 31);
   doc.text('DAY-BY-DAY ROUTE SCHEDULE', margin, y);
-  y += 6;
+  y += 5;
+
+  // Itinerary Disclaimer Note
+  doc.setFillColor(240, 248, 255);
+  doc.setDrawColor(186, 230, 253);
+  doc.roundedRect(margin, y, contentWidth, 11, 1.5, 1.5, 'FD');
+  doc.setFontSize(7.5);
+  doc.setFont('helvetica', 'bold');
+  doc.setTextColor(3, 105, 161);
+  doc.text('Important Notice: ', margin + 3, y + 4.5);
+  doc.setFont('helvetica', 'normal');
+  doc.setTextColor(12, 74, 110);
+  const noteLines = doc.splitTextToSize('This is an indicative route plan and not the final itinerary. The actual final itinerary, timing schedule, and chauffeur coordination will be customized and sent to you manually by our operations team upon booking.', contentWidth - 32);
+  doc.text(noteLines, margin + 27, y + 4.5);
+  y += 14;
 
   pkg.days.forEach((day) => {
     checkPageBreak(32);

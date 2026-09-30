@@ -20,6 +20,16 @@
   }
 }
 
+/* Custom brand text highlight color as per the website */
+::selection {
+  background-color: #059669;
+  color: #ffffff;
+}
+::-moz-selection {
+  background-color: #059669;
+  color: #ffffff;
+}
+
 /* Subtle Apple-style smooth scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
@@ -34,4 +44,66 @@
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #86868b;
+}
+
+/* =========================================================================
+   Print to PDF Optimization - Retains Identical Web Page UI
+   ========================================================================= */
+@media print {
+  @page {
+    size: auto;
+    margin: 10mm 12mm;
+  }
+
+  html, body {
+    background-color: #ffffff !important;
+    color: #1d1d1f !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+  }
+
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Hide interactive, modal, navigation, and floating widgets */
+  nav,
+  .no-print,
+  .sticky,
+  .fixed,
+  [data-no-print="true"],
+  button:not(.allow-print),
+  .floating-buttons,
+  .floating-whatsapp,
+  #admin-root,
+  .modal-overlay,
+  .backdrop-blur-md,
+  [role="dialog"] {
+    display: none !important;
+  }
+
+  /* Unclip containers so the full page renders */
+  main, section, div {
+    overflow: visible !important;
+  }
+
+  /* Prevent awkward card slicing across pages */
+  .rounded-3xl,
+  .rounded-2xl,
+  .border,
+  article,
+  .day-card {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  /* Ensure images print smoothly */
+  img {
+    max-width: 100% !important;
+    page-break-inside: avoid !important;
+  }
 }

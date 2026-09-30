@@ -17,6 +17,7 @@ import {
 } from 'lucide-react';
 import { CMSData } from '../../data/defaultCMSData';
 import { useAdminAuth } from '../AdminAuthContext';
+import { ImagePicker } from '../../components/ImagePicker';
 
 interface SettingsSeoViewProps {
   cmsData: CMSData;
@@ -352,12 +353,11 @@ export const SettingsSeoView = ({ cmsData, onSaveCMS, isSaving }: SettingsSeoVie
                 </div>
 
                 <div>
-                  <label className="block font-medium text-[#1d1d1f] mb-1">OpenGraph Social Share Image URL</label>
-                  <input
-                    type="text"
+                  <ImagePicker
+                    label="OpenGraph Social Share Image"
                     value={settings.ogImage}
-                    onChange={(e) => setSettings({ ...settings, ogImage: e.target.value })}
-                    className="w-full bg-[#f5f5f7] border border-[#d2d2d7] rounded-xl px-3.5 py-2 text-xs text-[#1d1d1f]"
+                    onChange={(newUrl) => setSettings({ ...settings, ogImage: newUrl })}
+                    cmsData={cmsData}
                   />
                 </div>
               </div>

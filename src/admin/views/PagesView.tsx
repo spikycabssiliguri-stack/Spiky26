@@ -26,6 +26,7 @@ import {
   AlertCircle
 } from 'lucide-react';
 import { CMSData } from '../../data/defaultCMSData';
+import { ImagePicker } from '../../components/ImagePicker';
 
 interface Section {
   id: string;
@@ -102,7 +103,7 @@ export const PagesView = ({ cmsData, onSaveCMS, isSaving }: PagesViewProps) => {
           title: 'Welcome to Our New Page',
           subtitle: 'Discover private cab circuits across Darjeeling, Sikkim and Bhutan.',
           content: 'Book reliable mountain cabs with certified local chauffeurs.',
-          image: '/src/assets/images/hero_himalayan_cab_1790679944443.jpg',
+          image: '/images/hero_himalayan_cab_1790679944443.jpg',
           buttonText: 'Inquire Now',
           buttonLink: '#contact',
           order: 1,
@@ -201,7 +202,7 @@ export const PagesView = ({ cmsData, onSaveCMS, isSaving }: PagesViewProps) => {
       defaultTitle = 'Scenic Himalayan Tour';
       defaultSubtitle = 'Private cab packages tailored for your family';
       defaultContent = 'Comfortable sedans, SUVs, and certified mountain drivers.';
-      defaultImage = '/src/assets/images/hero_himalayan_cab_1790679944443.jpg';
+      defaultImage = '/images/hero_himalayan_cab_1790679944443.jpg';
       defaultBtn = 'View Packages';
     } else if (type === 'text') {
       defaultTitle = 'Important Mountain Travel Advisory';
@@ -702,15 +703,11 @@ export const PagesView = ({ cmsData, onSaveCMS, isSaving }: PagesViewProps) => {
                   </div>
 
                   <div>
-                    <label className="block font-medium text-[#1d1d1f] mb-1">
-                      Image URL (optional)
-                    </label>
-                    <input
-                      type="text"
+                    <ImagePicker
+                      label="Section Image (optional)"
                       value={editingSection.image || ''}
-                      onChange={(e) => setEditingSection({ ...editingSection, image: e.target.value })}
-                      className="w-full bg-[#f5f5f7] border border-[#d2d2d7] rounded-xl px-3.5 py-2 text-xs text-[#1d1d1f] focus:outline-none focus:bg-white focus:border-[#0071e3]"
-                      placeholder="/uploads/... or image link"
+                      onChange={(newUrl) => setEditingSection({ ...editingSection, image: newUrl })}
+                      cmsData={cmsData}
                     />
                   </div>
 

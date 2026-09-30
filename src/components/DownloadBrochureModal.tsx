@@ -18,6 +18,7 @@ export const DownloadBrochureModal = ({
 }: DownloadBrochureModalProps) => {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
+  const [format, setFormat] = useState<'fullPage' | 'compact'>('fullPage');
   const [isDownloading, setIsDownloading] = useState(false);
   const [downloadSuccess, setDownloadSuccess] = useState(false);
 
@@ -40,19 +41,27 @@ export const DownloadBrochureModal = ({
           name: name.trim(),
           phone: phone.trim(),
           packageTitle: pkg.title,
-          packageId: pkg.id
+          packageId: pkg.id,
+          format
         })
       }).catch(err => console.warn('Lead capture background note:', err));
 
-      // Generate & download PDF
-      generatePdfBrochure(pkg, { name, phone }, companyPhone);
-
-      setDownloadSuccess(true);
-      setTimeout(() => {
-        setIsDownloading(false);
-        setDownloadSuccess(false);
+      if (format === 'fullPage') {
+        // Close modal first so it doesn't appear in the print capture
         onClose();
-      }, 2000);
+        setTimeout(() => {
+          window.print();
+        }, 300);
+      } else {
+        // Generate compact PDF file
+        generatePdfBrochure(pkg, { name, phone }, companyPhone);
+        setDownloadSuccess(true);
+        setTimeout(() => {
+          setIsDownloading(false);
+          setDownloadSuccess(false);
+          onClose();
+        }, 1800);
+      }
     } catch (err) {
       console.error('PDF generation error:', err);
       setIsDownloading(false);
@@ -132,6 +141,39 @@ export const DownloadBrochureModal = ({
               <span>We respect your privacy. No spam calls or unsolicited messages.</span>
             </div>
 
+            {/* Format choice */}
+            <div className="space-y-1.5 pt-1">
+              <label className="block font-medium text-[#1d1d1f]">
+                Download Format
+              </label>
+              <div className="grid grid-cols-2 gap-2">
+                <button
+                  type="button"
+                  onClick={() => setFormat('fullPage')}
+                  className={`p-2.5 rounded-xl border text-left transition-all cursor-pointer ${
+                    format === 'fullPage'
+                      ? 'border-[#0071e3] bg-sky-50/50 text-[#1d1d1f]'
+                      : 'border-[#e5e5ea] bg-[#fbfbfd] text-[#6e6e73] hover:border-[#d2d2d7]'
+                  }`}
+                >
+                  <span className="block font-semibold text-[11px] text-[#1d1d1f]">Full Web Page (Same UI)</span>
+                  <span className="block text-[10px] text-[#86868b] mt-0.5">Exact website design as PDF</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setFormat('compact')}
+                  className={`p-2.5 rounded-xl border text-left transition-all cursor-pointer ${
+                    format === 'compact'
+                      ? 'border-[#0071e3] bg-sky-50/50 text-[#1d1d1f]'
+                      : 'border-[#e5e5ea] bg-[#fbfbfd] text-[#6e6e73] hover:border-[#d2d2d7]'
+                  }`}
+                >
+                  <span className="block font-semibold text-[11px] text-[#1d1d1f]">A4 Summary PDF</span>
+                  <span className="block text-[10px] text-[#86868b] mt-0.5">Direct file download</span>
+                </button>
+              </div>
+            </div>
+
             <div className="pt-2">
               <button
                 type="submit"
@@ -139,7 +181,7 @@ export const DownloadBrochureModal = ({
                 className="w-full rounded-full bg-[#0071e3] hover:bg-[#0077ed] text-white py-3 px-4 text-xs font-medium transition-colors flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 shadow-sm"
               >
                 <Download className="w-4 h-4" />
-                <span>{isDownloading ? 'Generating PDF...' : 'Download Itinerary (PDF)'}</span>
+                <span>{isDownloading ? 'Processing...' : (format === 'fullPage' ? 'Download Web Page as PDF' : 'Download Itinerary File')}</span>
               </button>
             </div>
           </form>

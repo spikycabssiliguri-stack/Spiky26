@@ -25,12 +25,30 @@ function PublicWebsite() {
   // Sync hash with page navigation
   useEffect(() => {
     const handleHash = () => {
-      const rawHash = window.location.hash.replace(/^#\/?/, '') as PageId;
+      const rawHash = window.location.hash.replace(/^#\/?/, '');
       if (!rawHash || rawHash === '') {
         setCurrentPage('home');
-      } else {
-        setCurrentPage(rawHash);
+        return;
       }
+
+      // If the hash is an in-page anchor (e.g. booking-section, itineraries-section, etc.)
+      const knownSectionIds = ['booking-section', 'itineraries-section', 'fleet-section', 'pricing-matrix', 'faq-section', 'contact-section'];
+      if (knownSectionIds.includes(rawHash) || rawHash.includes('section')) {
+        const targetElement = document.getElementById(rawHash);
+        if (targetElement) {
+          targetElement.scrollIntoView({ behavior: 'smooth' });
+        }
+        return;
+      }
+
+      // If the hash matches any element ID on the current DOM, scroll to it instead of navigating to 404!
+      const targetElement = document.getElementById(rawHash);
+      if (targetElement) {
+        targetElement.scrollIntoView({ behavior: 'smooth' });
+        return;
+      }
+
+      setCurrentPage(rawHash as PageId);
     };
 
     handleHash();

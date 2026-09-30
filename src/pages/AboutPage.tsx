@@ -45,7 +45,7 @@ export const AboutPage = ({ onNavigateContact, onNavigatePackages }: AboutPagePr
           {/* Visual Asset */}
           <div className="relative aspect-[16/9] md:aspect-[21/9] rounded-2xl overflow-hidden bg-neutral-100 border border-[#e5e5ea]">
             <img
-              src="/src/assets/images/hero_himalayan_cab_1790679944443.jpg"
+              src="/images/hero_himalayan_cab_1790679944443.jpg"
               alt="Himalayan highway route"
               className="w-full h-full object-cover"
               referrerPolicy="no-referrer"

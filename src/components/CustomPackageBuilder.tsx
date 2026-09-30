@@ -52,7 +52,7 @@ Please review this customized route and send me an official cab itinerary quote.
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="max-w-3xl mb-12">
           {/* Editorial natural numbering / kicker */}
-          <div className="text-xs font-semibold text-orange-400 tracking-wider uppercase mb-2">
+          <div className="text-xs font-semibold text-sky-400 tracking-wider uppercase mb-2">
             Interactive Cab Planner
           </div>
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-black font-heading tracking-tight text-white mb-4">
@@ -83,7 +83,7 @@ Please review this customized route and send me an official cab itinerary quote.
                     onClick={() => setPickupHub(hub)}
                     className={`p-3 text-xs font-medium rounded-xl border text-left transition-all ${
                       pickupHub === hub
-                        ? 'border-orange-500 bg-orange-600/10 text-white font-bold'
+                        ? 'border-[#0071e3] bg-blue-600/10 text-white font-bold'
                         : 'border-neutral-700 text-neutral-300 hover:border-neutral-600 bg-neutral-850'
                     }`}
                   >
@@ -99,7 +99,7 @@ Please review this customized route and send me an official cab itinerary quote.
                 <label className="text-xs font-semibold text-neutral-400 uppercase tracking-wider">
                   02. Select Destinations to Combine
                 </label>
-                <span className="text-[11px] text-orange-400">
+                <span className="text-[11px] text-sky-400">
                   {destinations.length} selected
                 </span>
               </div>
@@ -113,14 +113,14 @@ Please review this customized route and send me an official cab itinerary quote.
                       onClick={() => toggleDestination(place.id)}
                       className={`p-3 rounded-xl border text-left flex items-center justify-between transition-all ${
                         isChecked
-                          ? 'border-orange-500 bg-orange-600/15 text-white'
+                          ? 'border-[#0071e3] bg-blue-600/15 text-white'
                           : 'border-neutral-700 text-neutral-300 hover:border-neutral-600'
                       }`}
                     >
                       <span className="text-xs font-medium">{place.name}</span>
                       <span
                         className={`w-5 h-5 rounded-md flex items-center justify-center text-xs transition-colors ${
-                          isChecked ? 'bg-orange-600 text-white' : 'border border-neutral-600'
+                          isChecked ? 'bg-[#0071e3] text-white' : 'border border-neutral-600'
                         }`}
                       >
                         {isChecked && <Check className="w-3.5 h-3.5" />}
@@ -144,7 +144,7 @@ Please review this customized route and send me an official cab itinerary quote.
                     onClick={() => setSelectedVehicleId(fleet.id)}
                     className={`p-3.5 rounded-xl border text-left transition-all ${
                       selectedVehicleId === fleet.id
-                        ? 'border-orange-500 bg-orange-600/15 ring-1 ring-orange-500'
+                        ? 'border-[#0071e3] bg-blue-600/15 ring-1 ring-[#0071e3]'
                         : 'border-neutral-700 hover:border-neutral-600 bg-neutral-850'
                     }`}
                   >
@@ -153,7 +153,7 @@ Please review this customized route and send me an official cab itinerary quote.
                       <span>{fleet.capacity}</span>
                     </div>
                     <div className="text-sm font-bold text-white mb-1">{fleet.name}</div>
-                    <div className="text-xs font-mono text-orange-400">
+                    <div className="text-xs font-mono text-sky-400">
                       ₹{fleet.baseRatePerDay.toLocaleString('en-IN')}/day est.
                     </div>
                   </button>
@@ -170,7 +170,7 @@ Please review this customized route and send me an official cab itinerary quote.
                 <select
                   value={nights}
                   onChange={(e) => setNights(Number(e.target.value))}
-                  className="w-full bg-neutral-900 border border-neutral-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-orange-500"
+                  className="w-full bg-neutral-900 border border-neutral-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-[#0071e3]"
                 >
                   <option value={2}>2 Nights / 3 Days</option>
                   <option value={3}>3 Nights / 4 Days</option>
@@ -188,7 +188,7 @@ Please review this customized route and send me an official cab itinerary quote.
                 <select
                   value={passengers}
                   onChange={(e) => setPassengers(Number(e.target.value))}
-                  className="w-full bg-neutral-900 border border-neutral-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-orange-500"
+                  className="w-full bg-neutral-900 border border-neutral-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-[#0071e3]"
                 >
                   <option value={2}>2 Passengers (Couple)</option>
                   <option value={3}>3 Passengers</option>
@@ -205,7 +205,7 @@ Please review this customized route and send me an official cab itinerary quote.
                 <select
                   value={travelMonth}
                   onChange={(e) => setTravelMonth(e.target.value)}
-                  className="w-full bg-neutral-900 border border-neutral-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-orange-500"
+                  className="w-full bg-neutral-900 border border-neutral-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-[#0071e3]"
                 >
                   <option value="April 2026">April 2026 (Spring)</option>
                   <option value="May 2026">May 2026 (Summer)</option>
@@ -231,7 +231,7 @@ Please review this customized route and send me an official cab itinerary quote.
                   Spiky Cabs Hill Package
                 </div>
               </div>
-              <div className="w-9 h-9 rounded-lg bg-orange-600/20 text-orange-400 flex items-center justify-center">
+              <div className="w-9 h-9 rounded-lg bg-blue-600/20 text-sky-400 flex items-center justify-center">
                 <Calculator className="w-5 h-5" />
               </div>
             </div>
@@ -244,7 +244,7 @@ Please review this customized route and send me an official cab itinerary quote.
               </div>
               <div className="flex justify-between py-1.5 border-b border-neutral-850">
                 <span className="text-neutral-400">Circuit Destinations:</span>
-                <span className="font-medium text-orange-400 text-right max-w-[200px] truncate">
+                <span className="font-medium text-sky-400 text-right max-w-[200px] truncate">
                   {destinations.join(' → ')}
                 </span>
               </div>
@@ -286,7 +286,7 @@ Please review this customized route and send me an official cab itinerary quote.
                 href={whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full inline-flex items-center justify-center gap-2 py-3 px-4 bg-orange-600 hover:bg-orange-500 text-white font-bold text-sm rounded-xl transition-all shadow-md"
+                className="w-full inline-flex items-center justify-center gap-2 py-3 px-4 bg-[#0071e3] hover:bg-[#0077ed] text-white font-bold text-sm rounded-xl transition-all shadow-md"
               >
                 <MessageCircle className="w-4 h-4" />
                 <span>Send Custom Itinerary on WhatsApp</span>

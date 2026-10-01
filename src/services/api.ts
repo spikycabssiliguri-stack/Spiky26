@@ -51,8 +51,11 @@ export async function saveAdminContent(cmsData: any, summary?: string) {
     })
   });
   if (!res.ok) {
+    if (res.status === 401) {
+      throw new Error('Your session expired. Please log out and sign in again.');
+    }
     const errorData = await res.json().catch(() => ({}));
-    throw new Error(errorData.error || 'Failed to save changes');
+    throw new Error(errorData.error || errorData.message || `Server error (${res.status}): Failed to save changes`);
   }
   return res.json();
 }

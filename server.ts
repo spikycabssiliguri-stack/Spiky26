@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import express, { Request, Response, NextFunction } from 'express';
 import { createServer as createViteServer } from 'vite';
 import path from 'path';
@@ -35,7 +36,7 @@ try {
 // ----------------------------------------------------
 const KV_REST_API_URL = process.env.KV_REST_API_URL || 'https://expert-meerkat-324742.upstash.io';
 const KV_REST_API_TOKEN = process.env.KV_REST_API_TOKEN || 'gQAAAAAABPSGAAIgcDJjMTIyMDgyN2E1NjY0ZGU3YTkwMmVhZGNhNzcxNzVlNQ';
-const BLOB_READ_WRITE_TOKEN = process.env.BLOB_READ_WRITE_TOKEN || process.env.spiky_READ_WRITE_TOKEN || 'vercel_blob_rw_SendIdbAXAX53fq0_tmOL70Z0mACcloMI5d2bJiMqbSeFTE';
+const BLOB_READ_WRITE_TOKEN = process.env.BLOB_READ_WRITE_TOKEN || process.env.spiky_READ_WRITE_TOKEN || process.env.VERCEL_BLOB_READ_WRITE_TOKEN || 'vercel_blob_rw_SendIdbAXAX53fq0_tmOL70Z0mACcloMI5d2bJiMqbSeFTE';
 
 async function kvGet<T = any>(key: string): Promise<T | null> {
   if (!KV_REST_API_URL || !KV_REST_API_TOKEN) return null;
@@ -83,22 +84,25 @@ async function kvSet(key: string, value: any): Promise<boolean> {
 
 // Global URL Normalizer for Vercel Serverless Rewrites
 app.use((req: Request, _res: Response, next: NextFunction) => {
-  const xMatched = (req.headers['x-matched-path'] as string) || 
-                    (req.headers['x-vercel-matched-path'] as string) || 
-                    (req.headers['x-forwarded-uri'] as string);
+  // Only normalize if req.url is missing the /api route or needs path resolution from query
+  if (req.url === '/' || req.url === '' || req.url.startsWith('/?')) {
+    const xMatched = (req.headers['x-matched-path'] as string) || 
+                      (req.headers['x-vercel-matched-path'] as string) || 
+                      (req.headers['x-forwarded-uri'] as string);
 
-  if (xMatched && xMatched.startsWith('/api')) {
-    const qIndex = req.url.indexOf('?');
-    const queryPart = qIndex >= 0 ? req.url.substring(qIndex) : '';
-    req.url = `${xMatched}${queryPart}`;
-  } else if (req.query && typeof req.query.path === 'string') {
-    const qIndex = req.url.indexOf('?');
-    const queryPart = qIndex >= 0 ? req.url.substring(qIndex) : '';
-    req.url = `/api/${req.query.path}${queryPart}`;
-  } else if (req.query && typeof req.query['0'] === 'string') {
-    const qIndex = req.url.indexOf('?');
-    const queryPart = qIndex >= 0 ? req.url.substring(qIndex) : '';
-    req.url = `/api/${req.query['0']}${queryPart}`;
+    if (xMatched && xMatched.startsWith('/api') && !xMatched.includes('[')) {
+      const qIndex = req.url.indexOf('?');
+      const queryPart = qIndex >= 0 ? req.url.substring(qIndex) : '';
+      req.url = `${xMatched}${queryPart}`;
+    } else if (req.query && typeof req.query.path === 'string') {
+      const qIndex = req.url.indexOf('?');
+      const queryPart = qIndex >= 0 ? req.url.substring(qIndex) : '';
+      req.url = `/api/${req.query.path}${queryPart}`;
+    } else if (req.query && typeof req.query['0'] === 'string') {
+      const qIndex = req.url.indexOf('?');
+      const queryPart = qIndex >= 0 ? req.url.substring(qIndex) : '';
+      req.url = `/api/${req.query['0']}${queryPart}`;
+    }
   }
   next();
 });
@@ -245,11 +249,28 @@ async function getCMSData(): Promise<CMSData> {
     return cachedCMSData;
   }
 
+  const defaultData = getDefaultCMSData();
+
   // 1. Try Upstash KV
   const kvData = await kvGet<CMSData>('spiky_cms_data');
   if (kvData && kvData.settings) {
-    cachedCMSData = kvData;
-    return kvData;
+    const merged: CMSData = {
+      ...defaultData,
+      ...kvData,
+      settings: { ...defaultData.settings, ...(kvData.settings || {}) },
+      media: Array.isArray(kvData.media) && kvData.media.length > 0 ? kvData.media : defaultData.media,
+      auditLogs: Array.isArray(kvData.auditLogs) ? kvData.auditLogs : defaultData.auditLogs,
+      revisions: Array.isArray(kvData.revisions) ? kvData.revisions.slice(0, 5) : [],
+      packages: Array.isArray(kvData.packages) && kvData.packages.length > 0 ? kvData.packages : defaultData.packages,
+      fleet: Array.isArray(kvData.fleet) && kvData.fleet.length > 0 ? kvData.fleet : defaultData.fleet,
+      gallery: Array.isArray(kvData.gallery) && kvData.gallery.length > 0 ? kvData.gallery : defaultData.gallery,
+      testimonials: Array.isArray(kvData.testimonials) && kvData.testimonials.length > 0 ? kvData.testimonials : defaultData.testimonials,
+      pages: Array.isArray(kvData.pages) && kvData.pages.length > 0 ? kvData.pages : defaultData.pages,
+      navigation: Array.isArray(kvData.navigation) && kvData.navigation.length > 0 ? kvData.navigation : defaultData.navigation,
+      footer: { ...defaultData.footer, ...(kvData.footer || {}) }
+    };
+    cachedCMSData = merged;
+    return merged;
   }
 
   // 2. Try Local File
@@ -257,16 +278,23 @@ async function getCMSData(): Promise<CMSData> {
     try {
       const raw = fs.readFileSync(CMS_FILE, 'utf-8');
       const data = JSON.parse(raw);
-      cachedCMSData = data;
-      kvSet('spiky_cms_data', data).catch(() => {});
-      return data;
+      const merged: CMSData = {
+        ...defaultData,
+        ...data,
+        settings: { ...defaultData.settings, ...(data.settings || {}) },
+        media: Array.isArray(data.media) && data.media.length > 0 ? data.media : defaultData.media,
+        auditLogs: Array.isArray(data.auditLogs) ? data.auditLogs : defaultData.auditLogs,
+        revisions: Array.isArray(data.revisions) ? data.revisions.slice(0, 5) : []
+      };
+      cachedCMSData = merged;
+      kvSet('spiky_cms_data', merged).catch(() => {});
+      return merged;
     } catch (e) {
       console.warn('Error reading local CMS file:', e);
     }
   }
 
   // 3. Fallback to default bundled data
-  const defaultData = getDefaultCMSData();
   cachedCMSData = defaultData;
   kvSet('spiky_cms_data', defaultData).catch(() => {});
   return defaultData;
@@ -453,18 +481,40 @@ apiRouter.put('/admin/content', requireAuth, async (req: Request, res: Response)
 
   const currentData = await getCMSData();
 
-  // Create a revision snapshot before saving
+  // Create a clean revision snapshot before saving (prevent recursive explosion)
   const revisionId = `rev-${Date.now()}`;
+  const { revisions: _prevRevs, auditLogs: _prevLogs, ...cleanSnapshot } = currentData;
   const revision = {
     id: revisionId,
     timestamp: new Date().toISOString(),
     summary: req.body._revisionSummary || 'Content updated via Admin Dashboard',
-    snapshotData: currentData
+    snapshotData: cleanSnapshot
   };
 
-  const revisions = [revision, ...(currentData.revisions || [])].slice(0, 15);
+  const revisions = [
+    revision,
+    ...(currentData.revisions || []).map(r => {
+      if (r.snapshotData && r.snapshotData.revisions) {
+        const { revisions: _nRevs, auditLogs: _nLogs, ...cleaned } = r.snapshotData;
+        return { ...r, snapshotData: cleaned };
+      }
+      return r;
+    })
+  ].slice(0, 5);
+
   incomingData.revisions = revisions;
   incomingData.auditLogs = currentData.auditLogs || [];
+
+  // Guarantee required arrays don't get accidentally dropped
+  if (!Array.isArray(incomingData.media) || incomingData.media.length === 0) {
+    incomingData.media = currentData.media;
+  }
+  if (!Array.isArray(incomingData.packages) || incomingData.packages.length === 0) {
+    incomingData.packages = currentData.packages;
+  }
+  if (!Array.isArray(incomingData.fleet) || incomingData.fleet.length === 0) {
+    incomingData.fleet = currentData.fleet;
+  }
 
   await saveCMSData(incomingData);
   await appendAuditLogAsync('content_updated', incomingData._revisionSummary || 'Updated site content', 'admin');
@@ -482,15 +532,16 @@ apiRouter.post('/admin/revisions/:id/restore', requireAuth, async (req: Request,
     return res.status(404).json({ error: 'Revision not found' });
   }
 
+  const { revisions: _r, auditLogs: _a, ...cleanCurrent } = currentData;
   const backupRevision = {
     id: `rev-${Date.now()}`,
     timestamp: new Date().toISOString(),
     summary: `Pre-restore snapshot before rolling back to ${id}`,
-    snapshotData: currentData
+    snapshotData: cleanCurrent
   };
 
   const restoredData = targetRevision.snapshotData;
-  restoredData.revisions = [backupRevision, ...(currentData.revisions || [])].slice(0, 15);
+  restoredData.revisions = [backupRevision, ...(currentData.revisions || [])].slice(0, 5);
   restoredData.auditLogs = currentData.auditLogs;
 
   await saveCMSData(restoredData);
@@ -522,13 +573,23 @@ apiRouter.post('/admin/media/upload', requireAuth, upload.single('file'), async 
       });
       // Route through /api/blob proxy so it renders cleanly in all browser <img> tags without 403
       fileUrl = `/api/blob?url=${encodeURIComponent(blob.url)}&name=${encodeURIComponent(file.originalname)}`;
-    } catch (blobErr) {
-      console.warn('Vercel Blob upload notice, using base64 fallback:', blobErr);
+    } catch (blobErr: any) {
+      console.warn('Vercel Blob private upload notice, attempting public access:', blobErr?.message);
+      try {
+        const publicBlob = await putBlob(filename, file.buffer, {
+          access: 'public',
+          token: BLOB_READ_WRITE_TOKEN,
+          contentType: file.mimetype
+        });
+        fileUrl = publicBlob.url;
+      } catch (pubErr) {
+        console.warn('Vercel Blob upload fallback failed:', pubErr);
+      }
     }
   }
 
-  // 2. Direct inline base64 fallback for images (instant, permanently resilient)
-  if (!fileUrl && file.mimetype.startsWith('image/')) {
+  // 2. Direct inline base64 fallback for images
+  if (!fileUrl && file.mimetype.startsWith('image/') && file.size < 1024 * 1024) {
     fileUrl = `data:${file.mimetype};base64,${file.buffer.toString('base64')}`;
   }
 
@@ -544,7 +605,7 @@ apiRouter.post('/admin/media/upload', requireAuth, upload.single('file'), async 
   }
 
   const mediaItem = {
-    id: `media-${Date.now()}`,
+    id: `media-${Date.now()}-${crypto.randomBytes(3).toString('hex')}`,
     filename,
     originalName: file.originalname,
     url: fileUrl,
@@ -556,7 +617,8 @@ apiRouter.post('/admin/media/upload', requireAuth, upload.single('file'), async 
   };
 
   const cms = await getCMSData();
-  cms.media = [mediaItem, ...(cms.media || [])];
+  const existing = (cms.media || []).filter(m => m.filename !== filename && m.url !== fileUrl);
+  cms.media = [mediaItem, ...existing];
   await saveCMSData(cms);
   await appendAuditLogAsync('media_uploaded', `Uploaded file: ${file.originalname}`, 'admin');
 
@@ -587,6 +649,8 @@ const handleBlobProxy = async (req: Request, res: Response) => {
     const contentType = upstreamRes.headers.get('content-type') || 'image/jpeg';
     res.setHeader('Content-Type', contentType);
     res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin');
     
     const arrayBuffer = await upstreamRes.arrayBuffer();
     return res.send(Buffer.from(arrayBuffer));
@@ -598,6 +662,7 @@ const handleBlobProxy = async (req: Request, res: Response) => {
 
 apiRouter.get('/blob', handleBlobProxy);
 app.get('/api/blob', handleBlobProxy);
+app.get('/blob', handleBlobProxy);
 
 apiRouter.delete('/admin/media/:id', requireAuth, async (req: Request, res: Response) => {
   const { id } = req.params;

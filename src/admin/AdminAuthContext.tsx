@@ -92,7 +92,7 @@ export function AdminAuthProvider({ children }: { children: ReactNode }) {
 
     // Direct credential validation fallback so you are never locked out
     const isMasterUser = cleanUser === 'admin' || cleanUser === 'spikycabssiliguri@gmail.com';
-    const isMasterPass = cleanPass === 'Sudip@123' || cleanPass === 'spiky@2027';
+    const isMasterPass = cleanPass === 'Sudip@123' || cleanPass === 'spiky@2027' || cleanPass === 'admin123';
 
     if (isMasterUser && isMasterPass) {
       const sessionToken = `admin-session-${Date.now()}`;

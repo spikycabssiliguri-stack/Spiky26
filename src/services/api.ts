@@ -1,15 +1,25 @@
 export const API_BASE = '/api';
 
 export function getAdminToken(): string | null {
-  return sessionStorage.getItem('spiky_admin_token');
+  try {
+    return sessionStorage.getItem('spiky_admin_token') || localStorage.getItem('spiky_admin_token');
+  } catch {
+    return null;
+  }
 }
 
 export function setAdminToken(token: string): void {
-  sessionStorage.setItem('spiky_admin_token', token);
+  try {
+    sessionStorage.setItem('spiky_admin_token', token);
+    localStorage.setItem('spiky_admin_token', token);
+  } catch {}
 }
 
 export function removeAdminToken(): void {
-  sessionStorage.removeItem('spiky_admin_token');
+  try {
+    sessionStorage.removeItem('spiky_admin_token');
+    localStorage.removeItem('spiky_admin_token');
+  } catch {}
 }
 
 export async function fetchPublicContent() {
@@ -39,6 +49,13 @@ export async function fetchAdminContent() {
 
 export async function saveAdminContent(cmsData: any, summary?: string) {
   const token = getAdminToken();
+  if (!token) {
+    throw new Error('Not authenticated. Please sign in to your admin account.');
+  }
+
+  // Strip revisions when saving from client to prevent exponential body payload bloat
+  const { revisions: _discardRevisions, ...cleanPayload } = cmsData;
+
   const res = await fetch(`${API_BASE}/admin/content`, {
     method: 'PUT',
     headers: {
@@ -46,12 +63,14 @@ export async function saveAdminContent(cmsData: any, summary?: string) {
       Authorization: `Bearer ${token}`
     },
     body: JSON.stringify({
-      ...cmsData,
+      ...cleanPayload,
       _revisionSummary: summary || 'Admin content update'
     })
   });
+
   if (!res.ok) {
     if (res.status === 401) {
+      removeAdminToken();
       throw new Error('Your session expired. Please log out and sign in again.');
     }
     const errorData = await res.json().catch(() => ({}));
@@ -76,6 +95,9 @@ export async function restoreRevision(revisionId: string) {
 
 export async function uploadMedia(file: File, altText?: string, caption?: string) {
   const token = getAdminToken();
+  if (!token) {
+    throw new Error('Not authenticated. Please sign in to upload media.');
+  }
   
   try {
     const formData = new FormData();
@@ -94,9 +116,16 @@ export async function uploadMedia(file: File, altText?: string, caption?: string
     if (res.ok) {
       return await res.json();
     }
+    if (res.status === 401) {
+      removeAdminToken();
+      throw new Error('Your session expired. Please sign in again.');
+    }
     const err = await res.json().catch(() => ({}));
     console.warn('Server upload error, falling back to embedded asset storage:', err.error);
-  } catch (err) {
+  } catch (err: any) {
+    if (err.message && err.message.includes('session expired')) {
+      throw err;
+    }
     console.warn('Network upload error, converting to local media asset:', err);
   }
 

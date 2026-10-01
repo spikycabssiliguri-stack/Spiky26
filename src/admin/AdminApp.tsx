@@ -65,7 +65,16 @@ export const AdminApp = () => {
     try {
       const data = await fetchAdminContent();
       if (data && data.settings) {
-        setCmsData(data);
+        setCmsData(prev => ({
+          ...prev,
+          ...data,
+          settings: { ...prev.settings, ...(data.settings || {}) },
+          media: Array.isArray(data.media) && data.media.length > 0 ? data.media : (prev.media || []),
+          auditLogs: Array.isArray(data.auditLogs) ? data.auditLogs : (prev.auditLogs || []),
+          revisions: Array.isArray(data.revisions) ? data.revisions : (prev.revisions || []),
+          packages: Array.isArray(data.packages) && data.packages.length > 0 ? data.packages : prev.packages,
+          fleet: Array.isArray(data.fleet) && data.fleet.length > 0 ? data.fleet : prev.fleet,
+        }));
       }
     } catch (err) {
       console.warn('Could not fetch server CMS, using defaults:', err);
@@ -88,7 +97,8 @@ export const AdminApp = () => {
       setHasUnsavedChanges(false);
       showToast(`Saved: ${summary}`);
     } catch (err: any) {
-      alert(err.message || 'Failed to save changes');
+      console.error('Save CMS error:', err);
+      alert(err.message || 'Failed to save changes. Please try again.');
     } finally {
       setIsSaving(false);
     }

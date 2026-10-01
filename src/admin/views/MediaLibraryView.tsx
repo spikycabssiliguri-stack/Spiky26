@@ -111,20 +111,17 @@ export const MediaLibraryView = ({ cmsData, onRefreshCMS, onSaveCMS, isSaving }:
     setUploadError(null);
 
     try {
-      const newItems: typeof cmsData.media = [];
+      let uploadCount = 0;
       for (let i = 0; i < files.length; i++) {
         const file = files[i];
         const res = await uploadMedia(file, file.name.replace(/\.[^/.]+$/, ""), "");
         if (res && res.media) {
-          newItems.push(res.media);
+          uploadCount++;
         }
-      }
-      if (newItems.length > 0) {
-        const merged = [...newItems, ...(cmsData.media || [])];
-        await onSaveCMS({ ...cmsData, media: merged }, `Uploaded ${newItems.length} media asset(s)`);
       }
       await onRefreshCMS();
     } catch (err: any) {
+      console.error('File upload error:', err);
       setUploadError(err.message || 'File upload failed. Max size: 25MB.');
     } finally {
       setIsUploading(false);
@@ -137,8 +134,6 @@ export const MediaLibraryView = ({ cmsData, onRefreshCMS, onSaveCMS, isSaving }:
   const handleDelete = async (id: string) => {
     try {
       await deleteMedia(id);
-      const updatedMedia = (cmsData.media || []).filter(m => m.id !== id);
-      await onSaveCMS({ ...cmsData, media: updatedMedia }, 'Removed media item from library');
       await onRefreshCMS();
       setDeleteConfirmId(null);
       if (previewItem?.id === id) setPreviewItem(null);

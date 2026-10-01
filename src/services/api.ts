@@ -56,25 +56,53 @@ export async function saveAdminContent(cmsData: any, summary?: string) {
   // Strip revisions when saving from client to prevent exponential body payload bloat
   const { revisions: _discardRevisions, ...cleanPayload } = cmsData;
 
-  const res = await fetch(`${API_BASE}/admin/content`, {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`
-    },
-    body: JSON.stringify({
-      ...cleanPayload,
-      _revisionSummary: summary || 'Admin content update'
-    })
+  const payload = JSON.stringify({
+    ...cleanPayload,
+    _revisionSummary: summary || 'Admin content update'
   });
 
-  if (!res.ok) {
-    if (res.status === 401) {
+  const headers = {
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${token}`
+  };
+
+  let res: Response | null = null;
+  try {
+    res = await fetch(`${API_BASE}/admin/content`, {
+      method: 'PUT',
+      headers,
+      body: payload
+    });
+  } catch (err) {
+    console.warn('PUT /admin/content network notice, trying POST:', err);
+  }
+
+  // If PUT fails or is rejected by proxy (e.g. 405 Method Not Allowed or 500), retry via POST
+  if (!res || !res.ok || res.status === 405 || res.status === 500) {
+    try {
+      const postRes = await fetch(`${API_BASE}/admin/content`, {
+        method: 'POST',
+        headers,
+        body: payload
+      });
+      if (postRes && postRes.ok) {
+        return await postRes.json();
+      }
+      if (postRes) {
+        res = postRes;
+      }
+    } catch (postErr) {
+      console.warn('POST fallback also encountered error:', postErr);
+    }
+  }
+
+  if (!res || !res.ok) {
+    if (res?.status === 401) {
       removeAdminToken();
       throw new Error('Your session expired. Please log out and sign in again.');
     }
-    const errorData = await res.json().catch(() => ({}));
-    throw new Error(errorData.error || errorData.message || `Server error (${res.status}): Failed to save changes`);
+    const errorData = res ? await res.json().catch(() => ({})) : {};
+    throw new Error(errorData.error || errorData.message || `Server error (${res?.status || 500}): Failed to save changes`);
   }
   return res.json();
 }

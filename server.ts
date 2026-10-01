@@ -108,6 +108,13 @@ app.use((req: Request, _res: Response, next: NextFunction) => {
 });
 
 // Global body parsers
+app.use((req: Request, _res: Response, next: NextFunction) => {
+  // If req.body is already parsed (e.g. by serverless runtime), skip body parsers
+  if (req.body && typeof req.body === 'object') {
+    return next();
+  }
+  next();
+});
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 
@@ -225,18 +232,23 @@ async function verifyTokenAsync(token: string | undefined): Promise<boolean> {
 
 // Authentication Middleware for /api/admin/*
 async function requireAuth(req: Request, res: Response, next: NextFunction) {
-  const authHeader = req.headers.authorization;
-  if (!authHeader || !authHeader.startsWith('Bearer ')) {
-    return res.status(401).json({ error: 'Unauthorized: No token provided' });
-  }
+  try {
+    const authHeader = req.headers.authorization;
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+      return res.status(401).json({ error: 'Unauthorized: No token provided' });
+    }
 
-  const token = authHeader.substring(7);
-  const isValid = await verifyTokenAsync(token);
-  if (!isValid) {
-    return res.status(401).json({ error: 'Unauthorized: Session invalid or expired' });
-  }
+    const token = authHeader.substring(7);
+    const isValid = await verifyTokenAsync(token);
+    if (!isValid) {
+      return res.status(401).json({ error: 'Unauthorized: Session invalid or expired' });
+    }
 
-  next();
+    next();
+  } catch (err: any) {
+    console.error('Auth verification error:', err);
+    return res.status(401).json({ error: 'Authentication verification failed' });
+  }
 }
 
 // ----------------------------------------------------
@@ -473,54 +485,90 @@ apiRouter.get('/admin/content', requireAuth, async (_req: Request, res: Response
   return res.json(data);
 });
 
-apiRouter.put('/admin/content', requireAuth, async (req: Request, res: Response) => {
-  const incomingData: CMSData = req.body;
-  if (!incomingData || !incomingData.settings) {
-    return res.status(400).json({ error: 'Invalid CMS data payload' });
+const handleSaveAdminContent = async (req: Request, res: Response) => {
+  try {
+    const incomingData: CMSData = req.body;
+    if (!incomingData) {
+      return res.status(400).json({ error: 'Invalid CMS data payload' });
+    }
+
+    const currentData = await getCMSData();
+
+    // Safely merge settings so partial updates never fail
+    incomingData.settings = {
+      ...currentData.settings,
+      ...(incomingData.settings || {})
+    };
+
+    // Create a clean revision snapshot before saving (prevent recursive explosion)
+    const revisionId = `rev-${Date.now()}`;
+    const { revisions: _prevRevs, auditLogs: _prevLogs, ...cleanSnapshot } = currentData;
+    const revision = {
+      id: revisionId,
+      timestamp: new Date().toISOString(),
+      summary: String(req.body._revisionSummary || 'Content updated via Admin Dashboard'),
+      snapshotData: cleanSnapshot
+    };
+
+    const currentRevs = Array.isArray(currentData.revisions) ? currentData.revisions : [];
+    const revisions = [
+      revision,
+      ...currentRevs.map(r => {
+        if (r && typeof r === 'object' && r.snapshotData && r.snapshotData.revisions) {
+          const { revisions: _nRevs, auditLogs: _nLogs, ...cleaned } = r.snapshotData;
+          return { ...r, snapshotData: cleaned };
+        }
+        return r;
+      })
+    ].filter(Boolean).slice(0, 5);
+
+    incomingData.revisions = revisions;
+
+    // Append audit log directly to payload
+    const existingLogs = Array.isArray(currentData.auditLogs) ? currentData.auditLogs : [];
+    const newLog = {
+      id: `audit-${Date.now()}-${crypto.randomBytes(3).toString('hex')}`,
+      timestamp: new Date().toISOString(),
+      action: 'content_updated',
+      details: String(req.body._revisionSummary || 'Updated site content'),
+      user: 'admin'
+    };
+    incomingData.auditLogs = [newLog, ...existingLogs].slice(0, 200);
+
+    // Guarantee required arrays don't get accidentally dropped
+    if (!Array.isArray(incomingData.media) || incomingData.media.length === 0) {
+      incomingData.media = currentData.media || [];
+    }
+    if (!Array.isArray(incomingData.packages) || incomingData.packages.length === 0) {
+      incomingData.packages = currentData.packages || [];
+    }
+    if (!Array.isArray(incomingData.fleet) || incomingData.fleet.length === 0) {
+      incomingData.fleet = currentData.fleet || [];
+    }
+    if (!Array.isArray(incomingData.pages) || incomingData.pages.length === 0) {
+      incomingData.pages = currentData.pages || [];
+    }
+    if (!Array.isArray(incomingData.navigation) || incomingData.navigation.length === 0) {
+      incomingData.navigation = currentData.navigation || [];
+    }
+
+    await saveCMSData(incomingData);
+
+    return res.json({ 
+      success: true, 
+      message: 'Content saved successfully', 
+      lastUpdated: incomingData.lastUpdated 
+    });
+  } catch (err: any) {
+    console.error('[API save CMS content error]:', err);
+    return res.status(500).json({ 
+      error: err?.message || 'Failed to save changes to database' 
+    });
   }
+};
 
-  const currentData = await getCMSData();
-
-  // Create a clean revision snapshot before saving (prevent recursive explosion)
-  const revisionId = `rev-${Date.now()}`;
-  const { revisions: _prevRevs, auditLogs: _prevLogs, ...cleanSnapshot } = currentData;
-  const revision = {
-    id: revisionId,
-    timestamp: new Date().toISOString(),
-    summary: req.body._revisionSummary || 'Content updated via Admin Dashboard',
-    snapshotData: cleanSnapshot
-  };
-
-  const revisions = [
-    revision,
-    ...(currentData.revisions || []).map(r => {
-      if (r.snapshotData && r.snapshotData.revisions) {
-        const { revisions: _nRevs, auditLogs: _nLogs, ...cleaned } = r.snapshotData;
-        return { ...r, snapshotData: cleaned };
-      }
-      return r;
-    })
-  ].slice(0, 5);
-
-  incomingData.revisions = revisions;
-  incomingData.auditLogs = currentData.auditLogs || [];
-
-  // Guarantee required arrays don't get accidentally dropped
-  if (!Array.isArray(incomingData.media) || incomingData.media.length === 0) {
-    incomingData.media = currentData.media;
-  }
-  if (!Array.isArray(incomingData.packages) || incomingData.packages.length === 0) {
-    incomingData.packages = currentData.packages;
-  }
-  if (!Array.isArray(incomingData.fleet) || incomingData.fleet.length === 0) {
-    incomingData.fleet = currentData.fleet;
-  }
-
-  await saveCMSData(incomingData);
-  await appendAuditLogAsync('content_updated', incomingData._revisionSummary || 'Updated site content', 'admin');
-
-  return res.json({ success: true, message: 'Content saved successfully', lastUpdated: incomingData.lastUpdated });
-});
+apiRouter.put('/admin/content', requireAuth, handleSaveAdminContent);
+apiRouter.post('/admin/content', requireAuth, handleSaveAdminContent);
 
 // 4. Restore Revision
 apiRouter.post('/admin/revisions/:id/restore', requireAuth, async (req: Request, res: Response) => {
@@ -720,6 +768,14 @@ apiRouter.post('/admin/audit/clear', requireAuth, async (_req: Request, res: Res
 // 7. Mount Router
 app.use('/api', apiRouter);
 app.use(apiRouter);
+
+// Global Error Handler for API routes to guarantee JSON error response
+app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
+  console.error('[SERVER UNHANDLED ERROR]:', err);
+  res.status(500).json({
+    error: err?.message || 'Server encountered an error processing your request'
+  });
+});
 
 // ----------------------------------------------------
 // Express & Vite Middleware Integration

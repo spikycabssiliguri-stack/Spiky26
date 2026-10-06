@@ -7,16 +7,18 @@ import {
   Sparkles, 
   MapPin, 
   MessageCircle, 
-  Phone 
+  Phone,
+  Building2
 } from 'lucide-react';
 import { useCMS } from '../context/CMSContext';
 
 interface DynamicPageProps {
   slug: string;
   onNavigateContact?: () => void;
+  onNavigateHotels?: () => void;
 }
 
-export const DynamicPage = ({ slug, onNavigateContact }: DynamicPageProps) => {
+export const DynamicPage = ({ slug, onNavigateContact, onNavigateHotels }: DynamicPageProps) => {
   const { cmsData } = useCMS();
   const page = cmsData.pages.find(p => p.slug === slug);
   const [openFaqIdx, setOpenFaqIdx] = useState<number | null>(null);
@@ -215,6 +217,35 @@ export const DynamicPage = ({ slug, onNavigateContact }: DynamicPageProps) => {
 
           return null;
         })}
+
+        {/* Hotel Recommendations CTA Banner */}
+        {onNavigateHotels && (
+          <section className="max-w-4xl mx-auto px-4 sm:px-6">
+            <div className="p-8 sm:p-10 rounded-3xl bg-neutral-900 text-white flex flex-col md:flex-row items-center justify-between gap-6 border border-neutral-800 shadow-xl">
+              <div className="space-y-2 max-w-xl text-center md:text-left">
+                <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-amber-400 uppercase tracking-wider">
+                  <Sparkles className="w-3.5 h-3.5" />
+                  <span>Curated Himalayan Stays</span>
+                </div>
+                <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
+                  Need Hotel Recommendations for Your Trip?
+                </h3>
+                <p className="text-xs text-neutral-300 leading-relaxed">
+                  Browse handpicked properties across Summit Hotels, Sumi Yashshree, Taj Chia Kutir, and Rare Himalayas heritage estates in Darjeeling & Sikkim.
+                </p>
+              </div>
+
+              <button
+                onClick={onNavigateHotels}
+                className="px-6 py-3 rounded-full bg-white hover:bg-neutral-100 text-neutral-950 text-xs font-bold transition-all shadow-md shrink-0 inline-flex items-center gap-2 cursor-pointer"
+              >
+                <Building2 className="w-4 h-4 text-blue-600" />
+                <span>Recommended Hotels</span>
+                <ChevronRight className="w-4 h-4" />
+              </button>
+            </div>
+          </section>
+        )}
       </div>
     </div>
   );

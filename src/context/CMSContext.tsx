@@ -11,7 +11,17 @@ interface CMSContextType {
 const CMSContext = createContext<CMSContextType | undefined>(undefined);
 
 export function CMSProvider({ children }: { children: ReactNode }) {
-  const [cmsData, setCmsData] = useState<CMSData>(getDefaultCMSData());
+  const [cmsData, setCmsData] = useState<CMSData>(() => {
+    const defaults = getDefaultCMSData();
+    try {
+      const local = localStorage.getItem('spiky_cms_local_override');
+      if (local) {
+        const parsed = JSON.parse(local);
+        return { ...defaults, ...parsed };
+      }
+    } catch {}
+    return defaults;
+  });
   const [isLoading, setIsLoading] = useState(true);
 
   const loadContent = async () => {

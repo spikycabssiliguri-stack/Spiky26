@@ -1,9 +1,13 @@
 import { useState } from 'react';
-import { Phone, Mail, MapPin, MessageCircle, CheckCircle2, ChevronRight, Clock } from 'lucide-react';
+import { Phone, Mail, MapPin, MessageCircle, CheckCircle2, ChevronRight, Clock, Building2, Sparkles } from 'lucide-react';
 import { COMPANY_INFO, PACKAGES_DATA } from '../data/packagesData';
 import { useCMS } from '../context/CMSContext';
 
-export const ContactPage = () => {
+interface ContactPageProps {
+  onNavigateHotels?: () => void;
+}
+
+export const ContactPage = ({ onNavigateHotels }: ContactPageProps) => {
   const { cmsData } = useCMS();
   const settings = cmsData.settings || COMPANY_INFO;
 
@@ -268,6 +272,33 @@ Please share cab availability and tariff.`;
             )}
           </div>
         </div>
+
+        {/* Hotel Recommendations & Cab Pairing Banner */}
+        {onNavigateHotels && (
+          <div className="mt-16 sm:mt-20 p-8 sm:p-12 rounded-3xl bg-neutral-900 text-white flex flex-col md:flex-row items-center justify-between gap-8 border border-neutral-800 shadow-xl">
+            <div className="space-y-3 max-w-2xl text-center md:text-left">
+              <div className="inline-flex items-center gap-2 text-xs font-semibold text-amber-400 uppercase tracking-wider">
+                <Sparkles className="w-3.5 h-3.5" />
+                <span>Need Accommodation Guidance?</span>
+              </div>
+              <h3 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
+                Browse Our Curated Stays Across Darjeeling & Sikkim
+              </h3>
+              <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed">
+                Not sure which property best suits your circuit? View our verified hotel guide featuring Summit Hotels, Sumi Yashshree, Taj Chia Kutir, and Rare Himalayas heritage estates with transparent tariffs and guaranteed private chauffeur drop-offs.
+              </p>
+            </div>
+
+            <button
+              onClick={onNavigateHotels}
+              className="px-6 py-3.5 rounded-full bg-white hover:bg-neutral-100 text-neutral-950 text-xs font-bold transition-all shadow-md shrink-0 inline-flex items-center gap-2 cursor-pointer"
+            >
+              <Building2 className="w-4 h-4 text-blue-600" />
+              <span>Explore Recommended Hotels</span>
+              <ChevronRight className="w-4 h-4" />
+            </button>
+          </div>
+        )}
       </section>
     </div>
   );

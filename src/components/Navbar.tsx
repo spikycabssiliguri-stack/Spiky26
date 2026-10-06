@@ -14,10 +14,21 @@ export const Navbar = ({ currentPage, onNavigate, onOpenChecklist }: NavbarProps
   const [mobileOpen, setMobileOpen] = useState(false);
   const { cmsData } = useCMS();
 
-  // Dynamic navigation items from CMS
-  const navItems = (cmsData.navigation || [])
-    .filter(item => item.isPublished)
-    .sort((a, b) => a.order - b.order);
+  // Dynamic navigation items from CMS (ensuring Hotels and Travel Agency / Home2 are included)
+  const rawNavItems = (cmsData.navigation || []).filter(item => item.isPublished);
+  const hasHotels = rawNavItems.some(item => item.path === 'hotels' || item.label.toLowerCase().includes('hotel'));
+  const hasHome2 = rawNavItems.some(item => item.path === 'home2');
+
+  const itemsToAdd = [];
+  if (!hasHome2) {
+    itemsToAdd.push({ id: 'nav-home2', label: 'Travel Agency', path: 'home2', isPublished: true, order: 0.8, openInNewTab: false, isSystem: true });
+  }
+  if (!hasHotels) {
+    itemsToAdd.push({ id: 'nav-hotels', label: 'Hotels', path: 'hotels', isPublished: true, order: 1.5, openInNewTab: false, isSystem: true });
+  }
+
+  const allNavItems = [...rawNavItems, ...itemsToAdd];
+  const navItems = allNavItems.sort((a, b) => a.order - b.order);
 
   const handleNavClick = (path: string, openInNewTab?: boolean) => {
     if (openInNewTab || path.startsWith('http')) {
@@ -30,6 +41,15 @@ export const Navbar = ({ currentPage, onNavigate, onOpenChecklist }: NavbarProps
   };
 
   const settings = cmsData.settings;
+
+  const isItemActive = (path: string) => {
+    if (currentPage === path) return true;
+    if (path === 'home' && (currentPage === 'home' || currentPage === '')) return true;
+    if (path === 'home2' && currentPage === 'home2') return true;
+    if (path === 'hotels' && (currentPage === 'hotels' || currentPage.startsWith('hotel/') || currentPage.startsWith('hotels/'))) return true;
+    if (path === 'packages' && (currentPage === 'packages' || currentPage.startsWith('package/') || currentPage.startsWith('packages/'))) return true;
+    return false;
+  };
 
   return (
     <>
@@ -71,7 +91,7 @@ export const Navbar = ({ currentPage, onNavigate, onOpenChecklist }: NavbarProps
                 key={item.id}
                 onClick={() => handleNavClick(item.path, item.openInNewTab)}
                 className={`transition-colors cursor-pointer py-1 ${
-                  currentPage === item.path
+                  isItemActive(item.path)
                     ? 'text-[#1d1d1f] font-semibold'
                     : 'hover:text-[#1d1d1f]'
                 }`}
@@ -118,7 +138,7 @@ export const Navbar = ({ currentPage, onNavigate, onOpenChecklist }: NavbarProps
                 key={item.id}
                 onClick={() => handleNavClick(item.path, item.openInNewTab)}
                 className={`block w-full text-left py-2 text-base cursor-pointer ${
-                  currentPage === item.path ? 'font-semibold text-[#0071e3]' : 'text-[#1d1d1f]'
+                  isItemActive(item.path) ? 'font-semibold text-[#0071e3]' : 'text-[#1d1d1f]'
                 }`}
               >
                 {item.label}

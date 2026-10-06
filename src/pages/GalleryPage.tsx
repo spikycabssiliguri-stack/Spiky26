@@ -1,9 +1,13 @@
 import { useState } from 'react';
-import { X, ArrowUpRight, ChevronRight } from 'lucide-react';
+import { X, ArrowUpRight, ChevronRight, Building2, Sparkles } from 'lucide-react';
 import { GALLERY_DATA, GalleryItem } from '../data/packagesData';
 import { useCMS } from '../context/CMSContext';
 
-export const GalleryPage = () => {
+interface GalleryPageProps {
+  onNavigateHotels?: () => void;
+}
+
+export const GalleryPage = ({ onNavigateHotels }: GalleryPageProps) => {
   const { cmsData } = useCMS();
   const galleryItems = cmsData.gallery && cmsData.gallery.length > 0 ? cmsData.gallery : GALLERY_DATA;
   const [filter, setFilter] = useState<'all' | 'darjeeling' | 'sikkim' | 'bhutan' | 'fleet'>('all');
@@ -91,6 +95,33 @@ export const GalleryPage = () => {
             </div>
           ))}
         </div>
+
+        {/* Scenic Hotels & Resort Recommendation CTA */}
+        {onNavigateHotels && (
+          <div className="mt-16 sm:mt-20 p-8 sm:p-12 rounded-3xl bg-neutral-900 text-white flex flex-col md:flex-row items-center justify-between gap-8 border border-neutral-800 shadow-xl">
+            <div className="space-y-3 max-w-2xl text-center md:text-left">
+              <div className="inline-flex items-center gap-2 text-xs font-semibold text-amber-400 uppercase tracking-wider">
+                <Sparkles className="w-3.5 h-3.5" />
+                <span>Verified Himalayan Mountain Stays</span>
+              </div>
+              <h3 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
+                Want to Wake Up to These Very Views?
+              </h3>
+              <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed">
+                Explore our curated hotel recommendations across Summit Hotels, Sumi Yashshree, the 5-star Taj Chia Kutir, and Rare Himalayas heritage estates in Darjeeling & Sikkim. Seamlessly paired with dedicated Spiky Cabs chauffeur transfers.
+              </p>
+            </div>
+
+            <button
+              onClick={onNavigateHotels}
+              className="px-6 py-3.5 rounded-full bg-white hover:bg-neutral-100 text-neutral-950 text-xs font-bold transition-all shadow-md shrink-0 inline-flex items-center gap-2 cursor-pointer"
+            >
+              <Building2 className="w-4 h-4 text-blue-600" />
+              <span>Explore Recommended Hotels</span>
+              <ChevronRight className="w-4 h-4" />
+            </button>
+          </div>
+        )}
       </section>
 
       {/* Lightbox Modal (Apple Style Clean Sheet) */}

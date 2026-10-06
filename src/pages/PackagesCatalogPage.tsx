@@ -12,7 +12,8 @@ import {
   Sparkles,
   Check,
   ShieldCheck,
-  Users
+  Users,
+  Building2
 } from 'lucide-react';
 import { useCMS } from '../context/CMSContext';
 import { CabPackage } from '../data/packagesData';
@@ -21,11 +22,13 @@ import { DownloadBrochureModal } from '../components/DownloadBrochureModal';
 interface PackagesCatalogPageProps {
   onSelectPackage: (pkg: CabPackage) => void;
   onNavigateContact: () => void;
+  onNavigateHotels?: () => void;
 }
 
 export const PackagesCatalogPage = ({
   onSelectPackage,
-  onNavigateContact
+  onNavigateContact,
+  onNavigateHotels
 }: PackagesCatalogPageProps) => {
   const { cmsData } = useCMS();
   const [selectedFilter, setSelectedFilter] = useState<'all' | 'darjeeling' | 'gangtok' | 'north-sikkim' | 'kalimpong' | 'bhutan'>('all');
@@ -103,8 +106,9 @@ export const PackagesCatalogPage = ({
                   <div className="absolute top-4 left-4 bg-black/60 backdrop-blur-md text-white text-[11px] font-medium px-3 py-1 rounded-full">
                     {pkg.badge || `${pkg.durationNights}N / ${pkg.durationDays}D`}
                   </div>
-                  <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-md text-[#1d1d1f] text-[11px] font-mono font-semibold px-2.5 py-1 rounded-full shadow-xs">
-                    from ₹{pkg.startingPrice.sedan.toLocaleString('en-IN')}
+                  <div className="absolute top-4 right-4 bg-emerald-600/90 backdrop-blur-md text-white text-[11px] font-medium px-2.5 py-1 rounded-full shadow-xs flex items-center gap-1">
+                    <MessageCircle className="w-3 h-3" />
+                    <span>Price on WhatsApp</span>
                   </div>
                 </div>
 
@@ -155,7 +159,7 @@ export const PackagesCatalogPage = ({
                   onClick={() => onSelectPackage(pkg)}
                   className="w-full rounded-full bg-[#1d1d1f] hover:bg-black text-white py-3 text-xs font-medium transition-colors flex items-center justify-center gap-1.5 cursor-pointer shadow-sm"
                 >
-                  <span>View Day Plan & Fares</span>
+                  <span>View Day Plan & Details</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </button>
 
@@ -182,6 +186,33 @@ export const PackagesCatalogPage = ({
             </div>
           ))}
         </div>
+
+        {/* Hotel Recommendation Banner CTA */}
+        {onNavigateHotels && (
+          <div className="mt-14 p-6 sm:p-8 rounded-3xl bg-neutral-900 text-white flex flex-col md:flex-row items-center justify-between gap-6 border border-neutral-800 shadow-xl">
+            <div className="space-y-2 max-w-xl text-center md:text-left">
+              <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-amber-400 uppercase tracking-wider">
+                <Sparkles className="w-3.5 h-3.5" />
+                <span>Curated Himalayan Hospitality</span>
+              </div>
+              <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
+                Pair Your Cab Circuit with Handpicked Hotels & Resorts
+              </h3>
+              <p className="text-xs text-neutral-300 leading-relaxed">
+                Looking for verified properties? Explore our curated stays across Summit Hotels, Sumi Yashshree, Taj Chia Kutir, and Rare Himalayas with verified direct rates and dedicated door-to-door cab pickups.
+              </p>
+            </div>
+
+            <button
+              onClick={onNavigateHotels}
+              className="px-6 py-3 rounded-full bg-white hover:bg-neutral-100 text-neutral-950 text-xs font-bold transition-all shadow-md shrink-0 inline-flex items-center gap-2 cursor-pointer"
+            >
+              <Building2 className="w-4 h-4 text-blue-600" />
+              <span>Explore Recommended Hotels</span>
+              <ChevronRight className="w-4 h-4" />
+            </button>
+          </div>
+        )}
       </section>
 
       {/* 3. Bottom Banner CTA */}

@@ -80,43 +80,29 @@ export const PackageCard = ({ pkg, onViewItinerary, onSelectBooking }: PackageCa
 
         {/* Pricing & Vehicle Options */}
         <div className="pt-4 pb-2 space-y-2">
-          <div className="grid grid-cols-2 gap-2 bg-[#f5f5f7] p-2.5 rounded-xl border border-neutral-200/60">
-            <div>
-              <div className="text-[10px] uppercase font-semibold text-neutral-500">4 Seater</div>
-              <div className="text-sm font-bold text-neutral-900 font-mono">
-                {pkg.id === 'north-sikkim-4n-5d' ? (
-                  <span className="text-xs text-neutral-500 font-sans">N/A (SUV Only)</span>
-                ) : (
-                  `₹${(pkg.pricingTier?.fourSeaterRate || pkg.startingPrice.sedan).toLocaleString('en-IN')}`
-                )}
-              </div>
-              <div className="text-[10px] text-neutral-500">4 seater WagonR / Swift Dzire</div>
+          <div className="bg-[#f5f5f7] p-3 rounded-xl border border-neutral-200/60 space-y-1.5">
+            <div className="flex items-center justify-between">
+              <span className="text-[10px] uppercase font-bold text-neutral-500 tracking-wider">Tariff</span>
+              <span className="text-xs font-bold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full flex items-center gap-1">
+                <MessageCircle className="w-3 h-3 text-emerald-600" />
+                <span>Best Price on WhatsApp</span>
+              </span>
             </div>
-
-            <div className="border-l border-neutral-300/60 pl-2.5">
-              <div className="text-[10px] uppercase font-semibold text-neutral-500">6 Seater</div>
-              <div className="text-sm font-bold text-[#0071e3] font-mono">
-                ₹{(pkg.pricingTier?.sixSeaterRate || pkg.startingPrice.suv).toLocaleString('en-IN')}
+            <div className="grid grid-cols-2 gap-2 text-xs text-neutral-700 pt-1 border-t border-neutral-200/60">
+              <div>
+                <span className="font-semibold block text-neutral-900">4 Seater</span>
+                <span className="text-[11px] text-neutral-500">Swift Dzire / WagonR</span>
               </div>
-              <div className="text-[10px] text-neutral-500">Ertiga / Scorpio / Bolero</div>
+              <div className="border-l border-neutral-300/60 pl-2">
+                <span className="font-semibold block text-neutral-900">6–7 Seater</span>
+                <span className="text-[11px] text-neutral-500">Innova Crysta / Ertiga</span>
+              </div>
             </div>
           </div>
 
-          {pkg.pricingTier?.nathulaExtra && (
-            <div className="text-[11px] text-emerald-800 bg-emerald-50 border border-emerald-200/60 px-2 py-1 rounded-md font-medium">
-              ✦ Nathula Pass: Approx {pkg.pricingTier.nathulaExtra} extra
-            </div>
-          )}
-
-          {pkg.pricingTier?.optionalExcursions && (
-            <div className="text-[11px] text-sky-800 bg-sky-50 px-2 py-1 rounded-md font-medium">
-              ✦ Optional Snow Excursions: {pkg.pricingTier.optionalExcursions}
-            </div>
-          )}
-
           <div className="text-[11px] text-emerald-700 font-medium flex items-center justify-between pt-0.5">
             <span>✓ Dedicated Private Cab</span>
-            <span>Fuel + Driver Included</span>
+            <span>Fuel + Chauffeur Included</span>
           </div>
         </div>
 
@@ -137,7 +123,7 @@ export const PackageCard = ({ pkg, onViewItinerary, onSelectBooking }: PackageCa
             className="flex items-center justify-center gap-1.5 text-xs font-semibold text-white bg-emerald-600 hover:bg-emerald-500 py-2.5 px-3 rounded-lg transition-colors shadow-sm whitespace-nowrap cursor-pointer"
           >
             <MessageCircle className="w-3.5 h-3.5" />
-            <span>Book on WhatsApp</span>
+            <span>Check Price</span>
           </a>
         </div>
       </div>

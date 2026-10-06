@@ -1,12 +1,13 @@
-import { Shield, MapPin, Award, CheckCircle2, Phone, MessageCircle, HeartHandshake, Compass, ChevronRight } from 'lucide-react';
+import { Shield, MapPin, Award, CheckCircle2, Phone, MessageCircle, HeartHandshake, Compass, ChevronRight, Building2, Sparkles } from 'lucide-react';
 import { COMPANY_INFO } from '../data/packagesData';
 
 interface AboutPageProps {
   onNavigateContact: () => void;
   onNavigatePackages: () => void;
+  onNavigateHotels?: () => void;
 }
 
-export const AboutPage = ({ onNavigateContact, onNavigatePackages }: AboutPageProps) => {
+export const AboutPage = ({ onNavigateContact, onNavigatePackages, onNavigateHotels }: AboutPageProps) => {
   return (
     <div className="bg-[#f5f5f7] min-h-screen text-[#1d1d1f]">
       {/* Apple Keynote Stage Header */}
@@ -99,6 +100,37 @@ export const AboutPage = ({ onNavigateContact, onNavigatePackages }: AboutPagePr
             <p className="text-xs sm:text-sm text-[#6e6e73] leading-relaxed">
               Every confirmed package voucher includes fuel for the agreed route, interstate road taxes, and driver stay/food allowances. Zero hidden charges.
             </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Hotel & Resort Partner Network Section */}
+      <section className="py-12 sm:py-16 max-w-[1080px] mx-auto px-4 sm:px-6">
+        <div className="bg-neutral-900 text-white rounded-3xl p-8 sm:p-12 border border-neutral-800 shadow-xl space-y-6">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div className="space-y-2 max-w-xl">
+              <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-amber-400 uppercase tracking-wider">
+                <Sparkles className="w-3.5 h-3.5" />
+                <span>Premier Hospitality Transfers</span>
+              </div>
+              <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-white">
+                Trusted Transfers to the Region’s Finest Resorts
+              </h2>
+              <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed">
+                We provide verified, seamless chauffeur connections to <strong>Summit Hotels & Resorts</strong>, <strong>Sumi Yashshree</strong>, the 5-star <strong>Taj Chia Kutir</strong> in Makaibari, and <strong>Rare Himalayas</strong> heritage properties across Darjeeling, Gangtok, Pelling, and Lachung.
+              </p>
+            </div>
+
+            {onNavigateHotels && (
+              <button
+                onClick={onNavigateHotels}
+                className="px-6 py-3 rounded-full bg-white hover:bg-neutral-100 text-neutral-950 text-xs font-bold transition-all shadow-md shrink-0 inline-flex items-center gap-2 cursor-pointer"
+              >
+                <Building2 className="w-4 h-4 text-blue-600" />
+                <span>View Recommended Hotels</span>
+                <ChevronRight className="w-4 h-4" />
+              </button>
+            )}
           </div>
         </div>
       </section>

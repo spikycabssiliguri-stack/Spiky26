@@ -11,7 +11,9 @@ import {
   Sparkles,
   Users,
   Compass,
-  Car
+  Car,
+  Building2,
+  Star
 } from 'lucide-react';
 import { 
   PACKAGES_DATA, 
@@ -22,19 +24,32 @@ import {
   COMPANY_INFO, 
   CabPackage 
 } from '../data/packagesData';
+import { HOTELS_DATA, RecommendedHotel } from '../data/hotelsData';
+import { HotelInquiryModal } from '../components/HotelInquiryModal';
 import { useCMS } from '../context/CMSContext';
 
 interface HomePageProps {
   onViewPackage: (pkg: CabPackage) => void;
   onNavigateContact: () => void;
+  onNavigateHotels?: () => void;
+  onSelectHotel?: (slug: string) => void;
 }
 
-export const HomePage = ({ onViewPackage, onNavigateContact }: HomePageProps) => {
+export const HomePage = ({ onViewPackage, onNavigateContact, onNavigateHotels, onSelectHotel }: HomePageProps) => {
   const [selectedFilter, setSelectedFilter] = useState<'all' | 'darjeeling' | 'sikkim' | 'bhutan'>('all');
+  const [selectedHotelForModal, setSelectedHotelForModal] = useState<RecommendedHotel | null>(null);
   const { cmsData } = useCMS();
 
   const packages = cmsData.packages && cmsData.packages.length > 0 ? cmsData.packages : PACKAGES_DATA;
   const settings = cmsData.settings || COMPANY_INFO;
+
+  // Selected top featured hotels for Home Page showcase
+  const homeFeaturedHotels = HOTELS_DATA.filter(h => 
+    h.id === 'hotel-taj-chia-kutir' || 
+    h.id === 'hotel-summit-swiss-heritage' || 
+    h.id === 'hotel-sumi-yashshree-suites-gangtok' ||
+    h.id === 'hotel-the-elgin-darjeeling'
+  );
 
   const filteredPackages = packages.filter((pkg) => {
     if (selectedFilter === 'all') return true;
@@ -88,6 +103,16 @@ export const HomePage = ({ onViewPackage, onNavigateContact }: HomePageProps) =>
               <MessageCircle className="w-4 h-4" />
               <span>Talk to Us on WhatsApp (Friendly Hill Locals)</span>
             </a>
+
+            {onNavigateHotels && (
+              <button
+                onClick={onNavigateHotels}
+                className="rounded-full bg-[#f5f5f7] hover:bg-[#e5e5ea] text-[#1d1d1f] px-6 py-3.5 transition-colors font-medium cursor-pointer shadow-sm inline-flex items-center gap-2 border border-[#d2d2d7]"
+              >
+                <Building2 className="w-4 h-4 text-[#0071e3]" />
+                <span>Recommended Hotels</span>
+              </button>
+            )}
           </div>
 
           <div className="text-[12px] text-emerald-800 pt-2 font-mono flex items-center justify-center gap-3 flex-wrap">
@@ -150,18 +175,19 @@ export const HomePage = ({ onViewPackage, onNavigateContact }: HomePageProps) =>
             </button>
 
             <a
-              href={`https://wa.me/${COMPANY_INFO.rawPhone}?text=Hi%20Spiky%20Cabs!%20I%20am%20interested%20in%20the%20North%20Sikkim%204N%2F5D%20package%20(6-Seater%20₹31,999).`}
+              href={`https://wa.me/${COMPANY_INFO.rawPhone}?text=Hi%20Spiky%20Cabs!%20I%20am%20interested%20in%20the%20North%20Sikkim%204N%2F5D%20package.%20Please%20share%20the%20best%20discounted%20rates.`}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[#2997ff] hover:underline inline-flex items-center font-normal"
+              className="text-[#2997ff] hover:underline inline-flex items-center font-semibold"
             >
-              <span>Book 6-Seater SUV: ₹31,999</span>
+              <MessageCircle className="w-4 h-4 mr-1 text-emerald-400" />
+              <span>Check Price</span>
               <ChevronRight className="w-4 h-4 ml-0.5" />
             </a>
           </div>
 
           <div className="text-xs text-[#a1a1a6] pt-1">
-            6 Seater SUV: <strong className="text-white">₹31,999</strong> | Optional Excursions: Mt. Katao & Zero Point | All Army permits arranged by our Siliguri desk
+            Dedicated 4x4 Mountain SUV | Optional Excursions: Mt. Katao & Zero Point | All Army permits arranged by our Siliguri desk
           </div>
         </div>
 
@@ -217,15 +243,18 @@ export const HomePage = ({ onViewPackage, onNavigateContact }: HomePageProps) =>
               </p>
               
               <div className="pt-2 pb-1">
-                <div className="inline-flex items-center gap-4 bg-[#f5f5f7] px-4 py-2.5 rounded-2xl border border-neutral-200 text-xs">
+                <div className="inline-flex items-center gap-3 bg-[#f5f5f7] px-4 py-2.5 rounded-2xl border border-neutral-200 text-xs">
                   <div>
-                    <span className="text-[#86868b] block text-[10px] font-medium">4 SEATER (4 seater WagonR / Swift Dzire)</span>
-                    <strong className="text-base font-mono text-[#1d1d1f]">₹11,999</strong>
+                    <span className="text-[#86868b] block text-[10px] font-medium">VEHICLE OPTIONS</span>
+                    <strong className="text-xs font-semibold text-neutral-800">4-Seater Sedan & 6-Seater SUV</strong>
                   </div>
                   <div className="w-px h-7 bg-neutral-300"></div>
                   <div>
-                    <span className="text-[#86868b] block text-[10px] font-medium">6 SEATER (Ertiga / Innova)</span>
-                    <strong className="text-base font-mono text-[#0071e3]">₹15,999</strong>
+                    <span className="text-[#86868b] block text-[10px] font-medium">CAB TARIFF</span>
+                    <span className="text-xs font-bold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full inline-flex items-center gap-1">
+                      <MessageCircle className="w-3 h-3 text-emerald-600" />
+                      <span>Best Price on WhatsApp</span>
+                    </span>
                   </div>
                 </div>
                 <div className="text-[11px] text-emerald-800 font-medium pt-1.5 flex items-center justify-center gap-1">
@@ -243,13 +272,15 @@ export const HomePage = ({ onViewPackage, onNavigateContact }: HomePageProps) =>
                   Day-by-Day Itinerary
                 </button>
                 <a
-                  href={`https://wa.me/${COMPANY_INFO.rawPhone}?text=Hi%20Spiky%20Cabs!%20I%20would%20like%20to%20book%20the%20Darjeeling%202N%2F3D%20package%20(4-Seater%20₹11,999%20%2F%206-Seater%20₹15,999).`}
+                  href={`https://wa.me/${COMPANY_INFO.rawPhone}?text=${encodeURIComponent(
+                    `Hi Spiky Cabs! I would like to check prices and book the Darjeeling 2N/3D package. Please share current seasonal rates.`
+                  )}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="rounded-full bg-emerald-600 hover:bg-emerald-500 text-white px-5 py-2.5 transition-colors inline-flex items-center gap-1.5 font-medium"
+                  className="rounded-full bg-emerald-600 hover:bg-emerald-500 text-white px-5 py-2.5 transition-colors inline-flex items-center gap-1.5 font-medium shadow-sm"
                 >
                   <MessageCircle className="w-3.5 h-3.5" />
-                  <span>Book on WhatsApp</span>
+                  <span>Check Price</span>
                 </a>
               </div>
             </div>
@@ -278,19 +309,22 @@ export const HomePage = ({ onViewPackage, onNavigateContact }: HomePageProps) =>
               </p>
               
               <div className="pt-2 pb-1 space-y-1.5">
-                <div className="inline-flex items-center gap-4 bg-[#f5f5f7] px-4 py-2.5 rounded-2xl border border-neutral-200 text-xs">
+                <div className="inline-flex items-center gap-3 bg-[#f5f5f7] px-4 py-2.5 rounded-2xl border border-neutral-200 text-xs">
                   <div>
-                    <span className="text-[#86868b] block text-[10px] font-medium">4 SEATER</span>
-                    <strong className="text-base font-mono text-[#1d1d1f]">₹16,999</strong>
+                    <span className="text-[#86868b] block text-[10px] font-medium">VEHICLE OPTIONS</span>
+                    <strong className="text-xs font-semibold text-neutral-800">4-Seater Sedan & 6-Seater SUV</strong>
                   </div>
                   <div className="w-px h-7 bg-neutral-300"></div>
                   <div>
-                    <span className="text-[#86868b] block text-[10px] font-medium">6 SEATER</span>
-                    <strong className="text-base font-mono text-[#0071e3]">₹24,999</strong>
+                    <span className="text-[#86868b] block text-[10px] font-medium">CAB TARIFF</span>
+                    <span className="text-xs font-bold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full inline-flex items-center gap-1">
+                      <MessageCircle className="w-3 h-3 text-emerald-600" />
+                      <span>Best Price on WhatsApp</span>
+                    </span>
                   </div>
                 </div>
                 <div className="inline-block text-[11px] text-emerald-800 bg-emerald-50 px-3 py-1 rounded-full font-medium">
-                  ✦ Nathula Pass Add-on: Approx ₹1,000 Per Person apx
+                  ✦ Nathula Pass Permit Assistance Included
                 </div>
               </div>
 
@@ -302,13 +336,15 @@ export const HomePage = ({ onViewPackage, onNavigateContact }: HomePageProps) =>
                   Day-by-Day Itinerary
                 </button>
                 <a
-                  href={`https://wa.me/${COMPANY_INFO.rawPhone}?text=Hi%20Spiky%20Cabs!%20I%20would%20like%20to%20book%20the%20Gangtok%203N%2F4D%20package%20(4-Seater%20₹16,999%20%2F%206-Seater%20₹24,999).`}
+                  href={`https://wa.me/${COMPANY_INFO.rawPhone}?text=${encodeURIComponent(
+                    `Hi Spiky Cabs! I would like to check prices and book the Gangtok 3N/4D package. Please share current seasonal rates.`
+                  )}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="rounded-full bg-emerald-600 hover:bg-emerald-500 text-white px-5 py-2.5 transition-colors inline-flex items-center gap-1.5 font-medium"
+                  className="rounded-full bg-emerald-600 hover:bg-emerald-500 text-white px-5 py-2.5 transition-colors inline-flex items-center gap-1.5 font-medium shadow-sm"
                 >
                   <MessageCircle className="w-3.5 h-3.5" />
-                  <span>Book on WhatsApp</span>
+                  <span>Check Price</span>
                 </a>
               </div>
             </div>
@@ -339,12 +375,20 @@ export const HomePage = ({ onViewPackage, onNavigateContact }: HomePageProps) =>
               <div className="pt-2 pb-1 space-y-1.5">
                 <div className="inline-flex items-center gap-3 bg-[#f5f5f7] px-5 py-2.5 rounded-2xl border border-neutral-200 text-xs">
                   <div>
-                    <span className="text-[#86868b] block text-[10px] font-medium">6 SEATER MOUNTAIN SUV</span>
-                    <strong className="text-lg font-mono text-[#0071e3]">₹31,999</strong>
+                    <span className="text-[#86868b] block text-[10px] font-medium">VEHICLE CLASS</span>
+                    <strong className="text-xs font-semibold text-neutral-800">Dedicated 4x4 Mountain SUV</strong>
+                  </div>
+                  <div className="w-px h-7 bg-neutral-300"></div>
+                  <div>
+                    <span className="text-[#86868b] block text-[10px] font-medium">CAB TARIFF</span>
+                    <span className="text-xs font-bold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full inline-flex items-center gap-1">
+                      <MessageCircle className="w-3 h-3 text-emerald-600" />
+                      <span>Best Price on WhatsApp</span>
+                    </span>
                   </div>
                 </div>
                 <div className="inline-block text-[11px] text-sky-800 bg-sky-50 px-3 py-1 rounded-full font-medium">
-                  ✦ Optional: Mt. Katao and Zero Point (15,300 ft Snow)
+                  ✦ Optional Excursion: Mt. Katao & Zero Point (15,300 ft Snow)
                 </div>
               </div>
 
@@ -356,13 +400,15 @@ export const HomePage = ({ onViewPackage, onNavigateContact }: HomePageProps) =>
                   Day-by-Day Itinerary
                 </button>
                 <a
-                  href={`https://wa.me/${COMPANY_INFO.rawPhone}?text=Hi%20Spiky%20Cabs!%20I%20would%20like%20to%20book%20the%20North%20Sikkim%204N%2F5D%20package%20(6-Seater%20₹31,999).`}
+                  href={`https://wa.me/${COMPANY_INFO.rawPhone}?text=${encodeURIComponent(
+                    `Hi Spiky Cabs! I would like to check prices and book the North Sikkim 4N/5D package. Please share current seasonal rates.`
+                  )}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="rounded-full bg-emerald-600 hover:bg-emerald-500 text-white px-5 py-2.5 transition-colors inline-flex items-center gap-1.5 font-medium"
+                  className="rounded-full bg-emerald-600 hover:bg-emerald-500 text-white px-5 py-2.5 transition-colors inline-flex items-center gap-1.5 font-medium shadow-sm"
                 >
                   <MessageCircle className="w-3.5 h-3.5" />
-                  <span>Book on WhatsApp</span>
+                  <span>Check Price</span>
                 </a>
               </div>
             </div>
@@ -391,15 +437,18 @@ export const HomePage = ({ onViewPackage, onNavigateContact }: HomePageProps) =>
               </p>
               
               <div className="pt-2 pb-1">
-                <div className="inline-flex items-center gap-4 bg-[#f5f5f7] px-4 py-2.5 rounded-2xl border border-neutral-200 text-xs">
+                <div className="inline-flex items-center gap-3 bg-[#f5f5f7] px-4 py-2.5 rounded-2xl border border-neutral-200 text-xs">
                   <div>
-                    <span className="text-[#86868b] block text-[10px] font-medium">4 SEATER</span>
-                    <strong className="text-base font-mono text-[#1d1d1f]">₹16,999</strong>
+                    <span className="text-[#86868b] block text-[10px] font-medium">VEHICLE OPTIONS</span>
+                    <strong className="text-xs font-semibold text-neutral-800">4-Seater Sedan & 6-Seater SUV</strong>
                   </div>
                   <div className="w-px h-7 bg-neutral-300"></div>
                   <div>
-                    <span className="text-[#86868b] block text-[10px] font-medium">6 SEATER</span>
-                    <strong className="text-base font-mono text-[#0071e3]">₹24,999</strong>
+                    <span className="text-[#86868b] block text-[10px] font-medium">CAB TARIFF</span>
+                    <span className="text-xs font-bold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full inline-flex items-center gap-1">
+                      <MessageCircle className="w-3 h-3 text-emerald-600" />
+                      <span>Best Price on WhatsApp</span>
+                    </span>
                   </div>
                 </div>
                 <div className="text-[11px] text-emerald-800 font-medium pt-1.5 flex items-center justify-center gap-1">
@@ -417,13 +466,15 @@ export const HomePage = ({ onViewPackage, onNavigateContact }: HomePageProps) =>
                   Day-by-Day Itinerary
                 </button>
                 <a
-                  href={`https://wa.me/${COMPANY_INFO.rawPhone}?text=Hi%20Spiky%20Cabs!%20I%20would%20like%20to%20book%20the%20Pelling%203N%2F4D%20package%20(4-Seater%20₹16,999%20%2F%206-Seater%20₹24,999).`}
+                  href={`https://wa.me/${COMPANY_INFO.rawPhone}?text=${encodeURIComponent(
+                    `Hi Spiky Cabs! I would like to check prices and book the Pelling 3N/4D package. Please share current seasonal rates.`
+                  )}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="rounded-full bg-emerald-600 hover:bg-emerald-500 text-white px-5 py-2.5 transition-colors inline-flex items-center gap-1.5 font-medium"
+                  className="rounded-full bg-emerald-600 hover:bg-emerald-500 text-white px-5 py-2.5 transition-colors inline-flex items-center gap-1.5 font-medium shadow-sm"
                 >
                   <MessageCircle className="w-3.5 h-3.5" />
-                  <span>Book on WhatsApp</span>
+                  <span>Check Price</span>
                 </a>
               </div>
             </div>
@@ -436,6 +487,115 @@ export const HomePage = ({ onViewPackage, onNavigateContact }: HomePageProps) =>
                 referrerPolicy="no-referrer"
               />
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 3b. Curated Himalayan Stays & Cab Combos Showcase */}
+      <section className="py-14 sm:py-20 bg-neutral-900 text-white px-4 sm:px-6 overflow-hidden">
+        <div className="max-w-[1240px] mx-auto space-y-10">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-white/10 pb-6">
+            <div className="space-y-2 max-w-2xl">
+              <div className="inline-flex items-center gap-2 text-xs font-semibold text-amber-400 uppercase tracking-wider">
+                <Sparkles className="w-3.5 h-3.5" />
+                <span>Zero Middlemen Markups · Verified Mountain Stays</span>
+              </div>
+              <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-white leading-tight">
+                Recommended Stays & Resort Combos
+              </h2>
+              <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed">
+                We partner with <strong>Summit Hotels</strong>, <strong>Sumi Yashshree</strong>, the iconic <strong>Taj Chia Kutir</strong>, and <strong>Rare Himalayas</strong> heritage estates across Darjeeling & Sikkim. Combine your stay with dedicated private chauffeur transfers from IXB Airport or NJP Station.
+              </p>
+            </div>
+
+            {onNavigateHotels && (
+              <button
+                onClick={onNavigateHotels}
+                className="rounded-full bg-white hover:bg-neutral-100 text-neutral-950 px-6 py-2.5 text-xs font-bold transition-all shadow-md cursor-pointer shrink-0 inline-flex items-center gap-2"
+              >
+                <span>View All Recommended Hotels</span>
+                <ChevronRight className="w-4 h-4" />
+              </button>
+            )}
+          </div>
+
+          {/* 4-Card Hotel Spotlight Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {homeFeaturedHotels.map((hotel) => (
+              <div
+                key={hotel.id}
+                className="group bg-neutral-950 rounded-2xl overflow-hidden border border-white/10 hover:border-amber-400/60 transition-all flex flex-col justify-between"
+              >
+                <div 
+                  onClick={() => onSelectHotel && onSelectHotel(hotel.slug)}
+                  className="relative aspect-[16/10] bg-neutral-900 overflow-hidden cursor-pointer"
+                >
+                  <img
+                    src={hotel.featuredImage}
+                    alt={hotel.name}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    referrerPolicy="no-referrer"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent pointer-events-none" />
+                  
+                  <div className="absolute top-2.5 left-2.5 px-2.5 py-0.5 rounded-full bg-black/80 backdrop-blur-md text-white text-[10px] font-semibold">
+                    {hotel.brand}
+                  </div>
+
+                  <div className="absolute top-2.5 right-2.5 px-2 py-0.5 rounded-full bg-white/90 text-neutral-900 text-[10px] font-bold flex items-center gap-1 font-mono">
+                    <Star className="w-2.5 h-2.5 text-amber-500 fill-amber-500" />
+                    <span>{hotel.starRating}</span>
+                  </div>
+
+                  <div className="absolute bottom-2 left-2.5 text-[11px] text-neutral-300 flex items-center gap-1">
+                    <MapPin className="w-3 h-3 text-neutral-400 shrink-0" />
+                    <span className="truncate">{hotel.regionLabel}</span>
+                  </div>
+                </div>
+
+                <div className="p-4 flex-1 flex flex-col justify-between space-y-3">
+                  <div className="space-y-1">
+                    <h3 
+                      onClick={() => onSelectHotel && onSelectHotel(hotel.slug)}
+                      className="text-xs font-bold text-white group-hover:text-amber-400 transition-colors cursor-pointer line-clamp-1"
+                    >
+                      {hotel.name}
+                    </h3>
+                    <p className="text-[11px] text-neutral-400 line-clamp-2 leading-snug">
+                      {hotel.tagline}
+                    </p>
+                  </div>
+
+                  <div className="pt-2 border-t border-white/10 flex items-center justify-between">
+                    <div>
+                      <span className="text-[10px] font-bold text-emerald-400 block">Tariff on Request</span>
+                      <span className="text-[9px] text-neutral-400 block">Best price via WhatsApp</span>
+                    </div>
+
+                    <div className="flex items-center gap-1.5">
+                      <button
+                        onClick={() => onSelectHotel && onSelectHotel(hotel.slug)}
+                        className="px-2.5 py-1 rounded-full bg-white/10 hover:bg-white/20 text-white text-[10px] font-medium transition-colors cursor-pointer"
+                      >
+                        Details & Toilet Photo
+                      </button>
+
+                      <a
+                        href={`https://wa.me/${COMPANY_INFO.rawPhone}?text=${encodeURIComponent(
+                          `Hi Spiky Cabs, I would like to check prices and get a Cab + Stay Quote for ${hotel.name} in ${hotel.regionLabel}.`
+                        )}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="px-2.5 py-1 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white text-[10px] font-bold transition-colors cursor-pointer flex items-center gap-1"
+                      >
+                        <MessageCircle className="w-3 h-3" />
+                        <span>Check Price</span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -534,8 +694,9 @@ export const HomePage = ({ onViewPackage, onNavigateContact }: HomePageProps) =>
                   <div className="text-xs font-mono text-[#86868b]">
                     {p.durationNights}N / {p.durationDays}D
                   </div>
-                  <div className="font-mono font-semibold text-lg text-[#1d1d1f]">
-                    From ₹{p.startingPrice.sedan.toLocaleString('en-IN')}
+                  <div className="font-semibold text-xs text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-full inline-flex items-center gap-1">
+                    <MessageCircle className="w-3 h-3 text-emerald-600" />
+                    <span>Best Rate on WhatsApp</span>
                   </div>
                 </div>
 
@@ -626,22 +787,23 @@ export const HomePage = ({ onViewPackage, onNavigateContact }: HomePageProps) =>
               </div>
 
               <div className="pt-4 border-t border-[#f5f5f7]">
-                <div className="flex items-baseline justify-between text-xs mb-3">
-                  <span className="text-[#86868b]">Est. Daily Rate</span>
-                  <span className="font-mono font-semibold text-[#1d1d1f]">
-                    ~₹{fleet.baseRatePerDay.toLocaleString('en-IN')}/day
+                <div className="flex items-center justify-between text-xs mb-3">
+                  <span className="text-[#86868b]">Daily Rental Tariff</span>
+                  <span className="font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded text-[11px] flex items-center gap-1">
+                    <MessageCircle className="w-3 h-3 text-emerald-600" />
+                    <span>Rate on Request</span>
                   </span>
                 </div>
 
                 <a
                   href={`https://wa.me/${COMPANY_INFO.rawPhone}?text=${encodeURIComponent(
-                    `Hi Spiky Cabs, I would like to inquire about booking the ${fleet.name}.`
+                    `Hi Spiky Cabs, I would like to check daily rental rates and availability for the ${fleet.name}.`
                   )}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="block text-center rounded-full bg-[#f5f5f7] hover:bg-[#e5e5ea] text-[#0071e3] py-2 text-xs font-normal transition-colors"
+                  className="block text-center rounded-full bg-emerald-600 hover:bg-emerald-500 text-white py-2 text-xs font-semibold transition-colors shadow-xs"
                 >
-                  Inquire for {fleet.name.split(' ')[0]}
+                  Check Price
                 </a>
               </div>
             </div>
@@ -732,6 +894,13 @@ export const HomePage = ({ onViewPackage, onNavigateContact }: HomePageProps) =>
           </div>
         </div>
       </section>
+
+      {/* Hotel Inquiry Modal */}
+      <HotelInquiryModal
+        hotel={selectedHotelForModal}
+        isOpen={Boolean(selectedHotelForModal)}
+        onClose={() => setSelectedHotelForModal(null)}
+      />
     </div>
   );
 };

@@ -140,11 +140,13 @@ export function getDefaultCMSData(): CMSData {
       }
     },
     navigation: [
+      { id: 'nav-home2', label: 'Travel Agency', path: 'home2', isPublished: true, order: 0.5, openInNewTab: false, isSystem: true },
       { id: 'nav-packages', label: 'Cab Packages', path: 'packages', isPublished: true, order: 1, openInNewTab: false, isSystem: true },
-      { id: 'nav-about', label: 'About', path: 'about', isPublished: true, order: 2, openInNewTab: false, isSystem: true },
-      { id: 'nav-gallery', label: 'Gallery', path: 'gallery', isPublished: true, order: 3, openInNewTab: false, isSystem: true },
-      { id: 'nav-testimonials', label: 'Testimonials', path: 'testimonials', isPublished: true, order: 4, openInNewTab: false, isSystem: true },
-      { id: 'nav-contact', label: 'Contact', path: 'contact', isPublished: true, order: 5, openInNewTab: false, isSystem: true }
+      { id: 'nav-hotels', label: 'Hotels', path: 'hotels', isPublished: true, order: 2, openInNewTab: false, isSystem: true },
+      { id: 'nav-about', label: 'About', path: 'about', isPublished: true, order: 3, openInNewTab: false, isSystem: true },
+      { id: 'nav-gallery', label: 'Gallery', path: 'gallery', isPublished: true, order: 4, openInNewTab: false, isSystem: true },
+      { id: 'nav-testimonials', label: 'Testimonials', path: 'testimonials', isPublished: true, order: 5, openInNewTab: false, isSystem: true },
+      { id: 'nav-contact', label: 'Contact', path: 'contact', isPublished: true, order: 6, openInNewTab: false, isSystem: true }
     ],
     pages: [
       {
@@ -174,7 +176,7 @@ export function getDefaultCMSData(): CMSData {
             type: 'feature',
             title: 'North Sikkim. Pure alpine drama.',
             subtitle: 'Traverse ancient pine gorges to Lachung, the blooming rhododendrons of Yumthang Valley, and high-altitude snow peaks at Zero Point (15,300 ft).',
-            content: 'From ₹17,999 / complete cab package · Restricted Area Permits (PAP) arranged',
+            content: 'Complete private cab package · Best seasonal rate on WhatsApp · Restricted Area Permits (PAP) arranged',
             image: '/images/north_sikkim_yumthang_1790679981868.jpg',
             buttonText: 'View Day-by-Day Itinerary',
             buttonLink: 'north-sikkim-4n-5d',
@@ -278,6 +280,7 @@ export function getDefaultCMSData(): CMSData {
         {
           title: 'Explore Spiky Cabs',
           links: [
+            { label: 'Recommended Hotels', url: 'hotels' },
             { label: 'About Spiky Cabs', url: 'about' },
             { label: 'Gallery', url: 'gallery' },
             { label: 'Testimonials (Video)', url: 'testimonials' },

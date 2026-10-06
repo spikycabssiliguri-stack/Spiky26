@@ -25,7 +25,7 @@ export const ItineraryModal = ({ pkg, onClose }: ItineraryModalProps) => {
     return 'Premium SUV (Toyota Innova Crysta)';
   };
 
-  const whatsappText = `Hi Spiky Cabs, I would like to book the "${pkg.title}" (${pkg.durationNights}N/${pkg.durationDays}D) for ${getVehicleName()} starting at ₹${getVehiclePrice().toLocaleString('en-IN')}. Please confirm availability and send the booking voucher.`;
+  const whatsappText = `Hi Spiky Cabs, I would like to check prices and book the "${pkg.title}" (${pkg.durationNights}N/${pkg.durationDays}D) with ${getVehicleName()}. Please share current seasonal rates, cab availability, and quotation.`;
   const whatsappUrl = `https://wa.me/${COMPANY_INFO.rawPhone}?text=${encodeURIComponent(whatsappText)}`;
 
   const handlePrint = () => {
@@ -250,8 +250,8 @@ export const ItineraryModal = ({ pkg, onClose }: ItineraryModalProps) => {
                     <div className="text-[10px] font-semibold text-[#86868b] uppercase">Executive Sedan</div>
                     <div className="font-semibold text-[#1d1d1f] text-sm mt-0.5">Swift Dzire / Etios</div>
                     <div className="text-xs text-[#86868b] mt-1">Up to 4 Pax · 2 Bags</div>
-                    <div className="mt-3 pt-3 border-t border-[#e5e5ea] font-mono font-semibold text-lg text-[#1d1d1f]">
-                      ₹{pkg.startingPrice.sedan.toLocaleString('en-IN')}
+                    <div className="mt-3 pt-3 border-t border-[#e5e5ea] font-semibold text-xs text-emerald-700 bg-emerald-50 px-2 py-1 rounded-md inline-block">
+                      Price on WhatsApp
                     </div>
                   </button>
 
@@ -266,8 +266,8 @@ export const ItineraryModal = ({ pkg, onClose }: ItineraryModalProps) => {
                     <div className="text-[10px] font-semibold text-[#86868b] uppercase">Comfort MUV / 4x4</div>
                     <div className="font-semibold text-[#1d1d1f] text-sm mt-0.5">Ertiga / Bolero</div>
                     <div className="text-xs text-[#86868b] mt-1">Up to 6 Pax · 4 Bags</div>
-                    <div className="mt-3 pt-3 border-t border-[#e5e5ea] font-mono font-semibold text-lg text-[#1d1d1f]">
-                      ₹{pkg.startingPrice.suv.toLocaleString('en-IN')}
+                    <div className="mt-3 pt-3 border-t border-[#e5e5ea] font-semibold text-xs text-emerald-700 bg-emerald-50 px-2 py-1 rounded-md inline-block">
+                      Price on WhatsApp
                     </div>
                   </button>
 
@@ -282,8 +282,8 @@ export const ItineraryModal = ({ pkg, onClose }: ItineraryModalProps) => {
                     <div className="text-[10px] font-semibold text-[#0071e3] uppercase">Premium Hill Ride</div>
                     <div className="font-semibold text-[#1d1d1f] text-sm mt-0.5">Innova Crysta</div>
                     <div className="text-xs text-[#86868b] mt-1">6–7 Pax · Luxury Seats</div>
-                    <div className="mt-3 pt-3 border-t border-[#e5e5ea] font-mono font-semibold text-lg text-[#1d1d1f]">
-                      ₹{pkg.startingPrice.innova.toLocaleString('en-IN')}
+                    <div className="mt-3 pt-3 border-t border-[#e5e5ea] font-semibold text-xs text-emerald-700 bg-emerald-50 px-2 py-1 rounded-md inline-block">
+                      Price on WhatsApp
                     </div>
                   </button>
                 </div>
@@ -296,8 +296,9 @@ export const ItineraryModal = ({ pkg, onClose }: ItineraryModalProps) => {
                   <div className="font-semibold text-lg text-white">
                     {pkg.title} · {getVehicleName()}
                   </div>
-                  <div className="text-xs text-[#2997ff] mt-0.5">
-                    Estimated Tariff: ₹{getVehiclePrice().toLocaleString('en-IN')} (All inclusive)
+                  <div className="text-xs text-emerald-400 mt-0.5 flex items-center gap-1 font-medium">
+                    <MessageCircle className="w-3.5 h-3.5" />
+                    <span>Seasonal Discount Available · Get Best Rate on WhatsApp</span>
                   </div>
                 </div>
 
@@ -305,9 +306,10 @@ export const ItineraryModal = ({ pkg, onClose }: ItineraryModalProps) => {
                   href={whatsappUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full sm:w-auto rounded-full bg-[#0071e3] hover:bg-[#0077ed] text-white px-6 py-2.5 text-xs font-normal transition-colors text-center"
+                  className="w-full sm:w-auto rounded-full bg-emerald-600 hover:bg-emerald-500 text-white px-6 py-2.5 text-xs font-semibold transition-colors text-center shadow-sm flex items-center justify-center gap-1.5"
                 >
-                  Book on WhatsApp
+                  <MessageCircle className="w-4 h-4" />
+                  <span>Check Price</span>
                 </a>
               </div>
             </div>

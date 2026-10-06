@@ -40,7 +40,7 @@ export const CustomPackageBuilder = () => {
 - Duration: ${nights} Nights / ${days} Days
 - Passengers: ${passengers} Pax
 - Vehicle Choice: ${selectedVehicle.name} (${selectedVehicle.category})
-- Approximate Estimated Cab Package: ~₹${estimatedCabCost.toLocaleString('en-IN')}
+- Tariff Quote: Please share best seasonal price quote on WhatsApp
 - Planned Travel Date: ${travelMonth}
 
 Please review this customized route and send me an official cab itinerary quote.`;
@@ -153,8 +153,9 @@ Please review this customized route and send me an official cab itinerary quote.
                       <span>{fleet.capacity}</span>
                     </div>
                     <div className="text-sm font-bold text-white mb-1">{fleet.name}</div>
-                    <div className="text-xs font-mono text-sky-400">
-                      ₹{fleet.baseRatePerDay.toLocaleString('en-IN')}/day est.
+                    <div className="text-xs font-semibold text-emerald-400 flex items-center gap-1">
+                      <MessageCircle className="w-3 h-3" />
+                      <span>Best Rate on WhatsApp</span>
                     </div>
                   </button>
                 ))}
@@ -268,15 +269,14 @@ Please review this customized route and send me an official cab itinerary quote.
 
             {/* Price Estimate */}
             <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-4 mb-6">
-              <div className="text-xs text-neutral-400 mb-1">Estimated Cab Package Budget</div>
-              <div className="flex items-baseline gap-2">
-                <span className="text-3xl font-black font-mono text-white tabular-nums">
-                  ₹{estimatedCabCost.toLocaleString('en-IN')}
+              <div className="text-xs text-neutral-400 mb-1">Custom Package Tariff</div>
+              <div className="flex items-center gap-2">
+                <span className="text-xl sm:text-2xl font-bold text-emerald-400">
+                  Best Price on WhatsApp
                 </span>
-                <span className="text-xs text-neutral-400">approx.</span>
               </div>
-              <p className="text-[11px] text-neutral-400 mt-1">
-                Includes private cab for complete itinerary, mountain driver, fuel & route permits.
+              <p className="text-[11px] text-neutral-300 mt-1">
+                Seasonal hill discounts applied. Includes private cab, hill chauffeur, fuel, parking & Sikkim permits.
               </p>
             </div>
 
@@ -286,10 +286,10 @@ Please review this customized route and send me an official cab itinerary quote.
                 href={whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full inline-flex items-center justify-center gap-2 py-3 px-4 bg-[#0071e3] hover:bg-[#0077ed] text-white font-bold text-sm rounded-xl transition-all shadow-md"
+                className="w-full inline-flex items-center justify-center gap-2 py-3 px-4 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm rounded-xl transition-all shadow-md"
               >
                 <MessageCircle className="w-4 h-4" />
-                <span>Send Custom Itinerary on WhatsApp</span>
+                <span>Check Price</span>
               </a>
 
               <a

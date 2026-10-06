@@ -3,8 +3,11 @@ import { Phone, MessageCircle } from 'lucide-react';
 import { Navbar, PageId } from './components/Navbar';
 import { Footer } from './components/Footer';
 import { HomePage } from './pages/HomePage';
+import { Home2Page } from './pages/Home2Page';
 import { PackagesCatalogPage } from './pages/PackagesCatalogPage';
 import { PackageDetailPage } from './pages/PackageDetailPage';
+import { HotelsCatalogPage } from './pages/HotelsCatalogPage';
+import { HotelDetailPage } from './pages/HotelDetailPage';
 import { AboutPage } from './pages/AboutPage';
 import { GalleryPage } from './pages/GalleryPage';
 import { TestimonialsPage } from './pages/TestimonialsPage';
@@ -25,9 +28,17 @@ function PublicWebsite() {
   // Sync hash with page navigation
   useEffect(() => {
     const handleHash = () => {
+      const rawPath = window.location.pathname.replace(/^\/+/, '').replace(/\/+$/, '');
       const rawHash = window.location.hash.replace(/^#\/?/, '');
+      
+      // Support direct /home2 or #home2 URL
+      if (rawPath === 'home2' || rawHash === 'home2') {
+        setCurrentPage('home2');
+        return;
+      }
+
       if (!rawHash || rawHash === '') {
-        setCurrentPage('home');
+        setCurrentPage(rawPath === 'home2' ? 'home2' : 'home');
         return;
       }
 
@@ -68,8 +79,12 @@ function PublicWebsite() {
   const isPackageDetail = currentPage.startsWith('package/') || currentPage.startsWith('packages/');
   const packageSlug = isPackageDetail ? currentPage.replace(/^(packages?)\//, '') : '';
 
+  // Check if current route is an individual hotel detail page (e.g. hotel/taj-chia-kutir-resort-darjeeling)
+  const isHotelDetail = currentPage.startsWith('hotel/') || currentPage.startsWith('hotels/');
+  const hotelSlug = isHotelDetail ? currentPage.replace(/^(hotels?)\//, '') : '';
+
   // Core system pages
-  const isCorePage = ['home', 'packages', 'about', 'gallery', 'testimonials', 'contact', 'privacy'].includes(currentPage);
+  const isCorePage = ['home', 'home2', 'packages', 'hotels', 'about', 'gallery', 'testimonials', 'contact', 'privacy'].includes(currentPage);
 
   return (
     <div className="min-h-screen bg-white flex flex-col text-neutral-900 font-sans antialiased selection:bg-neutral-900 selection:text-white pb-14 sm:pb-0">
@@ -82,12 +97,32 @@ function PublicWebsite() {
 
       {/* 2. Active Page Content */}
       <main className="flex-1">
+        {/* Individual Hotel Detail Page */}
+        {isHotelDetail && (
+          <HotelDetailPage
+            hotelSlug={hotelSlug}
+            onNavigateBack={() => handleNavigate('hotels')}
+            onNavigateHotel={(slug) => handleNavigate(`hotel/${slug}`)}
+            onNavigatePackage={(slug) => handleNavigate(`package/${slug}`)}
+          />
+        )}
+
+        {/* Dedicated Hotels Catalog Page (/#hotels) */}
+        {currentPage === 'hotels' && (
+          <HotelsCatalogPage
+            onSelectHotel={(slug) => handleNavigate(`hotel/${slug}`)}
+            onNavigateContact={() => handleNavigate('contact')}
+          />
+        )}
+
         {/* Individual Package Detail Page */}
         {isPackageDetail && (
           <PackageDetailPage
             packageIdOrSlug={packageSlug}
             onNavigateBack={() => handleNavigate('packages')}
             onNavigatePackage={(slug) => handleNavigate(`package/${slug}`)}
+            onNavigateHotel={(slug) => handleNavigate(`hotel/${slug}`)}
+            onNavigateHotels={() => handleNavigate('hotels')}
           />
         )}
 
@@ -96,6 +131,19 @@ function PublicWebsite() {
           <HomePage
             onViewPackage={(pkg) => handleNavigate(`package/${pkg.slug || pkg.id}`)}
             onNavigateContact={() => handleNavigate('contact')}
+            onNavigateHotels={() => handleNavigate('hotels')}
+            onSelectHotel={(slug) => handleNavigate(`hotel/${slug}`)}
+          />
+        )}
+
+        {/* Home2 Travel Agency Landing Page (/home2 or /#home2) */}
+        {currentPage === 'home2' && (
+          <Home2Page
+            onViewPackage={(pkg) => handleNavigate(`package/${pkg.slug || pkg.id}`)}
+            onNavigateContact={() => handleNavigate('contact')}
+            onNavigateHotels={() => handleNavigate('hotels')}
+            onSelectHotel={(slug) => handleNavigate(`hotel/${slug}`)}
+            onNavigatePackages={() => handleNavigate('packages')}
           />
         )}
 
@@ -104,6 +152,7 @@ function PublicWebsite() {
           <PackagesCatalogPage
             onSelectPackage={(pkg) => handleNavigate(`package/${pkg.slug || pkg.id}`)}
             onNavigateContact={() => handleNavigate('contact')}
+            onNavigateHotels={() => handleNavigate('hotels')}
           />
         )}
 
@@ -112,19 +161,26 @@ function PublicWebsite() {
           <AboutPage
             onNavigateContact={() => handleNavigate('contact')}
             onNavigatePackages={() => handleNavigate('packages')}
+            onNavigateHotels={() => handleNavigate('hotels')}
           />
         )}
 
         {currentPage === 'gallery' && (
-          <GalleryPage />
+          <GalleryPage 
+            onNavigateHotels={() => handleNavigate('hotels')}
+          />
         )}
 
         {currentPage === 'testimonials' && (
-          <TestimonialsPage />
+          <TestimonialsPage 
+            onNavigateHotels={() => handleNavigate('hotels')}
+          />
         )}
 
         {currentPage === 'contact' && (
-          <ContactPage />
+          <ContactPage 
+            onNavigateHotels={() => handleNavigate('hotels')}
+          />
         )}
 
         {currentPage === 'privacy' && (
@@ -132,10 +188,11 @@ function PublicWebsite() {
         )}
 
         {/* Dynamic CMS Page for admin created custom pages */}
-        {!isCorePage && !isPackageDetail && (
+        {!isCorePage && !isPackageDetail && !isHotelDetail && (
           <DynamicPage 
             slug={currentPage} 
             onNavigateContact={() => handleNavigate('contact')} 
+            onNavigateHotels={() => handleNavigate('hotels')}
           />
         )}
       </main>
@@ -145,6 +202,7 @@ function PublicWebsite() {
         onNavigate={handleNavigate}
         onOpenChecklist={() => setIsChecklistOpen(true)}
       />
+
 
       {/* 4. Modal: Information Needed from Owner Checklist */}
       <InformationChecklistModal

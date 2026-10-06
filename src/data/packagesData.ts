@@ -232,7 +232,7 @@ export const PACKAGES_DATA: CabPackage[] = [
     recommendedVehicles: ['4 seater WagonR / Swift Dzire', 'Maruti Ertiga / Innova (6-Seater)'],
     permitRequired: false,
     keyHighlights: [
-      '4-Seater (WagonR / Swift Dzire): ₹11,999 | 6-Seater SUV: ₹15,999 (All Inclusive)',
+      'Dedicated 4-Seater & 6-Seater SUV: Best Price on WhatsApp (All Inclusive)',
       'Early 4:00 AM Tiger Hill Sunrise over Mt. Kanchenjunga (2,590 m)',
       'Batasia Loop War Memorial with Toy Train spiral view',
       'Historic Ghoom Monastery & Japanese Peace Pagoda',
@@ -290,19 +290,19 @@ export const PACKAGES_DATA: CabPackage[] = [
     pricingTier: {
       fourSeaterRate: 16999,
       sixSeaterRate: 24999,
-      nathulaExtra: '₹1,000 Per Person apx'
+      nathulaExtra: 'Nominal Army pass fee on WhatsApp'
     },
     offerValidity: '30th April 2027',
     pickupDrop: 'Bagdogra Airport (IXB) or New Jalpaiguri Railway Station (NJP)',
-    overview: 'There is something surreal about driving along the roaring, turquoise Teesta River and watching the air turn crisp and cold. Welcome to Gangtok, India\'s cleanest hill city where cars aren\'t allowed on the cobblestones of MG Marg and flowers bloom in window boxes. On Day 2, we take you climbing high above the clouds to the sacred, glacier-fed Tsomgo (Changu) Lake at 12,310 ft and the legendary Baba Harbhajan Mandir. Want to reach the historic Indo-China trade border at Nathula Pass? Just give us a heads-up — it\'s an optional add-on at approx ₹1,000 per person, and we take care of all the military and Sikkim tourism paperwork so you only have to think about keeping your hands warm in the snow.',
+    overview: 'There is something surreal about driving along the roaring, turquoise Teesta River and watching the air turn crisp and cold. Welcome to Gangtok, India\'s cleanest hill city where cars aren\'t allowed on the cobblestones of MG Marg and flowers bloom in window boxes. On Day 2, we take you climbing high above the clouds to the sacred, glacier-fed Tsomgo (Changu) Lake at 12,310 ft and the legendary Baba Harbhajan Mandir. Want to reach the historic Indo-China trade border at Nathula Pass? Just give us a heads-up — we take care of all the military and Sikkim tourism paperwork so you only have to think about keeping your hands warm in the snow.',
     bestTime: 'March to June (Flowers) & October to February (Clear skies & winter snow at Tsomgo)',
     idealFor: 'Families, friends, honeymooners looking for clean mountain city vibe & snow lake adventure',
     recommendedVehicles: ['4 seater WagonR / Swift Dzire', 'Mahindra Scorpio / Innova / Ertiga (6-Seater)'],
     permitRequired: true,
-    permitDetails: 'Protected Area Permit (PAP) for Tsomgo Lake & Baba Mandir included. Requires 2 passport photos + valid Govt ID per person. (Nathula Pass is an optional add-on at approx ₹1,000 per person, subject to Army clearance).',
+    permitDetails: 'Protected Area Permit (PAP) for Tsomgo Lake & Baba Mandir included. Requires 2 passport photos + valid Govt ID per person. (Nathula Pass is an optional add-on subject to Army clearance).',
     keyHighlights: [
-      '4-Seater: ₹16,999 | 6-Seater: ₹24,999 (Fuel, Permits & Driver Included)',
-      'Nathula Pass Border Add-on: Approx ₹1,000 Per Person (Optional)',
+      'Dedicated 4-Seater & 6-Seater: Best Price on WhatsApp (Fuel & Driver Included)',
+      'Nathula Pass Border Add-on: Army Clearance & Permit Assistance',
       'Scenic 4-hour mountain drive following the mighty Teesta River',
       'Evenings on pedestrian-only clean cobblestone MG Marg',
       'High-altitude glacial Tsomgo (Changu) Lake (3,753 m / 12,313 ft)',
@@ -324,7 +324,7 @@ export const PACKAGES_DATA: CabPackage[] = [
         dayNumber: 2,
         title: 'High-Altitude Excursion to Tsomgo Lake & Baba Mandir (Optional Nathula)',
         routeTitle: 'Tsomgo Lake & New Baba Mandir Excursion',
-        description: 'Head into the high Himalayas! Climb through dramatic hairpin bends to the glacial oval Tsomgo (Changu) Lake, sitting at 12,310 ft. Sip hot maggi with steam blowing in the sub-zero chill, ride a colorfully dressed Yak, and visit Baba Harbhajan Mandir. If you have opted for Nathula Pass (approx ₹1,000 per person extra), your cab drives straight to the Indo-China border outpost where Indian and Chinese soldiers stand face to face across the barbed wire.',
+        description: 'Head into the high Himalayas! Climb through dramatic hairpin bends to the glacial oval Tsomgo (Changu) Lake, sitting at 12,310 ft. Sip hot maggi with steam blowing in the sub-zero chill, ride a colorfully dressed Yak, and visit Baba Harbhajan Mandir. If you have opted for Nathula Pass (optional border pass), your cab drives straight to the Indo-China border outpost where Indian and Chinese soldiers stand face to face across the barbed wire.',
         highlights: ['Tsomgo Lake (Changu) high-altitude glacial beauty at 12,310 ft', 'Decorated Yak rides and snow photography', 'Revered Baba Harbhajan Mandir at 13,123 ft', 'Thrilling mountain zigzag roads of East Sikkim', 'Nathula Pass border post (optional add-on)'],
         altitude: '3,753 m (12,313 ft)',
         stayLocation: 'Gangtok',
@@ -380,7 +380,7 @@ export const PACKAGES_DATA: CabPackage[] = [
     permitRequired: true,
     permitDetails: 'North Sikkim Restricted Area Permit (RAP/PAP) processed by Spiky Cabs. Requires 4 passport photos and voter ID/passport per person. (Aadhaar not accepted for Sikkim international border sectors).',
     keyHighlights: [
-      'Dedicated 6-Seater Mountain SUV: ₹31,999 (Complete 5-Day Circuit)',
+      'Dedicated 6-Seater Mountain SUV: Best Price on WhatsApp (Complete 5-Day Circuit)',
       'Optional Excursions: Mt. Katao & Zero Point (15,300 ft Snow Fields)',
       'Gangtok city acclimation & scenic Teesta valley climb',
       'Chasing colossal mountain cascades: Naga Falls & Amitabh Bachchan Falls',
@@ -468,7 +468,7 @@ export const PACKAGES_DATA: CabPackage[] = [
     recommendedVehicles: ['4 seater WagonR / Swift Dzire', 'Maruti Ertiga / Toyota Innova Crysta (6-Seater)'],
     permitRequired: false,
     keyHighlights: [
-      '4-Seater: ₹16,999 | 6-Seater: ₹24,999 (Complete Private Cab Circuit)',
+      'Dedicated 4-Seater & 6-Seater: Best Price on WhatsApp (Complete Private Cab Circuit)',
       'India\'s 1st Glass Skywalk & 137-ft Chenrezig Statue at Sangachoeling',
       'Sacred wish-fulfilling Khecheopalri Lake (surrounded by pristine prayer flags)',
       'Historic 17th-century Rabdentse Palace royal stone ruins',

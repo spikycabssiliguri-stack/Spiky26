@@ -1,9 +1,13 @@
 import { useState } from 'react';
-import { Play, Star, X, Volume2, Pause, ChevronRight } from 'lucide-react';
+import { Play, Star, X, Volume2, Pause, ChevronRight, Building2, Sparkles } from 'lucide-react';
 import { TESTIMONIALS_DATA, VideoTestimonial, COMPANY_INFO } from '../data/packagesData';
 import { useCMS } from '../context/CMSContext';
 
-export const TestimonialsPage = () => {
+interface TestimonialsPageProps {
+  onNavigateHotels?: () => void;
+}
+
+export const TestimonialsPage = ({ onNavigateHotels }: TestimonialsPageProps) => {
   const { cmsData } = useCMS();
   const testimonials = cmsData.testimonials && cmsData.testimonials.length > 0 ? cmsData.testimonials : TESTIMONIALS_DATA;
   const settings = cmsData.settings || COMPANY_INFO;
@@ -131,6 +135,33 @@ export const TestimonialsPage = () => {
             </p>
           </div>
         </div>
+
+        {/* Hotel & Resort Stay Pairings CTA */}
+        {onNavigateHotels && (
+          <div className="mt-16 sm:mt-20 p-8 sm:p-12 rounded-3xl bg-neutral-900 text-white flex flex-col md:flex-row items-center justify-between gap-8 border border-neutral-800 shadow-xl">
+            <div className="space-y-3 max-w-2xl text-center md:text-left">
+              <div className="inline-flex items-center gap-2 text-xs font-semibold text-amber-400 uppercase tracking-wider">
+                <Sparkles className="w-3.5 h-3.5" />
+                <span>Seamless Hotel Pickups & Chauffeur Combos</span>
+              </div>
+              <h3 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
+                Pair Your Tour with Handpicked Hill Stays
+              </h3>
+              <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed">
+                Travelers love our smooth hotel-to-hotel transfers with zero luggage stress. Discover our curated directory of Summit Hotels, Sumi Yashshree, the 5-star Taj Chia Kutir, and Rare Himalayas heritage estates across Darjeeling & Sikkim.
+              </p>
+            </div>
+
+            <button
+              onClick={onNavigateHotels}
+              className="px-6 py-3.5 rounded-full bg-white hover:bg-neutral-100 text-neutral-950 text-xs font-bold transition-all shadow-md shrink-0 inline-flex items-center gap-2 cursor-pointer"
+            >
+              <Building2 className="w-4 h-4 text-blue-600" />
+              <span>Explore Recommended Hotels</span>
+              <ChevronRight className="w-4 h-4" />
+            </button>
+          </div>
+        )}
       </section>
 
       {/* Video Player Modal (Apple Clean Sheet) */}

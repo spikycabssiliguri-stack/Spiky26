@@ -651,7 +651,7 @@ export const HotelDetailPage = ({
                     <div className="pt-3 border-t border-neutral-100 flex items-center justify-between text-xs">
                       <span className="font-semibold text-emerald-700 text-[11px] flex items-center gap-1">
                         <MessageCircle className="w-3 h-3 text-emerald-600" />
-                        <span>Price on WhatsApp</span>
+                        <span>Check Price</span>
                       </span>
                       <span className="text-[11px] text-neutral-700 font-semibold flex items-center gap-0.5">
                         <span>Details</span>

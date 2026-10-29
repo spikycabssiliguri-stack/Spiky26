@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Phone, Mail, MapPin, MessageCircle, CheckCircle2, ChevronRight, Clock, Building2, Sparkles } from 'lucide-react';
 import { COMPANY_INFO, PACKAGES_DATA } from '../data/packagesData';
 import { useCMS } from '../context/CMSContext';
+import { captureLeadPublic } from '../services/api';
 
 interface ContactPageProps {
   onNavigateHotels?: () => void;
@@ -25,6 +26,16 @@ export const ContactPage = ({ onNavigateHotels }: ContactPageProps) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.name || !formData.phone) return;
+    captureLeadPublic({
+      name: formData.name,
+      phone: formData.phone,
+      email: formData.email,
+      destinationInterest: formData.destination,
+      travelStartDate: formData.travelDate,
+      adults: parseInt(formData.passengers, 10) || 2,
+      source: 'Website Form',
+      notes: formData.notes
+    }).catch(err => console.warn('Lead capture error:', err));
     setSubmitted(true);
   };
 

@@ -92,6 +92,10 @@ export const Footer = ({ onNavigate, onOpenChecklist }: FooterProps) => {
             >
               WhatsApp Support
             </a>
+            <span>|</span>
+            <a href="/crm" className="text-[#0071e3] hover:underline font-medium">
+              Travel CRM Portal
+            </a>
           </div>
         </div>
       </div>

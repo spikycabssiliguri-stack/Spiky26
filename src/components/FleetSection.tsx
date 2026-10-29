@@ -40,7 +40,7 @@ export const FleetSection = () => {
                   <span className="font-semibold text-sky-300 drop-shadow-sm">{fleet.category}</span>
                   <span className="text-[11px] font-semibold drop-shadow-sm bg-emerald-700/80 px-2 py-0.5 rounded-full flex items-center gap-1">
                     <MessageCircle className="w-3 h-3 text-white" />
-                    <span>Price on WhatsApp</span>
+                    <span>Check Price</span>
                   </span>
                 </div>
               </div>

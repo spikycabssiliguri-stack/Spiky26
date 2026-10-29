@@ -236,17 +236,30 @@ function PublicWebsite() {
 
 export default function App() {
   const [isAdminRoute, setIsAdminRoute] = useState(false);
+  const [initialCrmMode, setInitialCrmMode] = useState(false);
 
   useEffect(() => {
     const checkRoute = () => {
-      const pathname = window.location.pathname;
-      const hash = window.location.hash;
+      const pathname = window.location.pathname.toLowerCase();
+      const hash = window.location.hash.toLowerCase();
+      
+      const isCrm = 
+        pathname === '/crm' ||
+        pathname.startsWith('/crm/') ||
+        hash === '#crm' || 
+        hash.startsWith('#/crm') ||
+        hash === '#crm-leads' ||
+        hash === '#crm-builder' ||
+        hash === '#crm-master';
+
       const isAdmin = 
+        isCrm ||
         pathname.startsWith('/admin') || 
         pathname === '/admin/' ||
         hash === '#admin' || 
         hash.startsWith('#/admin');
       
+      setInitialCrmMode(isCrm);
       setIsAdminRoute(isAdmin);
     };
 
@@ -260,11 +273,11 @@ export default function App() {
     };
   }, []);
 
-  // Protected Admin Portal
+  // Protected Admin & CRM Portal (/admin or /crm)
   if (isAdminRoute) {
     return (
       <AdminAuthProvider>
-        <AdminApp />
+        <AdminApp initialCrmMode={initialCrmMode} />
       </AdminAuthProvider>
     );
   }

@@ -102,12 +102,21 @@ export const Navbar = ({ currentPage, onNavigate, onOpenChecklist }: NavbarProps
           </nav>
 
           {/* Actions */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2.5">
             <a
               href={`tel:${settings.phone}`}
               className="hidden lg:inline-block text-[12px] text-[#6e6e73] hover:text-[#1d1d1f] transition-colors"
             >
               {settings.phone}
+            </a>
+
+            <a
+              href="/crm"
+              className="hidden sm:inline-flex items-center gap-1.5 rounded-full bg-slate-900 hover:bg-slate-800 text-white text-[12px] font-medium px-3.5 py-1.5 transition-colors whitespace-nowrap shadow-xs"
+              title="Travel Agency CRM & Itinerary Builder"
+            >
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              <span>CRM</span>
             </a>
 
             <a
@@ -145,8 +154,19 @@ export const Navbar = ({ currentPage, onNavigate, onOpenChecklist }: NavbarProps
               </button>
             ))}
 
-            <div className="pt-4 border-t border-[#e5e5ea] flex flex-col gap-2 text-xs text-[#6e6e73]">
-              <a href={`tel:${settings.phone}`} className="text-[#1d1d1f] font-medium">
+            <div className="pt-4 border-t border-[#e5e5ea] flex flex-col gap-2.5 text-xs text-[#6e6e73]">
+              <a
+                href="/crm"
+                className="flex items-center justify-between py-2 px-3 rounded-xl bg-slate-900 text-white font-medium text-sm"
+              >
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                  <span>Travel Agency CRM</span>
+                </div>
+                <span className="text-[11px] text-slate-300">Open &rarr;</span>
+              </a>
+
+              <a href={`tel:${settings.phone}`} className="text-[#1d1d1f] font-medium pt-1">
                 Call: {settings.phone}
               </a>
               <button

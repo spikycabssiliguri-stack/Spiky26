@@ -84,20 +84,56 @@ export const AdminLogin = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full rounded-full bg-[#0071e3] hover:bg-[#0077ed] text-white py-2.5 px-4 text-xs font-medium transition-colors flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+              className="w-full rounded-full bg-[#0071e3] hover:bg-[#0077ed] text-white py-2.5 px-4 text-xs font-medium transition-colors flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 shadow-sm"
             >
               {loading ? (
                 <span>Authenticating...</span>
               ) : (
                 <>
-                  <span>Sign In to Dashboard</span>
+                  <span>Sign In</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </>
               )}
             </button>
           </div>
         </form>
+
+        {/* Quick Demo Credentials */}
+        <div className="mt-6 pt-5 border-t border-[#e5e5ea] space-y-2">
+          <p className="text-[11px] font-semibold text-[#86868b] uppercase tracking-wider text-center">
+            Quick 1-Click Role Logins
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px]">
+            <button
+              type="button"
+              onClick={() => {
+                setUsername('admin');
+                setPassword('Sudip@123');
+              }}
+              className="p-2 rounded-xl bg-blue-50/70 hover:bg-blue-100/80 border border-blue-200/60 text-left transition-colors cursor-pointer"
+            >
+              <span className="font-semibold text-blue-900 block">👑 Master Admin</span>
+              <span className="text-[10px] text-blue-700 block">Full Rates & Master Edit</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => {
+                setUsername('agent_rahul');
+                setPassword('Sudip@123');
+              }}
+              className="p-2 rounded-xl bg-emerald-50/70 hover:bg-emerald-100/80 border border-emerald-200/60 text-left transition-colors cursor-pointer"
+            >
+              <span className="font-semibold text-emerald-900 block">💼 Agent Rahul</span>
+              <span className="text-[10px] text-emerald-700 block">Leads & Itinerary Builder</span>
+            </button>
+          </div>
+          <p className="text-[10px] text-center text-[#86868b] pt-1">
+            Default password: <code className="font-mono text-[#1d1d1f] bg-[#f5f5f7] px-1 py-0.5 rounded">Sudip@123</code>
+          </p>
+        </div>
       </div>
     </div>
   );
 };
+

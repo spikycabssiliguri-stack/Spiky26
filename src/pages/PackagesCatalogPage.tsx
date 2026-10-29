@@ -108,7 +108,7 @@ export const PackagesCatalogPage = ({
                   </div>
                   <div className="absolute top-4 right-4 bg-emerald-600/90 backdrop-blur-md text-white text-[11px] font-medium px-2.5 py-1 rounded-full shadow-xs flex items-center gap-1">
                     <MessageCircle className="w-3 h-3" />
-                    <span>Price on WhatsApp</span>
+                    <span>Check Price</span>
                   </div>
                 </div>
 

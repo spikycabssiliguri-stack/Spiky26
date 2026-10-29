@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Phone, Mail, MapPin, MessageCircle, Clock, CheckCircle2, Send, Car, Shield } from 'lucide-react';
 import { COMPANY_INFO, FLEET_DATA, PACKAGES_DATA } from '../data/packagesData';
+import { captureLeadPublic } from '../services/api';
 
 export const ContactSection = () => {
   const [formData, setFormData] = useState({
@@ -19,6 +20,18 @@ export const ContactSection = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.name || !formData.phone) return;
+
+    const pkg = PACKAGES_DATA.find((p) => p.id === formData.packageId);
+    captureLeadPublic({
+      name: formData.name,
+      phone: formData.phone,
+      email: formData.email,
+      destinationInterest: pkg ? pkg.title : 'Darjeeling & Sikkim Tour',
+      travelStartDate: formData.travelDate,
+      adults: parseInt(formData.paxCount, 10) || 2,
+      source: 'Website Form',
+      notes: `Vehicle preference: ${formData.vehiclePreference}. ${formData.notes || ''}`
+    }).catch(err => console.warn('Lead capture error:', err));
 
     setSubmitted(true);
   };

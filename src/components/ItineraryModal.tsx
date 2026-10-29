@@ -251,7 +251,7 @@ export const ItineraryModal = ({ pkg, onClose }: ItineraryModalProps) => {
                     <div className="font-semibold text-[#1d1d1f] text-sm mt-0.5">Swift Dzire / Etios</div>
                     <div className="text-xs text-[#86868b] mt-1">Up to 4 Pax · 2 Bags</div>
                     <div className="mt-3 pt-3 border-t border-[#e5e5ea] font-semibold text-xs text-emerald-700 bg-emerald-50 px-2 py-1 rounded-md inline-block">
-                      Price on WhatsApp
+                      Check Price
                     </div>
                   </button>
 
@@ -267,7 +267,7 @@ export const ItineraryModal = ({ pkg, onClose }: ItineraryModalProps) => {
                     <div className="font-semibold text-[#1d1d1f] text-sm mt-0.5">Ertiga / Bolero</div>
                     <div className="text-xs text-[#86868b] mt-1">Up to 6 Pax · 4 Bags</div>
                     <div className="mt-3 pt-3 border-t border-[#e5e5ea] font-semibold text-xs text-emerald-700 bg-emerald-50 px-2 py-1 rounded-md inline-block">
-                      Price on WhatsApp
+                      Check Price
                     </div>
                   </button>
 
@@ -283,7 +283,7 @@ export const ItineraryModal = ({ pkg, onClose }: ItineraryModalProps) => {
                     <div className="font-semibold text-[#1d1d1f] text-sm mt-0.5">Innova Crysta</div>
                     <div className="text-xs text-[#86868b] mt-1">6–7 Pax · Luxury Seats</div>
                     <div className="mt-3 pt-3 border-t border-[#e5e5ea] font-semibold text-xs text-emerald-700 bg-emerald-50 px-2 py-1 rounded-md inline-block">
-                      Price on WhatsApp
+                      Check Price
                     </div>
                   </button>
                 </div>

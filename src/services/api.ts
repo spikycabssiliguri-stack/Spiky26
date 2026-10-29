@@ -247,7 +247,7 @@ export interface GeminiGenerateOptions {
 
 export async function generateWithGemini(prompt: string, options?: GeminiGenerateOptions) {
   const token = getAdminToken();
-  const res = await fetch(`${API_BASE}/ai/generate`, {
+  let res = await fetch(`${API_BASE}/ai/generate`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -255,6 +255,18 @@ export async function generateWithGemini(prompt: string, options?: GeminiGenerat
     },
     body: JSON.stringify({ prompt, ...options })
   });
+
+  // If 404 or route not found, attempt direct Vercel serverless /api/gemini route
+  if (res.status === 404) {
+    res = await fetch(`${API_BASE}/gemini`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        ...(token ? { Authorization: `Bearer ${token}` } : {})
+      },
+      body: JSON.stringify({ prompt, ...options })
+    });
+  }
 
   const data = await res.json().catch(() => ({}));
   if (!res.ok) {
@@ -265,7 +277,10 @@ export async function generateWithGemini(prompt: string, options?: GeminiGenerat
 
 export async function checkGeminiStatus(): Promise<{ isConfigured: boolean; model?: string; message?: string }> {
   try {
-    const res = await fetch(`${API_BASE}/ai/status`);
+    let res = await fetch(`${API_BASE}/ai/status`);
+    if (res.status === 404) {
+      res = await fetch(`${API_BASE}/gemini`);
+    }
     if (res.ok) {
       return await res.json();
     }
@@ -273,5 +288,229 @@ export async function checkGeminiStatus(): Promise<{ isConfigured: boolean; mode
     console.warn('Could not check Gemini API status:', err);
   }
   return { isConfigured: false };
+}
+
+// ----------------------------------------------------
+// CRM API Services (Master Data, Leads & Itineraries)
+// ----------------------------------------------------
+import type { CRMMasterData, CRMLead, CRMItinerary } from '../types/crm';
+
+export async function fetchCRMMaster(): Promise<CRMMasterData> {
+  const token = getAdminToken();
+  const res = await fetch(`${API_BASE}/crm/master`, {
+    headers: {
+      ...(token ? { Authorization: `Bearer ${token}` } : {})
+    }
+  });
+  if (!res.ok) {
+    throw new Error('Failed to load CRM Master Data');
+  }
+  return res.json();
+}
+
+export async function saveCRMMaster(data: CRMMasterData): Promise<{ success: boolean; message: string }> {
+  const token = getAdminToken();
+  const res = await fetch(`${API_BASE}/crm/master`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      ...(token ? { Authorization: `Bearer ${token}` } : {})
+    },
+    body: JSON.stringify(data)
+  });
+  const json = await res.json().catch(() => ({}));
+  if (!res.ok) {
+    throw new Error(json.error || 'Failed to update CRM master data');
+  }
+  return json;
+}
+
+export async function saveCRMSectionItem(section: string, item: any): Promise<{ success: boolean; item: any }> {
+  const token = getAdminToken();
+  const res = await fetch(`${API_BASE}/crm/master/${encodeURIComponent(section)}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      ...(token ? { Authorization: `Bearer ${token}` } : {})
+    },
+    body: JSON.stringify(item)
+  });
+  const json = await res.json().catch(() => ({}));
+  if (!res.ok) {
+    throw new Error(json.error || `Failed to save item in ${section}`);
+  }
+  return json;
+}
+
+export async function deleteCRMSectionItem(section: string, id: string): Promise<{ success: boolean; message: string }> {
+  const token = getAdminToken();
+  const res = await fetch(`${API_BASE}/crm/master/${encodeURIComponent(section)}/${encodeURIComponent(id)}`, {
+    method: 'DELETE',
+    headers: {
+      ...(token ? { Authorization: `Bearer ${token}` } : {})
+    }
+  });
+  const json = await res.json().catch(() => ({}));
+  if (!res.ok) {
+    throw new Error(json.error || `Failed to delete item from ${section}`);
+  }
+  return json;
+}
+
+export async function toggleCRMSectionItem(section: string, id: string): Promise<{ success: boolean; isActive: boolean }> {
+  const token = getAdminToken();
+  const res = await fetch(`${API_BASE}/crm/master/${encodeURIComponent(section)}/${encodeURIComponent(id)}/toggle`, {
+    method: 'PATCH',
+    headers: {
+      ...(token ? { Authorization: `Bearer ${token}` } : {})
+    }
+  });
+  const json = await res.json().catch(() => ({}));
+  if (!res.ok) {
+    throw new Error(json.error || `Failed to toggle item in ${section}`);
+  }
+  return json;
+}
+
+export async function fetchCRMLeads(): Promise<CRMLead[]> {
+  const token = getAdminToken();
+  const res = await fetch(`${API_BASE}/crm/leads`, {
+    headers: {
+      ...(token ? { Authorization: `Bearer ${token}` } : {})
+    }
+  });
+  if (!res.ok) {
+    throw new Error('Failed to load CRM leads');
+  }
+  return res.json();
+}
+
+export async function createCRMLead(lead: Partial<CRMLead>): Promise<{ success: boolean; lead: CRMLead }> {
+  const token = getAdminToken();
+  const res = await fetch(`${API_BASE}/crm/leads`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      ...(token ? { Authorization: `Bearer ${token}` } : {})
+    },
+    body: JSON.stringify(lead)
+  });
+  const json = await res.json().catch(() => ({}));
+  if (!res.ok) {
+    throw new Error(json.error || 'Failed to create lead');
+  }
+  return json;
+}
+
+export async function updateCRMLead(id: string, updates: Partial<CRMLead> & { newHistoryNote?: string; newHistoryAction?: string }): Promise<{ success: boolean; lead: CRMLead }> {
+  const token = getAdminToken();
+  const res = await fetch(`${API_BASE}/crm/leads/${encodeURIComponent(id)}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      ...(token ? { Authorization: `Bearer ${token}` } : {})
+    },
+    body: JSON.stringify(updates)
+  });
+  const json = await res.json().catch(() => ({}));
+  if (!res.ok) {
+    throw new Error(json.error || 'Failed to update lead');
+  }
+  return json;
+}
+
+export async function deleteCRMLead(id: string): Promise<{ success: boolean; message: string }> {
+  const token = getAdminToken();
+  const res = await fetch(`${API_BASE}/crm/leads/${encodeURIComponent(id)}`, {
+    method: 'DELETE',
+    headers: {
+      ...(token ? { Authorization: `Bearer ${token}` } : {})
+    }
+  });
+  const json = await res.json().catch(() => ({}));
+  if (!res.ok) {
+    throw new Error(json.error || 'Failed to delete lead');
+  }
+  return json;
+}
+
+export async function fetchCRMItineraries(): Promise<CRMItinerary[]> {
+  const token = getAdminToken();
+  const res = await fetch(`${API_BASE}/crm/itineraries`, {
+    headers: {
+      ...(token ? { Authorization: `Bearer ${token}` } : {})
+    }
+  });
+  if (!res.ok) {
+    throw new Error('Failed to load itineraries');
+  }
+  return res.json();
+}
+
+export async function fetchCRMItineraryById(id: string): Promise<CRMItinerary> {
+  const res = await fetch(`${API_BASE}/crm/itineraries/${encodeURIComponent(id)}`);
+  if (!res.ok) {
+    throw new Error('Itinerary not found');
+  }
+  return res.json();
+}
+
+export async function saveCRMItinerary(itinerary: Partial<CRMItinerary>): Promise<{ success: boolean; itinerary: CRMItinerary }> {
+  const token = getAdminToken();
+  const res = await fetch(`${API_BASE}/crm/itineraries`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      ...(token ? { Authorization: `Bearer ${token}` } : {})
+    },
+    body: JSON.stringify(itinerary)
+  });
+  const json = await res.json().catch(() => ({}));
+  if (!res.ok) {
+    throw new Error(json.error || 'Failed to save itinerary');
+  }
+  return json;
+}
+
+export async function deleteCRMItinerary(id: string): Promise<{ success: boolean; message: string }> {
+  const token = getAdminToken();
+  const res = await fetch(`${API_BASE}/crm/itineraries/${encodeURIComponent(id)}`, {
+    method: 'DELETE',
+    headers: {
+      ...(token ? { Authorization: `Bearer ${token}` } : {})
+    }
+  });
+  const json = await res.json().catch(() => ({}));
+  if (!res.ok) {
+    throw new Error(json.error || 'Failed to delete itinerary');
+  }
+  return json;
+}
+
+export async function captureLeadPublic(lead: {
+  name: string;
+  phone: string;
+  email?: string;
+  city?: string;
+  source?: string;
+  packageTitle?: string;
+  packageId?: string;
+  hotelName?: string;
+  destinationInterest?: string;
+  format?: string;
+  notes?: string;
+  travelStartDate?: string;
+  durationNights?: number;
+  adults?: number;
+  children?: number;
+}): Promise<{ success: boolean; leadId?: string }> {
+  const res = await fetch(`${API_BASE}/public/leads`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(lead)
+  });
+  return res.json();
 }
 
